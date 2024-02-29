@@ -17,3 +17,11 @@ type ReactionsPOSTResponse200 struct {
 type ReactionsPOSTResponse403 struct {
 	Error string `json:"error"`
 }
+
+type ReactionsDELETEResponse200 struct {
+	Status string `json:"status"`
+}
+
+type ReactionsDELETEResponse403 struct {
+	Error string `json:"error"`
+}

@@ -16,3 +16,7 @@ type ReactionsPOSTRequest struct {
 		Force bool
 	}
 }
+
+type ReactionsDELETERequest struct {
+	Body UserReaction
+}

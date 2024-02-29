@@ -42,3 +42,11 @@ func (rs *ReactionsService) AddUserReaction(ctx context.Context, req models.Reac
 	}
 	return &models.ReactionsPOSTResponse200{Status: "ok"}
 }
+
+func (rs *ReactionsService) RemoveUserReaction(ctx context.Context, req models.ReactionsDELETERequest) models.Response {
+	err := rs.storage.RemoveUserReaction(ctx, req.Body)
+	if err != nil {
+		return &models.ReactionsDELETEResponse403{Error: err.Error()}
+	}
+	return &models.ReactionsDELETEResponse200{Status: "ok"}
+}

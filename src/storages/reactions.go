@@ -66,24 +66,6 @@ func (rs *ReactionsStorage) GetMaxUniqueReactionsStrict(namespaceId string) int 
 	return res
 }
 
-func (rs *ReactionsStorage) AddUserReaction(ctx context.Context, reaction models.UserReaction, maxUniqReactions int, mutExclReactions [][]string) error {
-	fmt.Println("AddUserReaction")
-	tx := rs.beginTxStrict(ctx)
-	defer tx.Rollback(ctx)
-	lockKey := fmt.Sprintf("%s/%s", reaction.NamespaceId, reaction.EntityId)
-	rs.advLockStrict(ctx, tx, lockKey)
-	// TODO: check idempotency
-
-	err := rs.addUserReaction(ctx, tx, reaction, maxUniqReactions, mutExclReactions)
-	if err != nil {
-		return err
-	}
-
-	rs.advUnlockStrict(ctx, tx, lockKey)
-	tx.Commit(ctx)
-	return nil
-}
-
 func (rs *ReactionsStorage) GetEntityReactionsCount(ctx context.Context, namespaceId string, entityId string) ([]models.ReactionCount, error) {
 	rows, err := rs.pool.Query(ctx, sql.GetEntityReactionsCount, namespaceId, entityId)
 	if err != nil {
@@ -98,6 +80,27 @@ func (rs *ReactionsStorage) GetEntityReactionsCountStrict(ctx context.Context, n
 		log.Panicf("failed to get user reactions count for entity: %s", err)
 	}
 	return res
+}
+
+func (rs *ReactionsStorage) AddUserReaction(ctx context.Context, reaction models.UserReaction, maxUniqReactions int, mutExclReactions [][]string) error {
+	tx := rs.beginTxStrict(ctx)
+	defer tx.Rollback(ctx)
+	lockKey := fmt.Sprintf("%s/%s", reaction.NamespaceId, reaction.EntityId)
+	rs.advLockStrict(ctx, tx, lockKey) // transaction-level lock is automatically released at the end of tx
+	// TODO: check idempotency
+
+	err := rs.addUserReaction(ctx, tx, reaction, maxUniqReactions, mutExclReactions)
+	if err != nil {
+		return err
+	}
+
+	tx.Commit(ctx)
+	return nil
+}
+
+func (rs *ReactionsStorage) RemoveUserReaction(ctx context.Context, reaction models.UserReaction) error {
+	_, err := rs.pool.Exec(ctx, sql.RemoveUserReaction, reaction.NamespaceId, reaction.EntityId, reaction.ReactionId, reaction.UserId)
+	return err
 }
 
 func (rs *ReactionsStorage) addUserReaction(ctx context.Context, tx pgx.Tx, reaction models.UserReaction, maxUniqReactions int, mutExclReactions [][]string) error {
@@ -160,7 +163,7 @@ func (rs *ReactionsStorage) beginTxStrict(ctx context.Context) pgx.Tx {
 }
 
 func (rs *ReactionsStorage) advLock(ctx context.Context, tx pgx.Tx, key string) error {
-	_, err := tx.Exec(ctx, "SELECT pg_advisory_lock( hashtext($1) )", key)
+	_, err := tx.Exec(ctx, "SELECT pg_advisory_xact_lock( hashtext($1) )", key)
 	return err
 }
 
@@ -172,7 +175,7 @@ func (rs *ReactionsStorage) advLockStrict(ctx context.Context, tx pgx.Tx, key st
 }
 
 func (rs *ReactionsStorage) advUnlock(ctx context.Context, tx pgx.Tx, key string) error {
-	_, err := tx.Exec(ctx, "SELECT pg_advisory_unlock( hashtext($1) )", key)
+	_, err := tx.Exec(ctx, "SELECT pg_advisory_xact_unlock( hashtext($1) )", key)
 	return err
 }
 

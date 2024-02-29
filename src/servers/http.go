@@ -71,6 +71,18 @@ func NewRouter(reactionsService *services.ReactionsService) *gin.Engine {
 		c.JSON(resp.Code(), resp)
 	})
 
+	router.DELETE("/reactions", func(c *gin.Context) {
+		var req models.ReactionsDELETERequest
+		err := c.BindJSON(&req.Body)
+		if err != nil {
+			return // 400
+		}
+		log.Println(req)
+
+		resp := reactionsService.RemoveUserReaction(c, req)
+		c.JSON(resp.Code(), resp)
+	})
+
 	router.POST("/reactions/events", func(c *gin.Context) {
 		fmt.Println("POST /reactions/events was called")
 		// TODO: process consequently add,remove reaction events

@@ -33,3 +33,21 @@ components:
       properties:
         error:
           type: string
+
+    ReactionsDELETEResponse200:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+      properties:
+        status:
+          type: string
+
+    ReactionsDELETEResponse403:
+      type: object
+      additionalProperties: false
+      required:
+        - error
+      properties:
+        error:
+          type: string

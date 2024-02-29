@@ -1,0 +1,44 @@
+components:
+  schemas:
+    UserReaction:
+      type: object
+      additionalProperties: false
+      required:
+        - namespace_id
+        - entity_id
+        - reaction_id
+        - user_id
+      properties:
+        namespace_id:
+          type: string
+        eneity_id:
+          type: string
+        reaction_id:
+          type: string
+        user_id:
+          type: string
+
+    ReactionCount:
+      type: object
+      additionalProperties: false
+      required:
+        - reaction_id
+        - count
+      properties:
+        reaction_id:
+          type: string
+        count:
+          type: int
+
+    UserReactionsWithinEntity:
+      type: object
+      additionalProperties: false
+      required:
+        - user_id
+      properties:
+        user_id:
+          type: string
+        reactions:
+          type: array
+          items:
+            type: string

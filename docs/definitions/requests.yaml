@@ -1,0 +1,4 @@
+components:
+  schemas:
+    ReactionsPOSTRequest:
+      $ref: 'reactions.yaml#/components/schemas/UserReaction'

@@ -1,0 +1,35 @@
+components:
+  schemas:
+    ReactionsGETResponse200:
+      type: object
+      additionalProperties: false
+      required:
+        - entity_id
+        - user_reactions
+      properties:
+        entity_id:
+          type: string
+        reactions_count:
+          type: array
+          items:
+            $ref: 'reactions.yaml#/components/schemas/ReactionCount'
+        user_reactions:
+          $ref: 'reactions.yaml#/components/schemas/UserReactionsWithinEntity'
+
+    ReactionsPOSTResponse200:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+      properties:
+        status:
+          type: string
+
+    ReactionsPOSTResponse403:
+      type: object
+      additionalProperties: false
+      required:
+        - error
+      properties:
+        error:
+          type: string

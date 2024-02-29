@@ -1,10 +1,10 @@
 package models
 
 type UserReaction struct {
-	UserId      string `json:"user_id" binding:"required"`
-	ReactionId  string `json:"reaction_id" binding:"required"`
 	NamespaceId string `json:"namespace_id" binding:"required"`
 	EntityId    string `json:"entity_id" binding:"required"`
+	ReactionId  string `json:"reaction_id" binding:"required"`
+	UserId      string `json:"user_id" binding:"required"`
 }
 
 type ReactionCount struct {

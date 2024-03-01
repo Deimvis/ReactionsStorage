@@ -1,10 +1,17 @@
 package sql
 
+var AddNamespace = ReadQueryFile("add_namespace.sql")
+var AddReactionSet = ReadQueryFile("add_reaction_set.sql")
+var AddReaction = ReadQueryFile("add_reaction.sql")
 var AddUserReaction = ReadQueryFile("add_user_reaction.sql")
+var ClearConfigurationStorage = ReadQueryFile("clear_configuration_storage.sql")
+var ClearUserReactionsStorage = ReadQueryFile("clear_reactions_storage.sql")
 var GetMaxUniqueReactions = ReadQueryFile("get_max_unique_reactions.sql")
 var GetMutuallyExclusiveReactions = ReadQueryFile("get_mutually_exclusive_reactions.sql")
+var GetNamespace = ReadQueryFile("get_namespace.sql")
 var GetUniqueEntityReactions = ReadQueryFile("get_unique_entity_reactions.sql")
 var GetUniqueEntityUserReactions = ReadQueryFile("get_unique_entity_user_reactions.sql")
 var GetEntityReactionsCount = ReadQueryFile("get_entity_reactions_count.sql")
 var InitReactionsStorage = ReadQueryFile("init_reactions_storage.sql")
+var InitConfigurationStorage = ReadQueryFile("init_configuration_storage.sql")
 var RemoveUserReaction = ReadQueryFile("remove_user_reaction.sql")

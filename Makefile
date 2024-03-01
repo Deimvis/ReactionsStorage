@@ -5,4 +5,4 @@ run: build
 	@./bin/reactions_storage $(ARGS)
 
 test:
-	@go test -v ./...
+	@gotestsum --format dots

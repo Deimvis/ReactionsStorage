@@ -28,3 +28,13 @@ func scanUniqReactionsStrict(ctx context.Context, rows pgx.Rows) map[string]stru
 	}
 	return res
 }
+
+func stopOnError(fns ...func() error) error {
+	for _, fn := range fns {
+		err := fn()
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}

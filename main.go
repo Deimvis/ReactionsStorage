@@ -1,6 +1,8 @@
 package main
 
 import (
+	"net/http"
+
 	"go.uber.org/fx"
 
 	"github.com/Deimvis/reactionsstorage/src/servers"
@@ -9,13 +11,19 @@ import (
 	"github.com/Deimvis/reactionsstorage/src/utils"
 )
 
-func main() {
-	fx.New(
+func CreateOptions() fx.Option {
+	return fx.Options(
 		fx.Provide(
 			utils.NewPostgresConnectionPool,
+			storages.NewConfigurationStorage,
 			storages.NewReactionsStorage,
 			services.NewReactionsService,
+			servers.NewHTTPServer,
 		),
-		fx.Invoke(servers.NewHTTPServer),
-	).Run()
+		fx.Invoke(func(s *http.Server) {}),
+	)
+}
+
+func main() {
+	fx.New(CreateOptions()).Run()
 }

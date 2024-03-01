@@ -52,7 +52,7 @@ func NewRouter(reactionsService *services.ReactionsService) *gin.Engine {
 		req.Query.NamespaceId = c.Query("namespace_id")
 		req.Query.EntityId = c.Query("entity_id")
 		req.Query.UserId = c.Query("user_id")
-		log.Println(req)
+		log.Println("Process request:", req)
 
 		resp := reactionsService.GetUserReactions(c, req)
 		c.JSON(resp.Code(), resp)
@@ -60,27 +60,34 @@ func NewRouter(reactionsService *services.ReactionsService) *gin.Engine {
 
 	router.POST("/reactions", func(c *gin.Context) {
 		var req models.ReactionsPOSTRequest
-		req.Query.Force = c.Query("force") == "true"
+		force := c.Query("force") == "true"
+		req.Query.Force = &force
 		err := c.BindJSON(&req.Body)
 		if err != nil {
+			log.Printf("Bad request:\n%s", err)
 			return // 400
 		}
-		log.Println(req)
+		log.Println("Process request:", req)
 
 		resp := reactionsService.AddUserReaction(c, req)
 		c.JSON(resp.Code(), resp)
+
+		log.Println("Return response:", resp)
 	})
 
 	router.DELETE("/reactions", func(c *gin.Context) {
 		var req models.ReactionsDELETERequest
 		err := c.BindJSON(&req.Body)
 		if err != nil {
+			log.Printf("Bad request:\n%s", err)
 			return // 400
 		}
-		log.Println(req)
+		log.Println("Process request:", req)
 
 		resp := reactionsService.RemoveUserReaction(c, req)
 		c.JSON(resp.Code(), resp)
+
+		log.Println("Return response:", resp)
 	})
 
 	router.POST("/reactions/events", func(c *gin.Context) {

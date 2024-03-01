@@ -32,40 +32,6 @@ func (rs *ReactionsStorage) Init(ctx context.Context) error {
 	return err
 }
 
-func (rs *ReactionsStorage) GetMutuallyExclusiveReactions(namespaceId string) ([][]string, error) {
-	var result [][]string
-	err := rs.pool.QueryRow(context.Background(), sql.GetMutuallyExclusiveReactions, namespaceId).Scan(&result)
-	if err != nil {
-		return nil, err
-	}
-	return result, nil
-}
-
-func (rs *ReactionsStorage) GetMutuallyExclusiveReactionsStrict(namespaceId string) [][]string {
-	res, err := rs.GetMutuallyExclusiveReactions(namespaceId)
-	if err != nil {
-		log.Panicf("failed to get mutually exclusive reactions: %s", err)
-	}
-	return res
-}
-
-func (rs *ReactionsStorage) GetMaxUniqueReactions(namespaceId string) (int, error) {
-	var result int
-	err := rs.pool.QueryRow(context.Background(), sql.GetMaxUniqueReactions, namespaceId).Scan(&result)
-	if err != nil {
-		return -1, err
-	}
-	return result, nil
-}
-
-func (rs *ReactionsStorage) GetMaxUniqueReactionsStrict(namespaceId string) int {
-	res, err := rs.GetMaxUniqueReactions(namespaceId)
-	if err != nil {
-		log.Panicf("failed to get max unique reactions: %s", err)
-	}
-	return res
-}
-
 func (rs *ReactionsStorage) GetEntityReactionsCount(ctx context.Context, namespaceId string, entityId string) ([]models.ReactionCount, error) {
 	rows, err := rs.pool.Query(ctx, sql.GetEntityReactionsCount, namespaceId, entityId)
 	if err != nil {
@@ -101,6 +67,18 @@ func (rs *ReactionsStorage) AddUserReaction(ctx context.Context, reaction models
 func (rs *ReactionsStorage) RemoveUserReaction(ctx context.Context, reaction models.UserReaction) error {
 	_, err := rs.pool.Exec(ctx, sql.RemoveUserReaction, reaction.NamespaceId, reaction.EntityId, reaction.ReactionId, reaction.UserId)
 	return err
+}
+
+func (rs *ReactionsStorage) Clear(ctx context.Context) error {
+	_, err := rs.pool.Exec(ctx, sql.ClearUserReactionsStorage)
+	return err
+}
+
+func (rs *ReactionsStorage) ClearStrict(ctx context.Context) {
+	err := rs.Clear(ctx)
+	if err != nil {
+		log.Panicf("failed to clear user reactions: %s", err)
+	}
 }
 
 func (rs *ReactionsStorage) addUserReaction(ctx context.Context, tx pgx.Tx, reaction models.UserReaction, maxUniqReactions int, mutExclReactions [][]string) error {

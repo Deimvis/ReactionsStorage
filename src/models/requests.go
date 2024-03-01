@@ -2,9 +2,16 @@ package models
 
 // type ReactionsGETRequest =
 
+type Request interface {
+	Method() string
+	Path() string
+	QueryString() string
+	BodyJSON() []byte
+}
+
 type ReactionsGETRequest struct {
 	Query struct {
-		NamespaceId string
+		NamespaceId string `query:"namespace_id"`
 		EntityId    string
 		UserId      string
 	}
@@ -13,7 +20,7 @@ type ReactionsGETRequest struct {
 type ReactionsPOSTRequest struct {
 	Body  UserReaction
 	Query struct {
-		Force bool
+		Force *bool
 	}
 }
 

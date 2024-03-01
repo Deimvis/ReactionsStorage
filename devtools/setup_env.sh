@@ -8,5 +8,6 @@ function sql() {
 }
 
 sql devtools/sql/destroy_db.sql
+sql sql/init_configuration_storage.sql
 sql sql/init_reactions_storage.sql
 sql devtools/sql/setup_db.sql

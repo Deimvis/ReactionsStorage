@@ -35,7 +35,7 @@ func test(t *testing.T, req models.Request, resp models.Response) {
 }
 
 func request(t *testing.T, r models.Request) *httptest.ResponseRecorder {
-	return requestRaw(t, r.Method(), fmt.Sprintf("%s?%s", r.Path(), r.QueryString()), bytes.NewReader(r.BodyJSON()))
+	return requestRaw(t, r.Method(), fmt.Sprintf("%s?%s", r.Path(), r.QueryString()), bytes.NewReader(r.BodyRaw()))
 }
 
 func requestRaw(t *testing.T, method string, url string, body io.Reader) *httptest.ResponseRecorder {

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+input=$1
+output=$2
+
+tar cvzf $2 $1

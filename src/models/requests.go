@@ -6,7 +6,7 @@ type Request interface {
 	Method() string
 	Path() string
 	QueryString() string
-	BodyJSON() []byte
+	BodyRaw() []byte
 }
 
 type ReactionsGETRequest struct {
@@ -18,12 +18,16 @@ type ReactionsGETRequest struct {
 }
 
 type ReactionsPOSTRequest struct {
-	Body  UserReaction
 	Query struct {
 		Force *bool
 	}
+	Body  UserReaction
 }
 
 type ReactionsDELETERequest struct {
 	Body UserReaction
+}
+
+type ConfiguratinPOSTRequest struct {
+	Body Configuration
 }

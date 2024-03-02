@@ -67,3 +67,27 @@ paths:
             application/json:
               schema:
                 $ref: 'definitions/responses.yaml#/components/schemas/ReactionsPOSTResponse403'
+  /configuration:
+    post:
+      description: Set new reactions configuration
+      requestBody:
+        description: Gzip-encoded tar archive with 3 files (reaction.yaml, reaction_set.yaml, namespace.yaml)
+        required: true
+        content:
+          application/gzip:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/responses.yaml#/components/schemas/ConfigurationPOSTResponse200'
+        '422':
+          description: Configuration is not valid
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/responses.yaml#/components/schemas/ConfigurationPOSTResponse422'

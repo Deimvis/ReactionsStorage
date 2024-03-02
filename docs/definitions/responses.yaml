@@ -51,3 +51,22 @@ components:
       properties:
         error:
           type: string
+
+
+    ConfigurationPOSTResponse200:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+      properties:
+        status:
+          type: string
+
+    ConfigurationPOSTResponse422:
+      type: object
+      additionalProperties: false
+      required:
+        - error
+      properties:
+        error:
+          type: string

@@ -39,12 +39,15 @@ func NewRouter(reactionsService *services.ReactionsService) *gin.Engine {
 	router.Use(gin.Recovery())
 	router.SetTrustedProxies(nil)
 
+	router.GET("/", func(c *gin.Context) {
+		c.JSON(200, gin.H{"status": "Ok"})
+	})
 	router.GET("/ping", func(c *gin.Context) {
 		c.String(200, "pong")
 	})
 
-	router.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{"status": "Ok"})
+	router.GET("/configuration/available_reactions", func(c *gin.Context) {
+		
 	})
 
 	router.GET("/reactions", func(c *gin.Context) {

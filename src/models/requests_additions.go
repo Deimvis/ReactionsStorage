@@ -19,7 +19,7 @@ func (r *ReactionsGETRequest) QueryString() string {
 	return makeQueryString(r.Query)
 }
 
-func (r *ReactionsGETRequest) BodyJSON() []byte {
+func (r *ReactionsGETRequest) BodyRaw() []byte {
 	return nil
 }
 
@@ -35,8 +35,8 @@ func (r *ReactionsPOSTRequest) QueryString() string {
 	return makeQueryString(r.Query)
 }
 
-func (r *ReactionsPOSTRequest) BodyJSON() []byte {
-	return makeBodyJSON(r.Body)
+func (r *ReactionsPOSTRequest) BodyRaw() []byte {
+	return makeJsonBodyRaw(r.Body)
 }
 
 func (r *ReactionsDELETERequest) Method() string {
@@ -51,8 +51,24 @@ func (r *ReactionsDELETERequest) QueryString() string {
 	return ""
 }
 
-func (r *ReactionsDELETERequest) BodyJSON() []byte {
-	return makeBodyJSON(r.Body)
+func (r *ReactionsDELETERequest) BodyRaw() []byte {
+	return makeJsonBodyRaw(r.Body)
+}
+
+func (r *ConfiguratinPOSTRequest) Method() string {
+	return "POST"
+}
+
+func (r *ConfiguratinPOSTRequest) Path() string {
+	return "/configuration"
+}
+
+func (r *ConfiguratinPOSTRequest) QueryString() string {
+	return ""
+}
+
+func (r *ConfiguratinPOSTRequest) BodyRaw() []byte {
+	return nil // TODO
 }
 
 func makeQueryString(query interface{}) string {
@@ -72,7 +88,7 @@ func makeQueryString(query interface{}) string {
 	return sb.String()
 }
 
-func makeBodyJSON(body interface{}) []byte {
+func makeJsonBodyRaw(body interface{}) []byte {
 	res, err := json.Marshal(body)
 	if err != nil {
 		panic(err)

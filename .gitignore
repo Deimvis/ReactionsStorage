@@ -1,1 +1,6 @@
+bin/
+tmp/
 .DS_Store
+.env*
+!.env.template
+.iterm

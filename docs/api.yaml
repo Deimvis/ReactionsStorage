@@ -1,0 +1,69 @@
+openapi: '3.0.2'
+info:
+  title: Reactions Storage Service
+  description: Service responsible for configuring and managing user reactions
+  version: '1.0'
+tags:
+  - name: UserReactions
+    description: |
+      Operations related to user reactions.
+      Should be used by other services
+  - name: ReactionsRepo
+    description: |
+      Operations related to reactions repo (reactions configuration).
+      Should be used by developers
+paths:
+  /reactions:
+    get:
+      description: Retrieve user reactions info for given entity
+      parameters:
+        - in: query
+          required: true
+          name: namespace_id
+          schema:
+            type: string
+        - in: query
+          required: true
+          name: entity_id
+          schema:
+            type: string
+        - in: query
+          required: true
+          name: user_id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/responses.yaml#/components/schemas/ReactionsGETResponse200'
+    post:
+      description: Add single user reaction
+      parameters:
+        - in: query
+          required: false
+          name: force
+          schema:
+            type: boolean
+            default: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'definitions/requests.yaml#/components/schemas/ReactionsPOSTRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/responses.yaml#/components/schemas/ReactionsPOSTResponse200'
+        '403':
+          description: Constraint is violated
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/responses.yaml#/components/schemas/ReactionsPOSTResponse403'

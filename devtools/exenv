@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# is supposed to be compatible with docker env file syntax:
+# https://docs.docker.com/compose/environment-variables/env-file/
+
+
+FILE_PATH=${1:-.env.test}
+IFS=$'\n'
+for line in $(cat $FILE_PATH | grep -v '^#'); do
+    export "$line"
+done

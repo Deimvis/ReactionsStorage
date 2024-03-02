@@ -1,0 +1,7 @@
+components:
+  schemas:
+    ReactionsPOSTRequest:
+      $ref: 'reactions.yaml#/components/schemas/UserReaction'
+
+    ReactionsDELETERequest:
+      $ref: 'reactions.yaml#/components/schemas/UserReaction'

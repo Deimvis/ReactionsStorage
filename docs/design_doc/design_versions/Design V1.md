@@ -118,6 +118,15 @@
 
 * (optionally) Arbitrary invariants using user-defined golang functions implementation: write function that receives (), and returns bool, put it into XXX package, write into configuration name of your function, it will be called using `reflect.ValueOf(functionName).MethodByName(functionName)`
 
+* Simulation
+  * Every user has feed of shuffled entities (posts)
+  * Every user sees 1 entity (1 post)
+  * Every turn each user chooses one of these actions:
+    * 9% scroll - see next entity (next post)
+    * 72% add reaction 
+    * 18% remove reaction
+    * 1% go to the beginning of the list
+
 ### Entities
 
 * Reaction — entity with id and either unicode code or url to static image TODOxTODO

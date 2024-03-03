@@ -1,9 +1,9 @@
 package models
 
 type Configuration struct {
-	Reactions    []Reaction    `filename:"reaction.yaml"`
-	ReactionSets []ReactionSet `filename:"reaction_set.yaml"`
-	// Namespaces   []Namespace
+	Reactions    []Reaction    `json:"reactions" filename:"reaction.yaml"`
+	ReactionSets []ReactionSet `json:"reaction_sets" filename:"reaction_set.yaml"`
+	Namespaces   []Namespace   `json:"namespaces" filename:"namespace.yaml"`
 }
 
 type Reaction struct {

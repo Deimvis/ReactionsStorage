@@ -19,9 +19,9 @@ type ReactionsService struct {
 	rs *storages.ReactionsStorage
 }
 
-func (rs *ReactionsService) GetUserReactions(ctx context.Context, req models.ReactionsGETRequest) models.Response {
-	reactionsCount := rs.rs.GetEntityReactionsCountStrict(ctx, req.Query.NamespaceId, req.Query.EntityId)
-	userUniqReactions := rs.rs.GetUniqEntityUserReactionsStrict(ctx, req.Query.NamespaceId, req.Query.EntityId, req.Query.UserId)
+func (s *ReactionsService) GetUserReactions(ctx context.Context, req models.ReactionsGETRequest) models.Response {
+	reactionsCount := s.rs.GetEntityReactionsCountStrict(ctx, req.Query.NamespaceId, req.Query.EntityId)
+	userUniqReactions := s.rs.GetUniqEntityUserReactionsStrict(ctx, req.Query.NamespaceId, req.Query.EntityId, req.Query.UserId)
 	resp := models.ReactionsGETResponse200{
 		EntityId:       req.Query.EntityId,
 		ReactionsCount: reactionsCount,
@@ -33,21 +33,21 @@ func (rs *ReactionsService) GetUserReactions(ctx context.Context, req models.Rea
 	return &resp
 }
 
-func (rs *ReactionsService) AddUserReaction(ctx context.Context, req models.ReactionsPOSTRequest) models.Response {
-	namespace, err := rs.cs.GetNamespace(req.Body.NamespaceId)
+func (s *ReactionsService) AddUserReaction(ctx context.Context, req models.ReactionsPOSTRequest) models.Response {
+	namespace, err := s.cs.GetNamespace(ctx, req.Body.NamespaceId)
 	if err != nil {
 		return &models.ReactionsPOSTResponse403{Error: err.Error()}
 	}
 	log.Println("Namespace:", namespace)
-	err = rs.rs.AddUserReaction(ctx, req.Body, namespace.MaxUniqReactions, namespace.MutuallyExclusiveReactions)
+	err = s.rs.AddUserReaction(ctx, req.Body, namespace.MaxUniqReactions, namespace.MutuallyExclusiveReactions)
 	if err != nil {
 		return &models.ReactionsPOSTResponse403{Error: err.Error()}
 	}
 	return &models.ReactionsPOSTResponse200{Status: "ok"}
 }
 
-func (rs *ReactionsService) RemoveUserReaction(ctx context.Context, req models.ReactionsDELETERequest) models.Response {
-	err := rs.rs.RemoveUserReaction(ctx, req.Body)
+func (s *ReactionsService) RemoveUserReaction(ctx context.Context, req models.ReactionsDELETERequest) models.Response {
+	err := s.rs.RemoveUserReaction(ctx, req.Body)
 	if err != nil {
 		return &models.ReactionsDELETEResponse403{Error: err.Error()}
 	}

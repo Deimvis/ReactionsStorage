@@ -68,7 +68,23 @@ func (r *ConfiguratinPOSTRequest) QueryString() string {
 }
 
 func (r *ConfiguratinPOSTRequest) BodyRaw() []byte {
-	return nil // TODO
+	return makeJsonBodyRaw(r.Body)
+}
+
+func (r *AvailableReactionsGETRequest) Method() string {
+	return "GET"
+}
+
+func (r *AvailableReactionsGETRequest) Path() string {
+	return "/configuration/available_reactions"
+}
+
+func (r *AvailableReactionsGETRequest) QueryString() string {
+	return makeQueryString(r.Query)
+}
+
+func (r *AvailableReactionsGETRequest) BodyRaw() []byte {
+	return nil
 }
 
 func makeQueryString(query interface{}) string {

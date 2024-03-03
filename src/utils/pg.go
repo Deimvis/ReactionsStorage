@@ -13,7 +13,7 @@ import (
 func NewPostgresConnectionPool(lc fx.Lifecycle) *pgxpool.Pool {
 	pool, err := pgxpool.New(context.Background(), os.Getenv("DATABASE_URL"))
 	if err != nil {
-		log.Fatalf("Failed to connect to PostgreSQL database: %s\n", err.Error())
+		log.Fatalf("Failed to connect to PostgreSQL database: %w\n", err)
 	}
 	lc.Append(fx.Hook{
 		OnStop: func(ctx context.Context) error {
@@ -27,7 +27,7 @@ func NewPostgresConnectionPool(lc fx.Lifecycle) *pgxpool.Pool {
 func NewPostgresConnection(lc fx.Lifecycle) *pgx.Conn {
 	con, err := pgx.Connect(context.Background(), os.Getenv("DATABASE_URL"))
 	if err != nil {
-		log.Fatalf("Failed to connect to PostgreSQL database: %s\n", err.Error())
+		log.Fatalf("Failed to connect to PostgreSQL database: %w\n", err)
 	}
 	lc.Append(fx.Hook{
 		OnStop: func(ctx context.Context) error {

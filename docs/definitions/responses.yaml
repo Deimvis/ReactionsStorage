@@ -52,7 +52,6 @@ components:
         error:
           type: string
 
-
     ConfigurationPOSTResponse200:
       type: object
       additionalProperties: false
@@ -63,6 +62,24 @@ components:
           type: string
 
     ConfigurationPOSTResponse422:
+      type: object
+      additionalProperties: false
+      required:
+        - error
+      properties:
+        error:
+          type: string
+
+    AvailableReactionsGETResponse200:
+      type: object
+      additionalProperties: false
+      properties:
+        reactions:
+          type: array
+          items:
+            $ref: 'configuration.yaml#/components/schemas/Reaction'
+
+    AvailableReactionsGETResponse404:
       type: object
       additionalProperties: false
       required:

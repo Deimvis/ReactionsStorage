@@ -2,7 +2,7 @@ package storages
 
 import (
 	"context"
-	"log"
+	"fmt"
 
 	"github.com/Deimvis/reactionsstorage/src/models"
 )
@@ -10,28 +10,36 @@ import (
 func (cs *ConfigurationStorage) AddReactionStrict(ctx context.Context, r *models.Reaction) {
 	err := cs.AddReaction(ctx, r)
 	if err != nil {
-		log.Panicf("failed to add reaction: %s", err)
+		panic(fmt.Errorf("failed to add reaction: %w", err))
 	}
 }
 
 func (cs *ConfigurationStorage) AddReactionSetStrict(ctx context.Context, r *models.ReactionSet) {
 	err := cs.AddReactionSet(ctx, r)
 	if err != nil {
-		log.Panicf("failed to add reaction set: %s", err)
+		panic(fmt.Errorf("failed to add reaction set: %w", err))
 	}
 }
 
 func (cs *ConfigurationStorage) AddNamespaceStrict(ctx context.Context, n *models.Namespace) {
 	err := cs.AddNamespace(ctx, n)
 	if err != nil {
-		log.Panicf("failed to add namespace: %s", err)
+		panic(fmt.Errorf("failed to add namespace: %w", err))
 	}
+}
+
+func (cs *ConfigurationStorage) GetAvailableReactionsStrict(ctx context.Context, namespaceId string) []models.Reaction {
+	res, err := cs.GetAvailableReactions(ctx, namespaceId)
+	if err != nil {
+		panic(fmt.Errorf("failed to get avaialble reactions: %w", err))
+	}
+	return res
 }
 
 func (cs *ConfigurationStorage) GetMutuallyExclusiveReactionsStrict(namespaceId string) [][]string {
 	res, err := cs.GetMutuallyExclusiveReactions(namespaceId)
 	if err != nil {
-		log.Panicf("failed to get mutually exclusive reactions: %s", err)
+		panic(fmt.Errorf("failed to get mutually exclusive reactions: %w", err))
 	}
 	return res
 }
@@ -39,7 +47,7 @@ func (cs *ConfigurationStorage) GetMutuallyExclusiveReactionsStrict(namespaceId 
 func (cs *ConfigurationStorage) GetMaxUniqueReactionsStrict(namespaceId string) int {
 	res, err := cs.GetMaxUniqueReactions(namespaceId)
 	if err != nil {
-		log.Panicf("failed to get max unique reactions: %s", err)
+		panic(fmt.Errorf("failed to get max unique reactions: %w", err))
 	}
 	return res
 }
@@ -47,6 +55,6 @@ func (cs *ConfigurationStorage) GetMaxUniqueReactionsStrict(namespaceId string) 
 func (cs *ConfigurationStorage) ClearStrict(ctx context.Context) {
 	err := cs.Clear(ctx)
 	if err != nil {
-		log.Panicf("failed to clear configuration storage: %s", err)
+		panic(fmt.Errorf("failed to clear configuration storage: %w", err))
 	}
 }

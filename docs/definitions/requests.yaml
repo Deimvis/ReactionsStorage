@@ -5,3 +5,6 @@ components:
 
     ReactionsDELETERequest:
       $ref: 'reactions.yaml#/components/schemas/UserReaction'
+
+    ConfigurationPOSTRequest:
+      $ref: 'configuration.yaml#/components/schemas/Configuration'

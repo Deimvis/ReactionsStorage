@@ -12,7 +12,7 @@ import (
 	"github.com/Deimvis/reactionsstorage/src/services"
 	"github.com/Deimvis/reactionsstorage/src/storages"
 	"github.com/Deimvis/reactionsstorage/src/utils"
-	thelpers "github.com/Deimvis/reactionsstorage/tests"
+	thelpers "github.com/Deimvis/reactionsstorage/tests/helpers"
 )
 
 var cs *storages.ConfigurationStorage

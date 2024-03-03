@@ -4,16 +4,17 @@ import (
 	"testing"
 
 	"github.com/Deimvis/reactionsstorage/src/models"
+	"github.com/Deimvis/reactionsstorage/tests/fake"
 )
 
 func TestReactionsPOSTSimple(t *testing.T) {
 	defer clearUserReactions()
 
 	var req models.ReactionsPOSTRequest
-	req.Body.NamespaceId = fakeNamespaceId
-	req.Body.EntityId = fakeEntityId
-	req.Body.ReactionId = fakeReactionId
-	req.Body.UserId = fakeUserId
+	req.Body.NamespaceId = fake.NamespaceId
+	req.Body.EntityId = fake.EntityId
+	req.Body.ReactionId = fake.ReactionId
+	req.Body.UserId = fake.UserId
 
 	var resp models.ReactionsPOSTResponse200
 	resp.Status = "ok"

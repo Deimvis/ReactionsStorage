@@ -13,16 +13,17 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/Deimvis/reactionsstorage/src/models"
+	"github.com/Deimvis/reactionsstorage/tests/fake"
 )
 
 func setFakeConfiguration() {
 	ctx := context.Background()
 	cs.ClearStrict(ctx)
-	cs.AddReactionStrict(ctx, &fakeReaction)
-	cs.AddReactionStrict(ctx, &fakeReaction2)
-	cs.AddReactionStrict(ctx, &fakeReaction3)
-	cs.AddReactionSetStrict(ctx, &fakeReactionSet)
-	cs.AddNamespaceStrict(ctx, &fakeNamespace)
+	cs.AddReactionStrict(ctx, &fake.Reaction)
+	cs.AddReactionStrict(ctx, &fake.Reaction2)
+	cs.AddReactionStrict(ctx, &fake.Reaction3)
+	cs.AddReactionSetStrict(ctx, &fake.ReactionSet)
+	cs.AddNamespaceStrict(ctx, &fake.Namespace)
 }
 
 func clearUserReactions() {

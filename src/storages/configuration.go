@@ -2,6 +2,7 @@ package storages
 
 import (
 	"context"
+	"errors"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -45,12 +46,25 @@ func (cs *ConfigurationStorage) AddNamespace(ctx context.Context, n *models.Name
 	return err
 }
 
-func (cs *ConfigurationStorage) GetNamespace(namespaceId string) (*models.Namespace, error) {
-	row, err := cs.pool.Query(context.Background(), sql.GetNamespace, namespaceId)
+func (cs *ConfigurationStorage) GetNamespace(ctx context.Context, namespaceId string) (*models.Namespace, error) {
+	row, err := cs.pool.Query(ctx, sql.GetNamespace, namespaceId)
 	if err != nil {
 		return nil, err
 	}
 	return pgx.CollectExactlyOneRow(row, pgx.RowToAddrOfStructByName[models.Namespace])
+}
+
+func (cs *ConfigurationStorage) HasNamespace(ctx context.Context, namespaceId string) bool {
+	_, err := cs.GetNamespace(ctx, namespaceId)
+	return errors.Is(err, pgx.ErrNoRows)
+}
+
+func (cs *ConfigurationStorage) GetAvailableReactions(ctx context.Context, namespaceId string) ([]models.Reaction, error) {
+	rows, err := cs.pool.Query(ctx, sql.GetAvailableReactions, namespaceId)
+	if err != nil {
+		return nil, err
+	}
+	return pgx.CollectRows(rows, pgx.RowToStructByName[models.Reaction])
 }
 
 func (cs *ConfigurationStorage) GetMutuallyExclusiveReactions(namespaceId string) ([][]string, error) {

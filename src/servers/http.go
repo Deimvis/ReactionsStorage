@@ -13,10 +13,10 @@ import (
 	"github.com/Deimvis/reactionsstorage/src/services"
 )
 
-func NewHTTPServer(lc fx.Lifecycle, reactionsService *services.ReactionsService) *http.Server {
+func NewHTTPServer(lc fx.Lifecycle, cs *services.ConfigurationService, rs *services.ReactionsService) *http.Server {
 	s := &http.Server{
 		Addr:    ":8080",
-		Handler: NewRouter(reactionsService),
+		Handler: NewRouter(cs, rs),
 	}
 	lc.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
@@ -34,7 +34,7 @@ func NewHTTPServer(lc fx.Lifecycle, reactionsService *services.ReactionsService)
 	return s
 }
 
-func NewRouter(reactionsService *services.ReactionsService) *gin.Engine {
+func NewRouter(cs *services.ConfigurationService, rs *services.ReactionsService) *gin.Engine {
 	router := gin.Default()
 	router.Use(gin.Recovery())
 	router.SetTrustedProxies(nil)
@@ -46,8 +46,16 @@ func NewRouter(reactionsService *services.ReactionsService) *gin.Engine {
 		c.String(200, "pong")
 	})
 
+	router.POST("/configuration", func(c *gin.Context) {
+		c.String(500, "TODO: implement")
+	})
 	router.GET("/configuration/available_reactions", func(c *gin.Context) {
-		
+		var req models.AvailableReactionsGETRequest
+		req.Query.NamespaceId = c.Query("namespace_id")
+		log.Println("Process request:", req)
+
+		resp := cs.GetAvailableReactions(c, &req)
+		c.JSON(resp.Code(), resp)
 	})
 
 	router.GET("/reactions", func(c *gin.Context) {
@@ -57,7 +65,7 @@ func NewRouter(reactionsService *services.ReactionsService) *gin.Engine {
 		req.Query.UserId = c.Query("user_id")
 		log.Println("Process request:", req)
 
-		resp := reactionsService.GetUserReactions(c, req)
+		resp := rs.GetUserReactions(c, req)
 		c.JSON(resp.Code(), resp)
 	})
 
@@ -72,7 +80,7 @@ func NewRouter(reactionsService *services.ReactionsService) *gin.Engine {
 		}
 		log.Println("Process request:", req)
 
-		resp := reactionsService.AddUserReaction(c, req)
+		resp := rs.AddUserReaction(c, req)
 		c.JSON(resp.Code(), resp)
 
 		log.Println("Return response:", resp)
@@ -87,7 +95,7 @@ func NewRouter(reactionsService *services.ReactionsService) *gin.Engine {
 		}
 		log.Println("Process request:", req)
 
-		resp := reactionsService.RemoveUserReaction(c, req)
+		resp := rs.RemoveUserReaction(c, req)
 		c.JSON(resp.Code(), resp)
 
 		log.Println("Return response:", resp)

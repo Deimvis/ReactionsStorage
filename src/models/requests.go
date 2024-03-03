@@ -21,7 +21,7 @@ type ReactionsPOSTRequest struct {
 	Query struct {
 		Force *bool
 	}
-	Body  UserReaction
+	Body UserReaction
 }
 
 type ReactionsDELETERequest struct {
@@ -30,4 +30,10 @@ type ReactionsDELETERequest struct {
 
 type ConfiguratinPOSTRequest struct {
 	Body Configuration
+}
+
+type AvailableReactionsGETRequest struct {
+	Query struct {
+		NamespaceId string
+	}
 }

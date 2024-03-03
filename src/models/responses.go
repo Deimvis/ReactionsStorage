@@ -33,3 +33,11 @@ type ConfigurationPOSTResponse200 struct {
 type ConfigurationPOSTResponse422 struct {
 	Error string `json:"error"`
 }
+
+type AvailableReactionsGETResponse200 struct {
+	Reactions []Reaction `json:"reactions"`
+}
+
+type AvailableReactionsGETResponse404 struct {
+	Error string `json:"error"`
+}

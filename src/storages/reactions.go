@@ -3,7 +3,6 @@ package storages
 import (
 	"context"
 	"fmt"
-	"log"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -43,7 +42,7 @@ func (rs *ReactionsStorage) GetEntityReactionsCount(ctx context.Context, namespa
 func (rs *ReactionsStorage) GetEntityReactionsCountStrict(ctx context.Context, namespaceId string, entityId string) []models.ReactionCount {
 	res, err := rs.GetEntityReactionsCount(ctx, namespaceId, entityId)
 	if err != nil {
-		log.Panicf("failed to get user reactions count for entity: %s", err)
+		panic(fmt.Errorf("failed to get user reactions count for entity: %w", err))
 	}
 	return res
 }
@@ -77,7 +76,7 @@ func (rs *ReactionsStorage) Clear(ctx context.Context) error {
 func (rs *ReactionsStorage) ClearStrict(ctx context.Context) {
 	err := rs.Clear(ctx)
 	if err != nil {
-		log.Panicf("failed to clear user reactions: %s", err)
+		panic(fmt.Errorf("failed to clear user reactions: %w", err))
 	}
 }
 
@@ -107,7 +106,7 @@ func (rs *ReactionsStorage) getUniqEntityReactions(ctx context.Context, namespac
 func (rs *ReactionsStorage) getUniqEntityReactionsStrict(ctx context.Context, namespaceId string, entityId string) map[string]struct{} {
 	res, err := rs.getUniqEntityReactions(ctx, namespaceId, entityId)
 	if err != nil {
-		log.Panicf("failed to get unique entity reactions: %s", err)
+		panic(fmt.Errorf("failed to get unique entity reactions: %w", err))
 	}
 	return res
 }
@@ -123,7 +122,7 @@ func (rs *ReactionsStorage) GetUniqEntityUserReactions(ctx context.Context, name
 func (rs *ReactionsStorage) GetUniqEntityUserReactionsStrict(ctx context.Context, namespaceId string, entityId string, userId string) map[string]struct{} {
 	res, err := rs.GetUniqEntityUserReactions(ctx, namespaceId, entityId, userId)
 	if err != nil {
-		log.Panicf("failed to get unique entity user reactions: %s", err)
+		panic(fmt.Errorf("failed to get unique entity user reactions: %w", err))
 	}
 	return res
 }
@@ -135,7 +134,7 @@ func (rs *ReactionsStorage) beginTx(ctx context.Context) (pgx.Tx, error) {
 func (rs *ReactionsStorage) beginTxStrict(ctx context.Context) pgx.Tx {
 	tx, err := rs.beginTx(ctx)
 	if err != nil {
-		log.Panicf("failed to create pg transaction: %s", err)
+		panic(fmt.Errorf("failed to create pg transaction: %w", err))
 	}
 	return tx
 }
@@ -148,7 +147,7 @@ func (rs *ReactionsStorage) advLock(ctx context.Context, tx pgx.Tx, key string) 
 func (rs *ReactionsStorage) advLockStrict(ctx context.Context, tx pgx.Tx, key string) {
 	err := rs.advLock(ctx, tx, key)
 	if err != nil {
-		log.Panicf("failed to acquire advisory lock: %s", err)
+		panic(fmt.Errorf("failed to acquire advisory lock: %w", err))
 	}
 }
 
@@ -160,6 +159,6 @@ func (rs *ReactionsStorage) advUnlock(ctx context.Context, tx pgx.Tx, key string
 func (rs *ReactionsStorage) advUnlockStrict(ctx context.Context, tx pgx.Tx, key string) {
 	err := rs.advUnlock(ctx, tx, key)
 	if err != nil {
-		log.Panicf("failed to release advisory lock: %s", err)
+		panic(fmt.Errorf("failed to release advisory lock: %w", err))
 	}
 }

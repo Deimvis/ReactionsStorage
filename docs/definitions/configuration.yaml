@@ -1,0 +1,73 @@
+components:
+  schemas:
+    Reaction:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - type
+      properties:
+        id:
+          type: string
+        short_name:
+          type: string
+        type:
+          type: string
+          enum:
+            - unicode
+            - custom
+        code:
+          type: string
+        url:
+          type: string
+
+    ReactionSet:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+      properties:
+        id:
+          type: string
+        reaction_ids:
+          type: array
+          items:
+            type: string
+
+    Namespace:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - reaction_set_id
+        - max_uniq_reactions
+      properties:
+        id:
+          type: string
+        reaction_set_id:
+          type: string
+        max_uniq_reactions:
+          type: int
+        mutually_exclusive_reactions:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+
+    Configuration:
+      type: object
+      additionalProperties: false
+      properties:
+        reactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reaction'
+        reaction_sets:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReactionSet'
+        namespaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/Namespace'

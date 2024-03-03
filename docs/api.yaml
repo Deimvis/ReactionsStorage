@@ -18,18 +18,18 @@ paths:
       description: Retrieve user reactions info for given entity
       parameters:
         - in: query
-          required: true
           name: namespace_id
+          required: true
           schema:
             type: string
         - in: query
-          required: true
           name: entity_id
+          required: true
           schema:
             type: string
         - in: query
-          required: true
           name: user_id
+          required: true
           schema:
             type: string
       responses:
@@ -43,8 +43,8 @@ paths:
       description: Add single user reaction
       parameters:
         - in: query
-          required: false
           name: force
+          required: false
           schema:
             type: boolean
             default: false
@@ -67,13 +67,19 @@ paths:
             application/json:
               schema:
                 $ref: 'definitions/responses.yaml#/components/schemas/ReactionsPOSTResponse403'
+
   /configuration:
     post:
       description: Set new reactions configuration
       requestBody:
-        description: Gzip-encoded tar archive with 3 files (reaction.yaml, reaction_set.yaml, namespace.yaml)
+        description: |
+          Reactions Storage Configuration.
+          application/gzip: Gzip-encoded tar archive with 3 files (reaction.yaml, reaction_set.yaml, namespace.yaml)
         required: true
         content:
+          appication/json:
+            schema:
+              $ref: 'definitions/requests.yaml#/components/schemas/ConfigurationPOSTRequest'
           application/gzip:
             schema:
               type: string
@@ -91,3 +97,26 @@ paths:
             application/json:
               schema:
                 $ref: 'definitions/responses.yaml#/components/schemas/ConfigurationPOSTResponse422'
+
+  /configuration/available_reactions:
+    get:
+      description: Get available reactions for given namespace
+      parameters:
+        - in: query
+          name: namespace_id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/responses.yaml#/components/schemas/AvailableReactionsGETResponse200'
+        '404':
+          description: Namespace not found
+          content:
+            appliction/json:
+              schema:
+                $ref: 'definitions/responses.yaml#/components/schemas/AvailableReactionsGETResponse404'

@@ -87,11 +87,27 @@ func (r *AvailableReactionsGETRequest) BodyRaw() []byte {
 	return nil
 }
 
+func (r *NamespaceGETRequest) Method() string {
+	return "GET"
+}
+
+func (r *NamespaceGETRequest) Path() string {
+	return "/configuration/namespace"
+}
+
+func (r *NamespaceGETRequest) QueryString() string {
+	return makeQueryString(r.Query)
+}
+
+func (r *NamespaceGETRequest) BodyRaw() []byte {
+	return nil
+}
+
 func makeQueryString(query interface{}) string {
 	var sb strings.Builder
 	v := reflect.ValueOf(query)
 	for i := 0; i < v.NumField(); i++ {
-		if v.Field(i).IsNil() {
+		if v.Field(i).CanAddr() && v.Field(i).IsNil() {
 			continue
 		}
 		queryKey := v.Type().Field(i).Tag.Get("query")

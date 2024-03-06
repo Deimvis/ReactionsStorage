@@ -8,6 +8,7 @@ import (
 
 	"go.uber.org/fx"
 
+	"github.com/Deimvis/reactionsstorage/src/loggers"
 	"github.com/Deimvis/reactionsstorage/src/servers"
 	"github.com/Deimvis/reactionsstorage/src/services"
 	"github.com/Deimvis/reactionsstorage/src/storages"
@@ -25,9 +26,11 @@ func TestMain(m *testing.M) {
 	ctx := context.Background()
 	app := fx.New(
 		fx.Provide(
+			loggers.NewLogger,
 			utils.NewPostgresConnectionPool,
 			storages.NewConfigurationStorage,
 			storages.NewReactionsStorage,
+			services.NewConfigurationService,
 			services.NewReactionsService,
 			servers.NewHTTPServer,
 		),

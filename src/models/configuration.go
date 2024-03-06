@@ -7,11 +7,11 @@ type Configuration struct {
 }
 
 type Reaction struct {
-	Id        string  `yaml:"id"`
-	ShortName *string `yaml:"short_name"`
-	Type      string  `yaml:"type"`
-	Code      *string `yaml:"code"`
-	Url       *string `yaml:"url"`
+	Id        string  `yaml:"id" db:"id"`
+	ShortName *string `yaml:"short_name" db:"short_name"`
+	Type      string  `yaml:"type" db:"type"`
+	Code      *string `yaml:"code" db:"code"`
+	Url       *string `yaml:"url" db:"url"`
 }
 
 type ReactionSet struct {

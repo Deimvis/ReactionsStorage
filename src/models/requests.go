@@ -12,14 +12,14 @@ type Request interface {
 type ReactionsGETRequest struct {
 	Query struct {
 		NamespaceId string `query:"namespace_id"`
-		EntityId    string
-		UserId      string
+		EntityId    string `query:"entity_id"`
+		UserId      string `query:"user_id"`
 	}
 }
 
 type ReactionsPOSTRequest struct {
 	Query struct {
-		Force *bool
+		Force *bool `query:"force"`
 	}
 	Body UserReaction
 }
@@ -32,8 +32,14 @@ type ConfiguratinPOSTRequest struct {
 	Body Configuration
 }
 
+type NamespaceGETRequest struct {
+	Query struct {
+		NamespaceId string `query:"namespace_id"`
+	}
+}
+
 type AvailableReactionsGETRequest struct {
 	Query struct {
-		NamespaceId string
+		NamespaceId string `query:"namespace_id"`
 	}
 }

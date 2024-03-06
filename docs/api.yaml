@@ -91,12 +91,41 @@ paths:
             application/json:
               schema:
                 $ref: 'definitions/responses.yaml#/components/schemas/ConfigurationPOSTResponse200'
+        '415':
+          description: Unsupported Content-Type
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/responses.yaml#/components/schemas/ConfigurationPOSTResponse415'
         '422':
           description: Configuration is not valid
           content:
             application/json:
               schema:
                 $ref: 'definitions/responses.yaml#/components/schemas/ConfigurationPOSTResponse422'
+
+  /configuration/namespace:
+    get:
+      description: Get namespace configuration
+      parameters:
+        - in: query
+          name: namespace_id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/responses.yaml#/components/schemas/NamespaceGETResponse200'
+        '404':
+          description: Namespace not found
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/responses.yaml#/components/schemas/NamespaceGETResponse404'
 
   /configuration/available_reactions:
     get:

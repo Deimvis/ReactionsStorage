@@ -48,6 +48,25 @@ func NewRouter(cs *services.ConfigurationService, rs *services.ReactionsService)
 
 	router.POST("/configuration", func(c *gin.Context) {
 		c.String(500, "TODO: implement")
+
+		var resp models.Response
+		switch c.ContentType() {
+		case "application/yaml":
+
+		default:
+			msg := fmt.Sprintf("unsupported Content-Type: %s", c.ContentType())
+			resp = &models.ConfigurationPOSTResponse415{Error: msg}
+		}
+		c.JSON(resp.Code(), resp)
+
+	})
+	router.GET("/configuration/namespace", func(c *gin.Context) {
+		var req models.NamespaceGETRequest
+		req.Query.NamespaceId = c.Query("namespace_id")
+		log.Println("Process request:", req)
+
+		resp := cs.GetNamespace(c, &req)
+		c.JSON(resp.Code(), resp)
 	})
 	router.GET("/configuration/available_reactions", func(c *gin.Context) {
 		var req models.AvailableReactionsGETRequest

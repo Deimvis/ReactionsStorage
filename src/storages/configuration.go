@@ -56,7 +56,7 @@ func (cs *ConfigurationStorage) GetNamespace(ctx context.Context, namespaceId st
 
 func (cs *ConfigurationStorage) HasNamespace(ctx context.Context, namespaceId string) bool {
 	_, err := cs.GetNamespace(ctx, namespaceId)
-	return errors.Is(err, pgx.ErrNoRows)
+	return !errors.Is(err, pgx.ErrNoRows)
 }
 
 func (cs *ConfigurationStorage) GetAvailableReactions(ctx context.Context, namespaceId string) ([]models.Reaction, error) {

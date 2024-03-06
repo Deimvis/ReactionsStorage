@@ -25,15 +25,6 @@ components:
         status:
           type: string
 
-    ReactionsPOSTResponse403:
-      type: object
-      additionalProperties: false
-      required:
-        - error
-      properties:
-        error:
-          type: string
-
     ReactionsDELETEResponse200:
       type: object
       additionalProperties: false
@@ -41,15 +32,6 @@ components:
         - status
       properties:
         status:
-          type: string
-
-    ReactionsDELETEResponse403:
-      type: object
-      additionalProperties: false
-      required:
-        - error
-      properties:
-        error:
           type: string
 
     ConfigurationPOSTResponse200:
@@ -61,14 +43,14 @@ components:
         status:
           type: string
 
-    ConfigurationPOSTResponse422:
+    NamespaceGETResponse200:
       type: object
       additionalProperties: false
       required:
-        - error
+        - namespace
       properties:
-        error:
-          type: string
+        namespace:
+          $ref: 'configuration.yaml#/components/schemas/Namespace'
 
     AvailableReactionsGETResponse200:
       type: object
@@ -79,7 +61,25 @@ components:
           items:
             $ref: 'configuration.yaml#/components/schemas/Reaction'
 
+    ReactionsPOSTResponse403:
+      $ref: '#/components/schemas/ErrorResponse'
+
+    ReactionsDELETEResponse403:
+      $ref: '#/components/schemas/ErrorResponse'
+
+    ConfigurationPOSTResponse415:
+      $ref: '#/components/schemas/ErrorResponse'
+
+    ConfigurationPOSTResponse422:
+      $ref: '#/components/schemas/ErrorResponse'
+
+    NamespaceGETResponse404:
+      $ref: '#/components/schemas/ErrorResponse'
+
     AvailableReactionsGETResponse404:
+      $ref: '#/components/schemas/ErrorResponse'
+
+    ErrorResponse:
       type: object
       additionalProperties: false
       required:

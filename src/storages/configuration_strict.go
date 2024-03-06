@@ -30,6 +30,8 @@ func (cs *ConfigurationStorage) AddNamespaceStrict(ctx context.Context, n *model
 
 func (cs *ConfigurationStorage) GetAvailableReactionsStrict(ctx context.Context, namespaceId string) []models.Reaction {
 	res, err := cs.GetAvailableReactions(ctx, namespaceId)
+	fmt.Println("res", res)
+	fmt.Println(err)
 	if err != nil {
 		panic(fmt.Errorf("failed to get avaialble reactions: %w", err))
 	}

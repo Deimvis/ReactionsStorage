@@ -2,18 +2,45 @@ package utils
 
 import (
 	"context"
-	"log"
+	"fmt"
 	"os"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"go.uber.org/fx"
+	"go.uber.org/zap"
 )
 
-func NewPostgresConnectionPool(lc fx.Lifecycle) *pgxpool.Pool {
-	pool, err := pgxpool.New(context.Background(), os.Getenv("DATABASE_URL"))
+type myQueryTracer struct {
+	log *zap.SugaredLogger
+}
+
+func (tracer *myQueryTracer) TraceQueryStart(
+	ctx context.Context,
+	_ *pgx.Conn,
+	data pgx.TraceQueryStartData) context.Context {
+	tracer.log.Infow("Executing command", "sql", data.SQL, "args", data.Args)
+
+	return ctx
+}
+
+func (tracer *myQueryTracer) TraceQueryEnd(ctx context.Context, conn *pgx.Conn, data pgx.TraceQueryEndData) {
+}
+
+func NewPostgresConnectionPool(lc fx.Lifecycle, logger *zap.Logger) *pgxpool.Pool {
+	// TODO: pass tracer as a dependency
+	config, err := pgxpool.ParseConfig(os.Getenv("DATABASE_URL")) // Using environment variables instead of a connection string.
 	if err != nil {
-		log.Fatalf("Failed to connect to PostgreSQL database: %w\n", err)
+		panic(err)
+	}
+	tracer := &myQueryTracer{log: logger.Sugar()}
+	config.ConnConfig.Tracer = tracer
+
+	// ---
+
+	pool, err := pgxpool.NewWithConfig(context.Background(), config)
+	if err != nil {
+		panic(fmt.Errorf("failed to connect to PostgreSQL database: %w", err))
 	}
 	lc.Append(fx.Hook{
 		OnStop: func(ctx context.Context) error {
@@ -27,7 +54,7 @@ func NewPostgresConnectionPool(lc fx.Lifecycle) *pgxpool.Pool {
 func NewPostgresConnection(lc fx.Lifecycle) *pgx.Conn {
 	con, err := pgx.Connect(context.Background(), os.Getenv("DATABASE_URL"))
 	if err != nil {
-		log.Fatalf("Failed to connect to PostgreSQL database: %w\n", err)
+		panic(fmt.Errorf("failed to connect to PostgreSQL database: %w", err))
 	}
 	lc.Append(fx.Hook{
 		OnStop: func(ctx context.Context) error {

@@ -43,12 +43,12 @@ func TestCorrectness(t *testing.T) {
 	}
 	tar, err := utils.CreateTarGz(yg)
 	if err != nil {
-		t.Fatalf("failed to create tar gz: %w", err)
+		t.Fatalf("failed to create tar gz: %s", err)
 	}
 	var ygCopy YamlGroup
 	err = utils.ExtractTarGz(tar, &ygCopy)
 	if err != nil {
-		t.Fatalf("failed to extract tar gz: %w", err)
+		t.Fatalf("failed to extract tar gz: %s", err)
 	}
 	require.True(t, reflect.DeepEqual(yg, ygCopy))
 }

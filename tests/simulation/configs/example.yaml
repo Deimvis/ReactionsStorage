@@ -1,0 +1,21 @@
+seed: 42
+
+rules:
+  turn_count: 1000
+  turn_duration_s: 1
+  user_count: 5
+  users:
+    count: 5
+    app:
+      reactions_refresh_timer_s: 3
+    screen:
+      visible_entities_count: 3
+  topics:
+  - count: 10
+    namespace_id: namespace
+    size: 1000
+
+server:
+  host: localhost
+  port: 8080
+  ssl: false

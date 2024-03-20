@@ -43,7 +43,7 @@ func (u *UserImpl) chooseReactionIdToAdd(e Entity) (string, error) {
 	}
 
 	// remove reactions that user already added
-	utils.FilterIn(options, func(r string) bool { return utils.Contains(e.GetMyReactionIds(), r) })
+	utils.FilterIn(&options, func(r string) bool { return utils.Contains(e.GetMyReactionIds(), r) })
 
 	if len(options) == 0 {
 		return "", errors.New("has no options for reaction")

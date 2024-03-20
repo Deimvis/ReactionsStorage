@@ -42,7 +42,7 @@ func main() {
 
 	rsClient := rs.NewClientHTTP(config.Server.Host, config.Server.Port, config.Server.SSL)
 
-	var topics []*models.Topic
+	var topics []models.Topic
 	for i, topicConf := range config.Rules.Topics {
 		namespace := models.NewNamespace(topicConf.NamespaceId, rsClient)
 		for j := 0; j < topicConf.Count; j++ {

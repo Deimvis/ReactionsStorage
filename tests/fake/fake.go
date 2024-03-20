@@ -8,7 +8,8 @@ const (
 	EntityId         = "entity"
 	MaxUniqReactions = 10
 	NamespaceId      = "namespace"
-	ReactionId       = "reaction"
+	ReactionId       = ReactionId1
+	ReactionId1      = "reaction1"
 	ReactionId2      = "reaction2"
 	ReactionId3      = "reaction3"
 	ReactionSetId    = "reaction_set"
@@ -18,7 +19,7 @@ const (
 
 var (
 	ReactionCode               = "😃"
-	MutuallyExclusiveReactions = [][]string{{ReactionId, ReactionId2}, {ReactionId2, ReactionId3}}
+	MutuallyExclusiveReactions = [][]string{{ReactionId1, ReactionId2}, {ReactionId2, ReactionId3}}
 )
 
 var Reaction = models.Reaction{
@@ -41,7 +42,7 @@ var Reaction3 = models.Reaction{
 
 var ReactionSet = models.ReactionSet{
 	Id:          ReactionSetId,
-	ReactionIds: []string{ReactionId, ReactionId2, ReactionId3},
+	ReactionIds: []string{ReactionId1, ReactionId2, ReactionId3},
 }
 
 var Namespace = models.Namespace{

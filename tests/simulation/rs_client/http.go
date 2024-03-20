@@ -11,6 +11,7 @@ import (
 	"github.com/Deimvis/reactionsstorage/src/models"
 )
 
+// thread-safe
 type HTTPClient struct {
 	client  *http.Client
 	baseUrl *url.URL
@@ -55,6 +56,7 @@ func (c *HTTPClient) UpdateConfiguration(req *models.ConfiguratinPOSTRequest) (m
 		&models.ConfigurationPOSTResponse422{},
 	})
 }
+
 func (c *HTTPClient) GetNamespace(req *models.NamespaceGETRequest) (models.Response, error) {
 	return c.handle(req, []models.Response{
 		&models.NamespaceGETResponse200{},

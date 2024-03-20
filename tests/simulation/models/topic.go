@@ -36,5 +36,5 @@ func (t *TopicImpl) GetEntities() []Entity {
 }
 
 func (t *TopicImpl) ShuffleEntities() {
-	utils.ShuffleIn(t.entities)
+	utils.ShuffleIn(&t.entities)
 }

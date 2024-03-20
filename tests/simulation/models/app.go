@@ -18,6 +18,7 @@ type App interface {
 	CanScroll() bool // returns true if the end of current topic isn't reached
 	Scroll() error   // returns an error if the end of current topic is reached
 	GetVisibleEntities() []Entity
+	Refresh(userId string) // asynchronously updates reactions for visible entities
 
 	// Simulates click on reaction.
 	// Asynchronously sends request and updates given entity.
@@ -78,6 +79,30 @@ func (a *AppImpl) Scroll() error {
 
 func (a *AppImpl) GetVisibleEntities() []Entity {
 	return a.getCurTopic().GetEntities()[a.curTopicPos : a.curTopicPos+a.visibleEntitiesCount]
+}
+
+func (a *AppImpl) Refresh(userId string) {
+	for _, e := range a.GetVisibleEntities() {
+		utils.AssertPtr(e)
+		var req models.ReactionsGETRequest
+		req.Query.NamespaceId = e.GetNamespace().GetId()
+		req.Query.EntityId = e.GetId()
+		req.Query.UserId = userId
+		go func() {
+			resp, err := a.client.GetReactions(&req)
+			if err != nil {
+				panic(fmt.Errorf("failed to get reactions: %w", err))
+			}
+			if resp.Code() == 200 {
+				resp200, ok := resp.(*models.ReactionsGETResponse200)
+				if !ok {
+					panic(fmt.Errorf("failed to cast response to response200"))
+				}
+				reactionsCount := utils.Map(resp200.ReactionsCount, func(rc models.ReactionCount) ReactionCount { return ReactionCount(rc) })
+				e.Update(reactionsCount, resp200.UserReactions.Reactions)
+			}
+		}()
+	}
 }
 
 func (a *AppImpl) AddReaction(e Entity, userId string, reactionId string) {

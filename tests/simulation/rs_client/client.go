@@ -13,6 +13,7 @@ const (
 	// GRPC_CLIENT = "grpc"
 )
 
+// thread-safe
 type Client interface {
 	GetReactions(req *models.ReactionsGETRequest) (models.Response, error)
 	AddReaction(req *models.ReactionsPOSTRequest) (models.Response, error)

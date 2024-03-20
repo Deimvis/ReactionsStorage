@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"sync"
 
 	"go.uber.org/zap"
@@ -31,6 +32,10 @@ type Entity interface {
 	// First adds and then removes reactions atomically.
 	// Returns statuses (see AddMyReaction and RemoveMyReaction).
 	UpdateMyReactions(addIds []string, removeIds []string) []bool
+}
+
+func NewEntity(id string, namespace Namespace) Entity {
+	return &EntityImpl{id: id, namespace: namespace}
 }
 
 // thread safe
@@ -98,10 +103,13 @@ func (e *EntityImpl) addMyReactionUnsafe(reactionId string) bool {
 
 	e.myReactionIds = append(e.myReactionIds, reactionId)
 	isNew := true
+	fmt.Println("try to increment")
 	for i := range e.reactionsCount {
+		fmt.Println(e.reactionsCount[i].ReactionId, "vs", reactionId)
 		if e.reactionsCount[i].ReactionId == reactionId {
 			isNew = false
 			e.reactionsCount[i].Count++
+			fmt.Println("incremented")
 		}
 	}
 	if isNew {
@@ -116,7 +124,7 @@ func (e *EntityImpl) removeMyReactionUnsafe(reactionId string) bool {
 		return false
 	}
 
-	utils.FilterIn(e.myReactionIds, func(id string) bool { return id == reactionId })
+	utils.FilterIn(&e.myReactionIds, func(id string) bool { return id == reactionId })
 	removed := false
 	for i := range e.reactionsCount {
 		if e.reactionsCount[i].ReactionId == reactionId && e.reactionsCount[i].Count >= 1 {

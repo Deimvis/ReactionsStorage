@@ -11,11 +11,13 @@ import (
 
 	"github.com/Deimvis/reactionsstorage/src/models"
 	"github.com/Deimvis/reactionsstorage/src/services"
+	"github.com/Deimvis/reactionsstorage/src/utils"
 )
 
 func NewHTTPServer(lc fx.Lifecycle, cs *services.ConfigurationService, rs *services.ReactionsService) *http.Server {
+	addr := fmt.Sprintf(":%s", utils.Getenv("PORT", "8080"))
 	s := &http.Server{
-		Addr:    ":8080",
+		Addr:    addr,
 		Handler: NewRouter(cs, rs),
 	}
 	lc.Append(fx.Hook{

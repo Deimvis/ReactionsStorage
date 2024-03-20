@@ -31,7 +31,8 @@ func MapIn[T any](s []T, mapFn func(T) T) []T {
 }
 
 // Shuffle slice in-place
-func ShuffleIn[T any](s []T) []T {
+func ShuffleIn[T any](sp *[]T) []T {
+	s := *sp
 	rand.Shuffle(len(s), func(i, j int) { s[i], s[j] = s[j], s[i] })
 	return s
 }
@@ -41,19 +42,19 @@ func ShuffleIn[T any](s []T) []T {
 func Filter[T any](s []T, filFn func(T) bool) []T {
 	scopy := make([]T, len(s))
 	copy(scopy, s)
-	return FilterIn(scopy, filFn)
+	return FilterIn(&scopy, filFn)
 }
 
 // Filters slice in-place.
 // Removes all elements for which given filFn returns true.
-func FilterIn[T any](s []T, filFn func(T) bool) []T {
+func FilterIn[T any](s *[]T, filFn func(T) bool) []T {
 	newSz := 0
-	for i := range s {
-		if !filFn(s[i]) {
-			s[newSz] = s[i]
+	for i := range *s {
+		if !filFn((*s)[i]) {
+			(*s)[newSz] = (*s)[i]
 			newSz++
 		}
 	}
-	s = s[:newSz]
-	return s
+	*s = (*s)[:newSz]
+	return *s
 }

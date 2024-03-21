@@ -1,18 +1,15 @@
 package models
 
 import (
-	"fmt"
 	"sync"
 
 	"go.uber.org/zap"
 
+	"github.com/Deimvis/reactionsstorage/src/models"
 	"github.com/Deimvis/reactionsstorage/tests/simulation/utils"
 )
 
-type ReactionCount struct {
-	ReactionId string `json:"reaction_id"`
-	Count      int    `json:"count"`
-}
+type ReactionCount = models.ReactionCount
 
 // thread-safe
 type Entity interface {
@@ -103,13 +100,10 @@ func (e *EntityImpl) addMyReactionUnsafe(reactionId string) bool {
 
 	e.myReactionIds = append(e.myReactionIds, reactionId)
 	isNew := true
-	fmt.Println("try to increment")
 	for i := range e.reactionsCount {
-		fmt.Println(e.reactionsCount[i].ReactionId, "vs", reactionId)
 		if e.reactionsCount[i].ReactionId == reactionId {
 			isNew = false
 			e.reactionsCount[i].Count++
-			fmt.Println("incremented")
 		}
 	}
 	if isNew {

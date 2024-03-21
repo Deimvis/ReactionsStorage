@@ -40,7 +40,7 @@ func main() {
 
 	rand.Seed(config.Seed)
 
-	rsClient := rs.NewClientHTTP(config.Server.Host, config.Server.Port, config.Server.SSL)
+	rsClient := rs.NewClientHTTP(config.Server.Host, config.Server.Port, config.Server.SSL, logger)
 
 	var topics []models.Topic
 	for i, topicConf := range config.Rules.Topics {
@@ -53,7 +53,7 @@ func main() {
 
 	var users []models.User
 	for i, userConf := range config.Rules.Users {
-		app := models.NewApp(rsClient, topics, userConf.Screen.VisibleEntitiesCount)
+		app := models.NewApp(rsClient, topics, userConf.Screen.VisibleEntitiesCount, logger)
 		id := fmt.Sprintf("user_%d", i)
 		users = append(users, models.NewUser(id, app))
 	}

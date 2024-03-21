@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"math/rand"
 	"slices"
+	"sync"
+
+	"go.uber.org/zap"
 
 	"github.com/Deimvis/reactionsstorage/src/models"
 	rs "github.com/Deimvis/reactionsstorage/tests/simulation/rs_client"
@@ -18,15 +21,15 @@ type App interface {
 	CanScroll() bool // returns true if the end of current topic isn't reached
 	Scroll() error   // returns an error if the end of current topic is reached
 	GetVisibleEntities() []Entity
-	Refresh(userId string) // asynchronously updates reactions for visible entities
+	Refresh(userId string) Waitable // asynchronously updates reactions for visible entities
 
 	// Simulates click on reaction.
 	// Asynchronously sends request and updates given entity.
-	AddReaction(e Entity, userId string, reactionId string)
+	AddReaction(e Entity, userId string, reactionId string) Waitable
 
 	// Simulates click on existing reaction.
 	// Asynchronously sends request and updates given entity.
-	RemoveReaction(e Entity, userId string, reactionId string)
+	RemoveReaction(e Entity, userId string, reactionId string) Waitable
 }
 
 type AppImpl struct {
@@ -35,20 +38,23 @@ type AppImpl struct {
 	visibleEntitiesCount int
 	curTopicId           string
 	curTopicPos          int
+
+	logger *zap.SugaredLogger
 }
 
-func NewApp(client rs.Client, topics []Topic, visibleEntitiesCount int) App {
+func NewApp(client rs.Client, topics []Topic, visibleEntitiesCount int, logger *zap.SugaredLogger) App {
 	if len(topics) == 0 {
 		panic(fmt.Errorf("no topics"))
 	}
 	var app AppImpl
 	app.client = client
 	app.visibleEntitiesCount = visibleEntitiesCount
-	copy(app.topics, topics)
+	app.topics = append(app.topics, topics...)
 	for i := range app.topics {
 		app.topics[i].ShuffleEntities()
 	}
 	app.curTopicId = app.topics[rand.Intn(len(app.topics))].GetId()
+	app.logger = logger
 	return &app
 }
 
@@ -81,14 +87,19 @@ func (a *AppImpl) GetVisibleEntities() []Entity {
 	return a.getCurTopic().GetEntities()[a.curTopicPos : a.curTopicPos+a.visibleEntitiesCount]
 }
 
-func (a *AppImpl) Refresh(userId string) {
+func (a *AppImpl) Refresh(userId string) Waitable {
+	wg := sync.WaitGroup{}
 	for _, e := range a.GetVisibleEntities() {
 		utils.AssertPtr(e)
+
 		var req models.ReactionsGETRequest
 		req.Query.NamespaceId = e.GetNamespace().GetId()
 		req.Query.EntityId = e.GetId()
 		req.Query.UserId = userId
-		go func() {
+
+		wg.Add(1)
+		go func(e Entity) {
+			defer wg.Done()
 			resp, err := a.client.GetReactions(&req)
 			if err != nil {
 				panic(fmt.Errorf("failed to get reactions: %w", err))
@@ -101,12 +112,14 @@ func (a *AppImpl) Refresh(userId string) {
 				reactionsCount := utils.Map(resp200.ReactionsCount, func(rc models.ReactionCount) ReactionCount { return ReactionCount(rc) })
 				e.Update(reactionsCount, resp200.UserReactions.Reactions)
 			}
-		}()
+		}(e)
 	}
+	return &wg
 }
 
-func (a *AppImpl) AddReaction(e Entity, userId string, reactionId string) {
+func (a *AppImpl) AddReaction(e Entity, userId string, reactionId string) Waitable {
 	utils.AssertPtr(e)
+	wg := sync.WaitGroup{}
 
 	var req models.ReactionsPOSTRequest
 	// force -- automatically remove conflicting reactions
@@ -116,7 +129,10 @@ func (a *AppImpl) AddReaction(e Entity, userId string, reactionId string) {
 	req.Body.EntityId = e.GetId()
 	req.Body.UserId = userId
 	req.Body.ReactionId = reactionId
+
+	wg.Add(1)
 	go func() {
+		defer wg.Done()
 		resp, err := a.client.AddReaction(&req)
 		if err != nil {
 			panic(fmt.Errorf("failed to add reaction: %w", err))
@@ -124,18 +140,24 @@ func (a *AppImpl) AddReaction(e Entity, userId string, reactionId string) {
 		if resp.Code() == 200 {
 			removedIds := GetConflictingReactionIds(e.GetNamespace(), reactionId)
 			e.UpdateMyReactions([]string{reactionId}, removedIds)
+		} else {
+			a.logger.Warnf("Add reaction status code: %d", resp.Code())
 		}
 	}()
+	return &wg
 }
 
-func (a *AppImpl) RemoveReaction(e Entity, userId string, reactionId string) {
+func (a *AppImpl) RemoveReaction(e Entity, userId string, reactionId string) Waitable {
 	utils.AssertPtr(e)
+	wg := sync.WaitGroup{}
 
 	var req models.ReactionsDELETERequest
 	req.Body.NamespaceId = e.GetNamespace().GetId()
 	req.Body.EntityId = e.GetId()
 	req.Body.UserId = userId
 	req.Body.ReactionId = reactionId
+
+	wg.Add(1)
 	go func() {
 		resp, err := a.client.RemoveReaction(&req)
 		if err != nil {
@@ -143,8 +165,11 @@ func (a *AppImpl) RemoveReaction(e Entity, userId string, reactionId string) {
 		}
 		if resp.Code() == 200 {
 			e.RemoveMyReaction(reactionId)
+		} else {
+			a.logger.Warnf("Remove reaction status code: %d", resp.Code())
 		}
 	}()
+	return &wg
 }
 
 func (a *AppImpl) getCurTopic() Topic {
@@ -153,4 +178,8 @@ func (a *AppImpl) getCurTopic() Topic {
 
 func (a *AppImpl) getTopic(topicId string) Topic {
 	return a.topics[slices.IndexFunc(a.topics, func(t Topic) bool { return t.GetId() == topicId })]
+}
+
+type Waitable interface {
+	Wait()
 }

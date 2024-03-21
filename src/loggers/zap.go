@@ -3,18 +3,23 @@ package loggers
 import (
 	"context"
 	"errors"
-	"fmt"
 	"syscall"
 
 	"go.uber.org/fx"
 	"go.uber.org/zap"
+
+	"github.com/Deimvis/reactionsstorage/tests/simulation/utils"
 )
 
-func NewLogger(lc fx.Lifecycle) *zap.Logger {
-	logger, err := zap.NewDevelopment()
-	if err != nil {
-		panic(fmt.Errorf("failed to create logger: %w", err))
+func NewLogger(lc fx.Lifecycle) *zap.SugaredLogger {
+	config := zap.NewDevelopmentConfig()
+	config.Sampling = nil
+	level := zap.InfoLevel
+	if utils.IsDebugEnv() {
+		level = zap.DebugLevel
 	}
+	config.Level.SetLevel(level)
+	logger := zap.Must(config.Build()).Sugar()
 	lc.Append(fx.Hook{
 		OnStop: func(ctx context.Context) error {
 			err := logger.Sync()

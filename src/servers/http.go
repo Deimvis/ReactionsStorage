@@ -6,19 +6,21 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/davecgh/go-spew/spew"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/fx"
+	"go.uber.org/zap"
 
 	"github.com/Deimvis/reactionsstorage/src/models"
 	"github.com/Deimvis/reactionsstorage/src/services"
 	"github.com/Deimvis/reactionsstorage/src/utils"
 )
 
-func NewHTTPServer(lc fx.Lifecycle, cs *services.ConfigurationService, rs *services.ReactionsService) *http.Server {
+func NewHTTPServer(lc fx.Lifecycle, cs *services.ConfigurationService, rs *services.ReactionsService, logger *zap.SugaredLogger) *http.Server {
 	addr := fmt.Sprintf(":%s", utils.Getenv("PORT", "8080"))
 	s := &http.Server{
 		Addr:    addr,
-		Handler: NewRouter(cs, rs),
+		Handler: NewRouter(cs, rs, logger),
 	}
 	lc.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
@@ -36,7 +38,7 @@ func NewHTTPServer(lc fx.Lifecycle, cs *services.ConfigurationService, rs *servi
 	return s
 }
 
-func NewRouter(cs *services.ConfigurationService, rs *services.ReactionsService) *gin.Engine {
+func NewRouter(cs *services.ConfigurationService, rs *services.ReactionsService, logger *zap.SugaredLogger) *gin.Engine {
 	router := gin.Default()
 	router.Use(gin.Recovery())
 	router.SetTrustedProxies(nil)
@@ -96,7 +98,7 @@ func NewRouter(cs *services.ConfigurationService, rs *services.ReactionsService)
 		req.Query.Force = &force
 		err := c.BindJSON(&req.Body)
 		if err != nil {
-			log.Printf("Bad request:\n%s", err)
+			log.Printf("Bad request: %s\n", err)
 			return // 400
 		}
 		log.Println("Process request:", req)
@@ -104,10 +106,11 @@ func NewRouter(cs *services.ConfigurationService, rs *services.ReactionsService)
 		resp := rs.AddUserReaction(c, req)
 		c.JSON(resp.Code(), resp)
 
-		log.Println("Return response:", resp)
+		log.Println(spew.Sprintf("Return response: %v", resp))
 	})
 
 	router.DELETE("/reactions", func(c *gin.Context) {
+		logger.Error("mymark")
 		var req models.ReactionsDELETERequest
 		err := c.BindJSON(&req.Body)
 		if err != nil {
@@ -123,6 +126,7 @@ func NewRouter(cs *services.ConfigurationService, rs *services.ReactionsService)
 	})
 
 	router.POST("/reactions/events", func(c *gin.Context) {
+		logger.Error("mymark")
 		fmt.Println("POST /reactions/events was called")
 		// TODO: process consequently add,remove reaction events
 	})

@@ -3,6 +3,8 @@ package rs
 import (
 	"fmt"
 
+	"go.uber.org/zap"
+
 	"github.com/Deimvis/reactionsstorage/src/models"
 )
 
@@ -24,10 +26,10 @@ type Client interface {
 	GetAvailableReactions(req *models.AvailableReactionsGETRequest) (models.Response, error)
 }
 
-func NewClient(ct ClientType, host string, port int, ssl bool) (Client, error) {
+func NewClient(ct ClientType, host string, port int, ssl bool, logger *zap.SugaredLogger) (Client, error) {
 	switch ct {
 	case HTTP_CLIENT:
-		return NewClientHTTP(host, port, ssl), nil
+		return NewClientHTTP(host, port, ssl, logger), nil
 	}
 	return nil, fmt.Errorf("got unsupported client type: %s", ct)
 }

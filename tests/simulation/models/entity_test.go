@@ -19,103 +19,104 @@ func TestNewEntity(t *testing.T) {
 
 func TestEntity_AddMyReaction(t *testing.T) {
 	testCases := []struct {
-		initialState  state
+		initial       Entity
 		addReactionId string
 		expectOk      bool
-		expectState   state
+		expect        Entity
 	}{
 		{
-			state{nil, nil},
+			makeEntity(nil, nil),
 			fake.ReactionId1,
 			true,
-			state{[]ReactionCount{{fake.ReactionId1, 1}}, []string{fake.ReactionId1}},
+			makeEntity([]ReactionCount{{fake.ReactionId1, 1}}, []string{fake.ReactionId1}),
 		},
 		{
-			state{[]ReactionCount{{fake.ReactionId1, 1}}, []string{fake.ReactionId1}},
+			makeEntity([]ReactionCount{{fake.ReactionId1, 1}}, []string{fake.ReactionId1}),
 			fake.ReactionId2,
 			true,
-			state{[]ReactionCount{{fake.ReactionId1, 1}, {fake.ReactionId2, 1}}, []string{fake.ReactionId1, fake.ReactionId2}},
+			makeEntity([]ReactionCount{{fake.ReactionId1, 1}, {fake.ReactionId2, 1}}, []string{fake.ReactionId1, fake.ReactionId2}),
 		},
 		{
-			state{[]ReactionCount{{fake.ReactionId1, 1}}, []string{fake.ReactionId1}},
+			makeEntity([]ReactionCount{{fake.ReactionId1, 1}}, []string{fake.ReactionId1}),
 			fake.ReactionId1,
 			false,
-			state{[]ReactionCount{{fake.ReactionId1, 1}}, []string{fake.ReactionId1}},
+			makeEntity([]ReactionCount{{fake.ReactionId1, 1}}, []string{fake.ReactionId1}),
 		},
 		{
-			state{[]ReactionCount{{fake.ReactionId1, 1}, {fake.ReactionId2, 1}}, nil},
+			makeEntity([]ReactionCount{{fake.ReactionId1, 1}, {fake.ReactionId2, 1}}, nil),
 			fake.ReactionId1,
 			true,
-			state{[]ReactionCount{{fake.ReactionId1, 2}, {fake.ReactionId2, 1}}, []string{fake.ReactionId1}},
+			makeEntity([]ReactionCount{{fake.ReactionId1, 2}, {fake.ReactionId2, 1}}, []string{fake.ReactionId1}),
 		},
 		{
-			state{[]ReactionCount{{fake.ReactionId1, 1}, {fake.ReactionId2, 1}}, []string{fake.ReactionId1}},
+			makeEntity([]ReactionCount{{fake.ReactionId1, 1}, {fake.ReactionId2, 1}}, []string{fake.ReactionId1}),
 			fake.ReactionId2,
 			true,
-			state{[]ReactionCount{{fake.ReactionId1, 1}, {fake.ReactionId2, 2}}, []string{fake.ReactionId1, fake.ReactionId2}},
+			makeEntity([]ReactionCount{{fake.ReactionId1, 1}, {fake.ReactionId2, 2}}, []string{fake.ReactionId1, fake.ReactionId2}),
 		},
 	}
-
-	n := NewNamespace(fake.NamespaceId, setup.RSClient)
-	e := NewEntity("", n)
 	for i, tc := range testCases {
 		t.Run(fmt.Sprint(i), func(t *testing.T) {
-			e.Update(tc.initialState.ReactionCount, tc.initialState.MyReactionIds)
-			ok := e.AddMyReaction(tc.addReactionId)
+			ok := tc.initial.AddMyReaction(tc.addReactionId)
 			require.Equal(t, tc.expectOk, ok)
-			require.ElementsMatch(t, tc.expectState.ReactionCount, e.GetReactionsCount())
-			require.ElementsMatch(t, tc.expectState.MyReactionIds, e.GetMyReactionIds())
+			require.ElementsMatch(t, tc.initial.GetReactionsCount(), tc.expect.GetReactionsCount())
+			require.ElementsMatch(t, tc.initial.GetMyReactionIds(), tc.expect.GetMyReactionIds())
 		})
 	}
 }
 
 func TestEntity_RemoveMyReaction(t *testing.T) {
-	testCases := []struct {
-		initialState     state
-		removeReactionId string
-		expectOk         bool
-		expectState      state
-	}{
-		{
-			state{nil, nil},
-			fake.ReactionId1,
-			false,
-			state{nil, nil},
-		},
-		{
-			state{[]ReactionCount{{fake.ReactionId1, 100}, {fake.ReactionId2, 1}, {fake.ReactionId3, 1}}, []string{fake.ReactionId1, fake.ReactionId2}},
-			fake.ReactionId1,
-			true,
-			state{[]ReactionCount{{fake.ReactionId1, 99}, {fake.ReactionId2, 1}, {fake.ReactionId3, 1}}, []string{fake.ReactionId2}},
-		},
-		{
-			state{[]ReactionCount{{fake.ReactionId1, 100}, {fake.ReactionId2, 1}, {fake.ReactionId3, 1}}, []string{fake.ReactionId1, fake.ReactionId2}},
-			fake.ReactionId2,
-			true,
-			state{[]ReactionCount{{fake.ReactionId1, 100}, {fake.ReactionId2, 0}, {fake.ReactionId3, 1}}, []string{fake.ReactionId1}},
-		},
-		{
-			state{[]ReactionCount{{fake.ReactionId1, 100}, {fake.ReactionId2, 0}, {fake.ReactionId3, 1}}, []string{fake.ReactionId1}},
-			fake.ReactionId2,
-			false,
-			state{[]ReactionCount{{fake.ReactionId1, 100}, {fake.ReactionId2, 0}, {fake.ReactionId3, 1}}, []string{fake.ReactionId1}},
-		},
+	makeEntity := func(rcs []ReactionCount, myReactionIds []string) Entity {
+		n := NewNamespace(fake.NamespaceId, setup.RSClient)
+		e := NewEntity("", n)
+		e.Update(rcs, myReactionIds)
+		return e
 	}
 
-	n := NewNamespace(fake.NamespaceId, setup.RSClient)
-	e := NewEntity("", n)
+	testCases := []struct {
+		initial          Entity
+		removeReactionId string
+		expectOk         bool
+		expect           Entity
+	}{
+		{
+			makeEntity(nil, nil),
+			fake.ReactionId1,
+			false,
+			makeEntity(nil, nil),
+		},
+		{
+			makeEntity([]ReactionCount{{fake.ReactionId1, 100}, {fake.ReactionId2, 1}, {fake.ReactionId3, 1}}, []string{fake.ReactionId1, fake.ReactionId2}),
+			fake.ReactionId1,
+			true,
+			makeEntity([]ReactionCount{{fake.ReactionId1, 99}, {fake.ReactionId2, 1}, {fake.ReactionId3, 1}}, []string{fake.ReactionId2}),
+		},
+		{
+			makeEntity([]ReactionCount{{fake.ReactionId1, 100}, {fake.ReactionId2, 1}, {fake.ReactionId3, 1}}, []string{fake.ReactionId1, fake.ReactionId2}),
+			fake.ReactionId2,
+			true,
+			makeEntity([]ReactionCount{{fake.ReactionId1, 100}, {fake.ReactionId2, 0}, {fake.ReactionId3, 1}}, []string{fake.ReactionId1}),
+		},
+		{
+			makeEntity([]ReactionCount{{fake.ReactionId1, 100}, {fake.ReactionId2, 0}, {fake.ReactionId3, 1}}, []string{fake.ReactionId1}),
+			fake.ReactionId2,
+			false,
+			makeEntity([]ReactionCount{{fake.ReactionId1, 100}, {fake.ReactionId2, 0}, {fake.ReactionId3, 1}}, []string{fake.ReactionId1}),
+		},
+	}
 	for i, tc := range testCases {
 		t.Run(fmt.Sprint(i), func(t *testing.T) {
-			e.Update(tc.initialState.ReactionCount, tc.initialState.MyReactionIds)
-			ok := e.RemoveMyReaction(tc.removeReactionId)
+			ok := tc.initial.RemoveMyReaction(tc.removeReactionId)
 			require.Equal(t, tc.expectOk, ok)
-			require.ElementsMatch(t, tc.expectState.ReactionCount, e.GetReactionsCount())
-			require.ElementsMatch(t, tc.expectState.MyReactionIds, e.GetMyReactionIds())
+			require.ElementsMatch(t, tc.initial.GetReactionsCount(), tc.expect.GetReactionsCount())
+			require.ElementsMatch(t, tc.initial.GetMyReactionIds(), tc.expect.GetMyReactionIds())
 		})
 	}
 }
 
-type state struct {
-	ReactionCount []ReactionCount
-	MyReactionIds []string
+func makeEntity(rcs []ReactionCount, myReactionIds []string) Entity {
+	n := NewNamespace(fake.NamespaceId, setup.RSClient)
+	e := NewEntity("", n)
+	e.Update(rcs, myReactionIds)
+	return e
 }

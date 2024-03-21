@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
+
+	"go.uber.org/zap"
 
 	"github.com/Deimvis/reactionsstorage/src/models"
 )
@@ -15,9 +18,10 @@ import (
 type HTTPClient struct {
 	client  *http.Client
 	baseUrl *url.URL
+	logger  *zap.SugaredLogger
 }
 
-func NewClientHTTP(host string, port int, ssl bool) *HTTPClient {
+func NewClientHTTP(host string, port int, ssl bool, logger *zap.SugaredLogger) *HTTPClient {
 	client := &http.Client{Timeout: 10 * time.Second}
 	baseUrl := &url.URL{}
 	if ssl {
@@ -26,7 +30,7 @@ func NewClientHTTP(host string, port int, ssl bool) *HTTPClient {
 		baseUrl.Scheme = "http"
 	}
 	baseUrl.Host = fmt.Sprintf("%s:%d", host, port)
-	return &HTTPClient{client: client, baseUrl: baseUrl}
+	return &HTTPClient{client: client, baseUrl: baseUrl, logger: logger}
 }
 
 func (c *HTTPClient) GetReactions(req *models.ReactionsGETRequest) (models.Response, error) {
@@ -74,8 +78,10 @@ func (c *HTTPClient) GetAvailableReactions(req *models.AvailableReactionsGETRequ
 func (c *HTTPClient) handle(req models.Request, respOptions []models.Response) (models.Response, error) {
 	resp, err := c.request(req)
 	if err != nil {
+		c.logger.Debugf("Request failed: %s", err)
 		return nil, err
 	}
+	c.logger.Debugf("Received response: %d", resp.StatusCode)
 	return handleResponse(respOptions, resp)
 }
 
@@ -84,6 +90,7 @@ func (c *HTTPClient) request(req models.Request) (*http.Response, error) {
 	reqUrl.Path = req.Path()
 	reqUrl.RawQuery = req.QueryString()
 
+	c.logger.Debugf("Request %s %s %s", req.Method(), reqUrl.String(), string(req.BodyRaw()))
 	httpReq, err := http.NewRequest(req.Method(), reqUrl.String(), bytes.NewReader(req.BodyRaw()))
 	if err != nil {
 		return nil, err
@@ -93,6 +100,13 @@ func (c *HTTPClient) request(req models.Request) (*http.Response, error) {
 
 func handleResponse(options []models.Response, resp *http.Response) (models.Response, error) {
 	defer resp.Body.Close()
+	if resp.StatusCode == 400 {
+		data, err := io.ReadAll(resp.Body)
+		if err != nil {
+			return nil, err
+		}
+		return nil, fmt.Errorf("got status code 400 (bad request): %s", data)
+	}
 	for _, opt := range options {
 		if resp.StatusCode == opt.Code() {
 			return decodeResponse(resp, opt), nil

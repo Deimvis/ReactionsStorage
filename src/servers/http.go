@@ -52,6 +52,7 @@ func NewRouter(cs *services.ConfigurationService, rs *services.ReactionsService,
 
 	router.POST("/configuration", func(c *gin.Context) {
 		c.String(500, "TODO: implement")
+		return
 
 		var resp models.Response
 		switch c.ContentType() {
@@ -67,7 +68,7 @@ func NewRouter(cs *services.ConfigurationService, rs *services.ReactionsService,
 	router.GET("/configuration/namespace", func(c *gin.Context) {
 		var req models.NamespaceGETRequest
 		req.Query.NamespaceId = c.Query("namespace_id")
-		log.Println("Process request:", req)
+		logger.Debugln("Process request:", req)
 
 		resp := cs.GetNamespace(c, &req)
 		c.JSON(resp.Code(), resp)
@@ -75,7 +76,7 @@ func NewRouter(cs *services.ConfigurationService, rs *services.ReactionsService,
 	router.GET("/configuration/available_reactions", func(c *gin.Context) {
 		var req models.AvailableReactionsGETRequest
 		req.Query.NamespaceId = c.Query("namespace_id")
-		log.Println("Process request:", req)
+		logger.Debugln("Process request:", req)
 
 		resp := cs.GetAvailableReactions(c, &req)
 		c.JSON(resp.Code(), resp)
@@ -86,7 +87,7 @@ func NewRouter(cs *services.ConfigurationService, rs *services.ReactionsService,
 		req.Query.NamespaceId = c.Query("namespace_id")
 		req.Query.EntityId = c.Query("entity_id")
 		req.Query.UserId = c.Query("user_id")
-		log.Println("Process request:", req)
+		logger.Debugln("Process request:", req)
 
 		resp := rs.GetUserReactions(c, req)
 		c.JSON(resp.Code(), resp)
@@ -101,34 +102,32 @@ func NewRouter(cs *services.ConfigurationService, rs *services.ReactionsService,
 			log.Printf("Bad request: %s\n", err)
 			return // 400
 		}
-		log.Println("Process request:", req)
+		logger.Debugln("Process request:", req)
 
 		resp := rs.AddUserReaction(c, req)
 		c.JSON(resp.Code(), resp)
 
-		log.Println(spew.Sprintf("Return response: %v", resp))
+		logger.Debugln(spew.Sprintf("Return response: %v", resp))
 	})
 
 	router.DELETE("/reactions", func(c *gin.Context) {
-		logger.Error("mymark")
 		var req models.ReactionsDELETERequest
 		err := c.BindJSON(&req.Body)
 		if err != nil {
 			log.Printf("Bad request:\n%s", err)
 			return // 400
 		}
-		log.Println("Process request:", req)
+		logger.Debugln("Process request:", req)
 
 		resp := rs.RemoveUserReaction(c, req)
 		c.JSON(resp.Code(), resp)
 
-		log.Println("Return response:", resp)
+		logger.Debugln(spew.Sprintf("Return response: %v", resp))
 	})
 
 	router.POST("/reactions/events", func(c *gin.Context) {
-		logger.Error("mymark")
-		fmt.Println("POST /reactions/events was called")
 		// TODO: process consequently add,remove reaction events
+		c.String(500, "TODO: implement")
 	})
 
 	return router

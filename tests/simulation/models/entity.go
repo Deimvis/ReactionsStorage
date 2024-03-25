@@ -1,7 +1,9 @@
 package models
 
 import (
+	"errors"
 	"sync"
+	"time"
 
 	"go.uber.org/zap"
 
@@ -17,9 +19,10 @@ type Entity interface {
 	GetNamespace() Namespace
 	GetReactionsCount() []ReactionCount
 	GetMyReactionIds() []string
+	GetLastUpdateTs() int64
 
 	// Atomically update state
-	Update(rcs []ReactionCount, myReactions []string)
+	Update(rcs []ReactionCount, myReactions []string, conditions ...Condition) error
 	// Adds reactions atomically.
 	// Returns false if reaction was already added.
 	AddMyReaction(reactionId string) bool
@@ -28,11 +31,21 @@ type Entity interface {
 	RemoveMyReaction(reactionId string) bool
 	// First adds and then removes reactions atomically.
 	// Returns statuses (see AddMyReaction and RemoveMyReaction).
-	UpdateMyReactions(addIds []string, removeIds []string) []bool
+	UpdateMyReactions(addIds []string, removeIds []string, conditions ...Condition) ([]bool, error)
+
+	getLastUpdateTs() int64
 }
 
 func NewEntity(id string, namespace Namespace) Entity {
-	return &EntityImpl{id: id, namespace: namespace}
+	return &EntityImpl{id: id, namespace: namespace, lastUpdateTs: time.Now().Unix()}
+}
+
+type Condition func(e Entity) bool
+
+func WithLastUpdateTs(ts int64) Condition {
+	return func(e Entity) bool {
+		return e.getLastUpdateTs() == ts
+	}
 }
 
 // thread safe
@@ -42,47 +55,81 @@ type EntityImpl struct {
 	reactionsCount []ReactionCount
 	myReactionIds  []string
 
-	m sync.Mutex
+	lastUpdateTs int64
+	m            sync.Mutex
 }
 
 func (e *EntityImpl) GetId() string {
+	e.m.Lock()
+	defer e.m.Unlock()
 	return e.id
 }
 
 func (e *EntityImpl) GetNamespace() Namespace {
+	e.m.Lock()
+	defer e.m.Unlock()
 	return e.namespace
 }
 
 func (e *EntityImpl) GetReactionsCount() []ReactionCount {
+	e.m.Lock()
+	defer e.m.Unlock()
 	return e.reactionsCount
 }
 
 func (e *EntityImpl) GetMyReactionIds() []string {
+	e.m.Lock()
+	defer e.m.Unlock()
 	return e.myReactionIds
 }
 
-func (e *EntityImpl) Update(rcs []ReactionCount, myReactions []string) {
+func (e *EntityImpl) GetLastUpdateTs() int64 {
 	e.m.Lock()
 	defer e.m.Unlock()
+	return e.getLastUpdateTs()
+}
+
+func (e *EntityImpl) Update(rcs []ReactionCount, myReactions []string, conditions ...Condition) error {
+	e.m.Lock()
+	defer e.m.Unlock()
+	if !e.fulfills(conditions) {
+		return errors.New("some conditions weren't fulfilled")
+	}
+	defer e.updateTs()
 	e.reactionsCount = rcs
 	e.myReactionIds = myReactions
+	return nil
 }
 
 func (e *EntityImpl) AddMyReaction(reactionId string) bool {
-	e.m.Lock()
-	defer e.m.Unlock()
-	return e.addMyReactionUnsafe(reactionId)
+	res, err := e.UpdateMyReactions([]string{reactionId}, nil)
+	if err != nil {
+		panic("no error was expected")
+	}
+	if len(res) != 1 {
+		panic("bug: incorrect length of res")
+	}
+	return res[0]
 }
 
 func (e *EntityImpl) RemoveMyReaction(reactionId string) bool {
-	e.m.Lock()
-	defer e.m.Unlock()
-	return e.removeMyReactionUnsafe(reactionId)
+	res, err := e.UpdateMyReactions(nil, []string{reactionId})
+	if err != nil {
+		panic("no error was expected")
+	}
+	if len(res) != 1 {
+		panic("bug: incorrect length of res")
+	}
+	return res[0]
 }
 
-func (e *EntityImpl) UpdateMyReactions(addIds []string, removeIds []string) []bool {
+func (e *EntityImpl) UpdateMyReactions(addIds []string, removeIds []string, conditions ...Condition) ([]bool, error) {
 	e.m.Lock()
 	defer e.m.Unlock()
+	if !e.fulfills(conditions) {
+		return nil, errors.New("some conditions weren't fulfilled")
+	}
+	defer e.updateTs()
 	var res []bool
 	for _, id := range addIds {
 		res = append(res, e.addMyReactionUnsafe(id))
@@ -90,7 +137,16 @@ func (e *EntityImpl) UpdateMyReactions(addIds []string, removeIds []string) []bo
 	for _, id := range removeIds {
 		res = append(res, e.removeMyReactionUnsafe(id))
 	}
-	return res
+	return res, nil
+}
+
+func (e *EntityImpl) fulfills(conditions []Condition) bool {
+	for _, cond := range conditions {
+		if !cond(e) {
+			return false
+		}
+	}
+	return true
 }
 
 func (e *EntityImpl) addMyReactionUnsafe(reactionId string) bool {
@@ -130,4 +186,12 @@ func (e *EntityImpl) removeMyReactionUnsafe(reactionId string) bool {
 		zap.L().Warn("inconsistency happened: reaction was found in myReactions, but wasn't present in reactionsCount")
 	}
 	return true
+}
+
+func (e *EntityImpl) getLastUpdateTs() int64 {
+	return e.lastUpdateTs
+}
+
+func (e *EntityImpl) updateTs() {
+	e.lastUpdateTs = time.Now().Unix()
 }

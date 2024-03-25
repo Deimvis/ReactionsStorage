@@ -32,6 +32,13 @@ func MapIn[T any](s []T, mapFn func(T) T) []T {
 	return s
 }
 
+// Shuffle slice
+func Shuffle[T any](s []T) []T {
+	scopy := make([]T, len(s))
+	copy(scopy, s)
+	return ShuffleIn(&scopy)
+}
+
 // Shuffle slice in-place
 func ShuffleIn[T any](sp *[]T) []T {
 	s := *sp

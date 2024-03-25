@@ -17,11 +17,23 @@ import (
 type App interface {
 	GetCurrentTopicId() string
 	GetAvailableTopicIds() []string
-	SwitchTopic(topicId string)
-	CanScroll() bool // returns true if the end of current topic isn't reached
-	Scroll() error   // returns an error if the end of current topic is reached
 	GetVisibleEntities() []Entity
-	Refresh(userId string) Waitable // asynchronously updates reactions for visible entities
+
+	// Simulates switching to group of entities.
+	// Calls Refresh for new visible entities.
+	SwitchTopic(topicId string, userId string) Waitable
+
+	// Returns true if the end of current topic isn't reached
+	CanScroll() bool
+
+	// Simulates scrolling.
+	// Calls Refresh for new visible entities.
+	// Returns an error if the end of current topic is reached.
+	Scroll(userId string) (Waitable, error)
+
+	// Simulates background reactions refresh.
+	// Asynchronously updates reactions for visible entities.
+	Refresh(userId string) Waitable
 
 	// Simulates click on reaction.
 	// Asynchronously sends request and updates given entity.
@@ -49,8 +61,9 @@ func NewApp(client rs.Client, topics []Topic, visibleEntitiesCount int, logger *
 	var app AppImpl
 	app.client = client
 	app.visibleEntitiesCount = visibleEntitiesCount
-	app.topics = append(app.topics, topics...)
-	for i := range app.topics {
+	app.topics = make([]Topic, len(topics))
+	for i, t := range topics {
+		app.topics[i] = t.Copy()
 		app.topics[i].ShuffleEntities()
 	}
 	app.curTopicId = app.topics[rand.Intn(len(app.topics))].GetId()
@@ -66,21 +79,22 @@ func (a *AppImpl) GetAvailableTopicIds() []string {
 	return utils.Map(a.topics, func(t Topic) string { return t.GetId() })
 }
 
-func (a *AppImpl) SwitchTopic(topicId string) {
+func (a *AppImpl) SwitchTopic(topicId string, userId string) Waitable {
 	a.curTopicId = topicId
 	a.curTopicPos = 0
+	return a.Refresh(userId)
 }
 
 func (a *AppImpl) CanScroll() bool {
 	return a.curTopicPos < len(a.getCurTopic().GetEntities())-a.visibleEntitiesCount
 }
 
-func (a *AppImpl) Scroll() error {
+func (a *AppImpl) Scroll(userId string) (Waitable, error) {
 	if !a.CanScroll() {
-		return fmt.Errorf("can't scroll: the end of current topic was reached")
+		return nil, fmt.Errorf("can't scroll: the end of current topic was reached")
 	}
 	a.curTopicPos = min(a.curTopicPos+a.visibleEntitiesCount, len(a.getCurTopic().GetEntities())-a.visibleEntitiesCount)
-	return nil
+	return a.Refresh(userId), nil
 }
 
 func (a *AppImpl) GetVisibleEntities() []Entity {
@@ -100,9 +114,13 @@ func (a *AppImpl) Refresh(userId string) Waitable {
 		wg.Add(1)
 		go func(e Entity) {
 			defer wg.Done()
+			entityTsExpected := e.GetLastUpdateTs()
 			resp, err := a.client.GetReactions(&req)
 			if err != nil {
-				panic(fmt.Errorf("failed to get reactions: %w", err))
+				a.logger.Warnw("Failed to get reactions", "err", err,
+					"entity_id", e.GetId(), "user_id", userId)
+				return
+				// panic(fmt.Errorf("failed to get reactions: %w", err))
 			}
 			if resp.Code() == 200 {
 				resp200, ok := resp.(*models.ReactionsGETResponse200)
@@ -110,7 +128,16 @@ func (a *AppImpl) Refresh(userId string) Waitable {
 					panic(fmt.Errorf("failed to cast response to response200"))
 				}
 				reactionsCount := utils.Map(resp200.ReactionsCount, func(rc models.ReactionCount) ReactionCount { return ReactionCount(rc) })
-				e.Update(reactionsCount, resp200.UserReactions.Reactions)
+				err := e.Update(reactionsCount, resp200.UserReactions.Reactions, WithLastUpdateTs(entityTsExpected))
+				if err != nil {
+					a.logger.Warnw("failed to refresh entity reactions since it was updated during request",
+						"user_id", userId, "entity_id", e.GetId())
+					return
+				}
+				// TODO: remove
+				a.logger.Debugw("Refreshed reactions", "user_id", userId, "entity_id", e.GetId(), "my_reactions", e.GetMyReactionIds())
+			} else {
+				a.logger.Warnf("Get reactions status code: %d", resp.Code())
 			}
 		}(e)
 	}
@@ -135,11 +162,22 @@ func (a *AppImpl) AddReaction(e Entity, userId string, reactionId string) Waitab
 		defer wg.Done()
 		resp, err := a.client.AddReaction(&req)
 		if err != nil {
-			panic(fmt.Errorf("failed to add reaction: %w", err))
+			a.logger.Warnw("Failed to add reaction", "err", err,
+				"entity_id", e.GetId(), "reaction_id", reactionId, "user_id", userId)
+			return
+			// panic(fmt.Errorf("failed to add reaction: %w", err))
 		}
 		if resp.Code() == 200 {
 			removedIds := GetConflictingReactionIds(e.GetNamespace(), reactionId)
+			// TODO: remove
+			a.logger.Debugw("Update my reactions", "user_id", userId, "entity_id", e.GetId(), "add", []string{reactionId}, "remove", removedIds)
 			e.UpdateMyReactions([]string{reactionId}, removedIds)
+		} else if resp.Code() == 403 {
+			resp403, ok := resp.(*models.ReactionsPOSTResponse403)
+			if !ok {
+				panic("failed to cast response to response403")
+			}
+			a.logger.Warnw("Add reaction status code: 403 (constraint violated)", "error", resp403.Error)
 		} else {
 			a.logger.Warnf("Add reaction status code: %d", resp.Code())
 		}
@@ -159,12 +197,22 @@ func (a *AppImpl) RemoveReaction(e Entity, userId string, reactionId string) Wai
 
 	wg.Add(1)
 	go func() {
+		defer wg.Done()
 		resp, err := a.client.RemoveReaction(&req)
 		if err != nil {
-			panic(fmt.Errorf("failed to remove reaction: %w", err))
+			a.logger.Warnw("Failed to remove reaction", "err", err,
+				"entity_id", e.GetId(), "reaction_id", reactionId, "user_id", userId)
+			return
+			// panic(fmt.Errorf("failed to remove reaction: %w", err))
 		}
 		if resp.Code() == 200 {
 			e.RemoveMyReaction(reactionId)
+		} else if resp.Code() == 403 {
+			resp403, ok := resp.(*models.ReactionsDELETEResponse403)
+			if !ok {
+				panic("failed to cast response to response403")
+			}
+			a.logger.Warnw("Remove reaction status code: 403 (constraint violated)", "error", resp403.Error)
 		} else {
 			a.logger.Warnf("Remove reaction status code: %d", resp.Code())
 		}

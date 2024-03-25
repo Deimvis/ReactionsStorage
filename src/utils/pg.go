@@ -11,29 +11,24 @@ import (
 	"go.uber.org/zap"
 )
 
-type myQueryTracer struct {
+type SQLTracer struct {
 	log *zap.SugaredLogger
 }
 
-func (tracer *myQueryTracer) TraceQueryStart(ctx context.Context, _ *pgx.Conn, data pgx.TraceQueryStartData) context.Context {
-	// TODO: make it look ok
-	tracer.log.Infow("Executing command", "sql", data.SQL, "args", data.Args)
+func (tracer *SQLTracer) TraceQueryStart(ctx context.Context, _ *pgx.Conn, data pgx.TraceQueryStartData) context.Context {
+	tracer.log.Debugw("SQL", "query", data.SQL, "args", data.Args)
 	return ctx
 }
 
-func (tracer *myQueryTracer) TraceQueryEnd(ctx context.Context, conn *pgx.Conn, data pgx.TraceQueryEndData) {
-}
+func (tracer *SQLTracer) TraceQueryEnd(ctx context.Context, conn *pgx.Conn, data pgx.TraceQueryEndData) {}
 
 func NewPostgresConnectionPool(lc fx.Lifecycle, logger *zap.SugaredLogger) *pgxpool.Pool {
-	// TODO: pass tracer as a dependency
-	config, err := pgxpool.ParseConfig(os.Getenv("DATABASE_URL")) // Using environment variables instead of a connection string.
+	config, err := pgxpool.ParseConfig(os.Getenv("DATABASE_URL"))
 	if err != nil {
 		panic(err)
 	}
-	tracer := &myQueryTracer{log: logger}
+	tracer := &SQLTracer{log: logger}
 	config.ConnConfig.Tracer = tracer
-
-	// ---
 
 	pool, err := pgxpool.NewWithConfig(context.Background(), config)
 	if err != nil {

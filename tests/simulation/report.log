@@ -1,15 +1,16 @@
+2024-03-23T21:45:43.850+0300	INFO	simulation/main.go:35	Config:
 seed: 42
 
 rules:
   turns:
     count: 120
-    min_duration_ms: 500
+    min_duration_s: 1
 
   users:
-    count: 3
+    count: 100
     # each user will start turn at random point of time
     # inside interval [turn_start_t, turn-start_t + turn_start_skew_ms)
-    turn_start_skew_ms: 400
+    turn_start_skew_ms: 600
   
     screen:
       visible_entities_count: 3
@@ -36,3 +37,5 @@ server:
   host: localhost
   port: 8080
   ssl: false
+
+signal: interrupt

@@ -1,0 +1,1108 @@
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:337 +0xc0 fp=0x14002fd5330 sp=0x14002fd5300 pc=0x101651990
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Acquire(0x140004a60a0, {0x101914c48, 0x14002e35900})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:503 +0x50 fp=0x14002fd5370 sp=0x14002fd5330 pc=0x10164d840
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Query(0x14002e2b0b0?, {0x101914c48, 0x14002e35900}, {0x140001a2090, 0x8d}, {0x140023205e0, 0x2, 0x2})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:603 +0x3c fp=0x14002fd5400 sp=0x14002fd5370 pc=0x10164e1cc
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCount(0x1400050c358, {0x101914c48, 0x14002e35900}, {0x14002e2b09c, 0x9}, {0x14002e2b0b0, 0xd})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:35 +0xe8 fp=0x14002fd5460 sp=0x14002fd5400 pc=0x101655de8
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCountStrict(0x3f?, {0x101914c48?, 0x14002e35900?}, {0x14002e2b09c?, 0x0?}, {0x14002e2b0b0?, 0x14002fd5518?})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:43 +0x2c fp=0x14002fd54c0 sp=0x14002fd5460 pc=0x101655ebc
+github.com/Deimvis/reactionsstorage/src/services.(*ReactionsService).GetUserReactions(0x1400052cfa0, {0x101914c48, 0x14002e35900}, {{{0x14002e2b09c, 0x9}, {0x14002e2b0b0, 0xd}, {0x14002e2b0c6, 0x9}}})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/services/reactions.go:22 +0x58 fp=0x14002fd5620 sp=0x14002fd54c0 pc=0x101658448
+github.com/Deimvis/reactionsstorage/src/servers.NewRouter.func6(0x1010693f0?)
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/servers/http.go:92 +0x11c fp=0x14002fd5710 sp=0x14002fd5620 pc=0x10165a40c
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002e35900)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002fd5760 sp=0x14002fd5710 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002e35900)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002fd57b0 sp=0x14002fd5760 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x14002e35900)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0 fp=0x14002fd5960 sp=0x14002fd57b0 pc=0x1014dfa80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000102ea0, 0x14002e35900)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 +0x524 fp=0x14002fd5af0 sp=0x14002fd5960 pc=0x1014debb4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000102ea0, {0x101913110?, 0x14002e60380}, 0x14002e35800)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0 fp=0x14002fd5b30 sp=0x14002fd5af0 pc=0x1014de500
+net/http.serverHandler.ServeHTTP({0x14002e56930?}, {0x101913110?, 0x14002e60380?}, 0x6?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2938 +0xbc fp=0x14002fd5b60 sp=0x14002fd5b30 pc=0x10126b50c
+net/http.(*conn).serve(0x14002eca510, {0x101914c80, 0x140003723c0})
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2009 +0x518 fp=0x14002fd5fa0 sp=0x14002fd5b60 pc=0x101267908
+net/http.(*Server).Serve.func3()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x30 fp=0x14002fd5fd0 sp=0x14002fd5fa0 pc=0x10126bc20
+runtime.goexit()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/asm_arm64.s:1197 +0x4 fp=0x14002fd5fd0 sp=0x14002fd5fd0 pc=0x101068504
+created by net/http.(*Server).Serve in goroutine 53
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x4cc
+
+goroutine 28540 [select, 3 minutes]:
+runtime.gopark(0x14002fd7318?, 0x2?, 0x80?, 0x61?, 0x14002fd72c4?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/proc.go:398 +0xc8 fp=0x14002fd7170 sp=0x14002fd7150 pc=0x101037268
+runtime.selectgo(0x14002fd7318, 0x14002fd72c0, 0x0?, 0x0, 0x14002fd72b8?, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/select.go:327 +0x608 fp=0x14002fd7280 sp=0x14002fd7170 pc=0x101047a38
+golang.org/x/sync/semaphore.(*Weighted).Acquire(0x1400045c0f0, {0x101914c48, 0x14002e35a00}, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/x/sync@v0.1.0/semaphore/semaphore.go:60 +0x3b4 fp=0x14002fd7340 sp=0x14002fd7280 pc=0x10164a604
+github.com/jackc/puddle/v2.(*Pool[...]).acquire(0x101921560, {0x101914c48, 0x14002e35a00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:350 +0x78 fp=0x14002fd73d0 sp=0x14002fd7340 pc=0x101651498
+github.com/jackc/puddle/v2.(*Pool[...]).Acquire(0x101921560, {0x101914c48, 0x14002e35a00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:337 +0xc0 fp=0x14002fd7400 sp=0x14002fd73d0 pc=0x101651990
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Acquire(0x140004a60a0, {0x101914c48, 0x14002e35a00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:503 +0x50 fp=0x14002fd7440 sp=0x14002fd7400 pc=0x10164d840
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Query(0x14000a0a840?, {0x101914c48, 0x14002e35a00}, {0x140001a2000, 0x86}, {0x14002e506b0, 0x1, 0x1})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:603 +0x3c fp=0x14002fd74d0 sp=0x14002fd7440 pc=0x10164e1cc
+github.com/Deimvis/reactionsstorage/src/storages.(*ConfigurationStorage).GetNamespace(0x1400050c280, {0x101914c48, 0x14002e35a00}, {0x14000a0a840, 0x9})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/configuration.go:50 +0xa4 fp=0x14002fd7530 sp=0x14002fd74d0 pc=0x101654784
+github.com/Deimvis/reactionsstorage/src/services.(*ReactionsService).AddUserReaction(0x1400052cfa0, {0x101914c48, 0x14002e35a00}, {{0x14000a0a824}, {{0x14000a0a840, 0x9}, {0x14000a0a850, 0xd}, {0x14000a0a838, 0x8}, ...}})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/services/reactions.go:36 +0x60 fp=0x14002fd75d0 sp=0x14002fd7530 pc=0x101658720
+github.com/Deimvis/reactionsstorage/src/servers.NewRouter.func7(0x1010693f0?)
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/servers/http.go:107 +0x200 fp=0x14002fd7710 sp=0x14002fd75d0 pc=0x10165a180
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002e35a00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002fd7760 sp=0x14002fd7710 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002e35a00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002fd77b0 sp=0x14002fd7760 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x14002e35a00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0 fp=0x14002fd7960 sp=0x14002fd77b0 pc=0x1014dfa80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000102ea0, 0x14002e35a00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 +0x524 fp=0x14002fd7af0 sp=0x14002fd7960 pc=0x1014debb4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000102ea0, {0x101913110?, 0x14002e60540}, 0x14002fd0200)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0 fp=0x14002fd7b30 sp=0x14002fd7af0 pc=0x1014de500
+net/http.serverHandler.ServeHTTP({0x101910360?}, {0x101913110?, 0x14002e60540?}, 0x6?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2938 +0xbc fp=0x14002fd7b60 sp=0x14002fd7b30 pc=0x10126b50c
+net/http.(*conn).serve(0x14002eca5a0, {0x101914c80, 0x140003723c0})
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2009 +0x518 fp=0x14002fd7fa0 sp=0x14002fd7b60 pc=0x101267908
+net/http.(*Server).Serve.func3()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x30 fp=0x14002fd7fd0 sp=0x14002fd7fa0 pc=0x10126bc20
+runtime.goexit()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/asm_arm64.s:1197 +0x4 fp=0x14002fd7fd0 sp=0x14002fd7fd0 pc=0x101068504
+created by net/http.(*Server).Serve in goroutine 53
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x4cc
+
+goroutine 28541 [select, 3 minutes]:
+runtime.gopark(0x1400304f248?, 0x2?, 0xf8?, 0xf0?, 0x1400304f1f4?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/proc.go:398 +0xc8 fp=0x1400304f0a0 sp=0x1400304f080 pc=0x101037268
+runtime.selectgo(0x1400304f248, 0x1400304f1f0, 0x1400304f1e8?, 0x0, 0x1400304f1e8?, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/select.go:327 +0x608 fp=0x1400304f1b0 sp=0x1400304f0a0 pc=0x101047a38
+golang.org/x/sync/semaphore.(*Weighted).Acquire(0x1400045c0f0, {0x101914c48, 0x14002ede000}, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/x/sync@v0.1.0/semaphore/semaphore.go:60 +0x3b4 fp=0x1400304f270 sp=0x1400304f1b0 pc=0x10164a604
+github.com/jackc/puddle/v2.(*Pool[...]).acquire(0x101921560, {0x101914c48, 0x14002ede000})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:350 +0x78 fp=0x1400304f300 sp=0x1400304f270 pc=0x101651498
+github.com/jackc/puddle/v2.(*Pool[...]).Acquire(0x101921560, {0x101914c48, 0x14002ede000})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:337 +0xc0 fp=0x1400304f330 sp=0x1400304f300 pc=0x101651990
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Acquire(0x140004a60a0, {0x101914c48, 0x14002ede000})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:503 +0x50 fp=0x1400304f370 sp=0x1400304f330 pc=0x10164d840
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Query(0x14002ec08d0?, {0x101914c48, 0x14002ede000}, {0x140001a2090, 0x8d}, {0x1400028f420, 0x2, 0x2})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:603 +0x3c fp=0x1400304f400 sp=0x1400304f370 pc=0x10164e1cc
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCount(0x1400050c358, {0x101914c48, 0x14002ede000}, {0x14002ec08bc, 0x9}, {0x14002ec08d0, 0xd})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:35 +0xe8 fp=0x1400304f460 sp=0x1400304f400 pc=0x101655de8
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCountStrict(0x3f?, {0x101914c48?, 0x14002ede000?}, {0x14002ec08bc?, 0x0?}, {0x14002ec08d0?, 0x1400304f518?})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:43 +0x2c fp=0x1400304f4c0 sp=0x1400304f460 pc=0x101655ebc
+github.com/Deimvis/reactionsstorage/src/services.(*ReactionsService).GetUserReactions(0x1400052cfa0, {0x101914c48, 0x14002ede000}, {{{0x14002ec08bc, 0x9}, {0x14002ec08d0, 0xd}, {0x14002ec08e6, 0x9}}})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/services/reactions.go:22 +0x58 fp=0x1400304f620 sp=0x1400304f4c0 pc=0x101658448
+github.com/Deimvis/reactionsstorage/src/servers.NewRouter.func6(0x1010693f0?)
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/servers/http.go:92 +0x11c fp=0x1400304f710 sp=0x1400304f620 pc=0x10165a40c
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002ede000)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x1400304f760 sp=0x1400304f710 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002ede000)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x1400304f7b0 sp=0x1400304f760 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x14002ede000)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0 fp=0x1400304f960 sp=0x1400304f7b0 pc=0x1014dfa80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000102ea0, 0x14002ede000)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 +0x524 fp=0x1400304faf0 sp=0x1400304f960 pc=0x1014debb4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000102ea0, {0x101913110?, 0x14002ec2e00}, 0x14002e89f00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0 fp=0x1400304fb30 sp=0x1400304faf0 pc=0x1014de500
+net/http.serverHandler.ServeHTTP({0x14002e81e30?}, {0x101913110?, 0x14002ec2e00?}, 0x6?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2938 +0xbc fp=0x1400304fb60 sp=0x1400304fb30 pc=0x10126b50c
+net/http.(*conn).serve(0x14002eca630, {0x101914c80, 0x140003723c0})
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2009 +0x518 fp=0x1400304ffa0 sp=0x1400304fb60 pc=0x101267908
+net/http.(*Server).Serve.func3()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x30 fp=0x1400304ffd0 sp=0x1400304ffa0 pc=0x10126bc20
+runtime.goexit()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/asm_arm64.s:1197 +0x4 fp=0x1400304ffd0 sp=0x1400304ffd0 pc=0x101068504
+created by net/http.(*Server).Serve in goroutine 53
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x4cc
+
+goroutine 28508 [select, 3 minutes]:
+runtime.gopark(0x14003101248?, 0x2?, 0xf8?, 0x10?, 0x140031011f4?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/proc.go:398 +0xc8 fp=0x140031010a0 sp=0x14003101080 pc=0x101037268
+runtime.selectgo(0x14003101248, 0x140031011f0, 0x140031011e8?, 0x0, 0x140031011e8?, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/select.go:327 +0x608 fp=0x140031011b0 sp=0x140031010a0 pc=0x101047a38
+golang.org/x/sync/semaphore.(*Weighted).Acquire(0x1400045c0f0, {0x101914c48, 0x14002ede200}, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/x/sync@v0.1.0/semaphore/semaphore.go:60 +0x3b4 fp=0x14003101270 sp=0x140031011b0 pc=0x10164a604
+github.com/jackc/puddle/v2.(*Pool[...]).acquire(0x101921560, {0x101914c48, 0x14002ede200})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:350 +0x78 fp=0x14003101300 sp=0x14003101270 pc=0x101651498
+github.com/jackc/puddle/v2.(*Pool[...]).Acquire(0x101921560, {0x101914c48, 0x14002ede200})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:337 +0xc0 fp=0x14003101330 sp=0x14003101300 pc=0x101651990
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Acquire(0x140004a60a0, {0x101914c48, 0x14002ede200})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:503 +0x50 fp=0x14003101370 sp=0x14003101330 pc=0x10164d840
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Query(0x14002ec09f0?, {0x101914c48, 0x14002ede200}, {0x140001a2090, 0x8d}, {0x1400028f440, 0x2, 0x2})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:603 +0x3c fp=0x14003101400 sp=0x14003101370 pc=0x10164e1cc
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCount(0x1400050c358, {0x101914c48, 0x14002ede200}, {0x14002ec09dc, 0x9}, {0x14002ec09f0, 0xd})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:35 +0xe8 fp=0x14003101460 sp=0x14003101400 pc=0x101655de8
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCountStrict(0x3f?, {0x101914c48?, 0x14002ede200?}, {0x14002ec09dc?, 0x0?}, {0x14002ec09f0?, 0x14003101518?})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:43 +0x2c fp=0x140031014c0 sp=0x14003101460 pc=0x101655ebc
+github.com/Deimvis/reactionsstorage/src/services.(*ReactionsService).GetUserReactions(0x1400052cfa0, {0x101914c48, 0x14002ede200}, {{{0x14002ec09dc, 0x9}, {0x14002ec09f0, 0xd}, {0x14002ec0a06, 0x9}}})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/services/reactions.go:22 +0x58 fp=0x14003101620 sp=0x140031014c0 pc=0x101658448
+github.com/Deimvis/reactionsstorage/src/servers.NewRouter.func6(0x1010693f0?)
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/servers/http.go:92 +0x11c fp=0x14003101710 sp=0x14003101620 pc=0x10165a40c
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002ede200)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14003101760 sp=0x14003101710 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002ede200)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x140031017b0 sp=0x14003101760 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x14002ede200)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0 fp=0x14003101960 sp=0x140031017b0 pc=0x1014dfa80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000102ea0, 0x14002ede200)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 +0x524 fp=0x14003101af0 sp=0x14003101960 pc=0x1014debb4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000102ea0, {0x101913110?, 0x14002ec2fc0}, 0x14002ede100)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0 fp=0x14003101b30 sp=0x14003101af0 pc=0x1014de500
+net/http.serverHandler.ServeHTTP({0x14002ee2000?}, {0x101913110?, 0x14002ec2fc0?}, 0x6?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2938 +0xbc fp=0x14003101b60 sp=0x14003101b30 pc=0x10126b50c
+net/http.(*conn).serve(0x14002e5a5a0, {0x101914c80, 0x140003723c0})
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2009 +0x518 fp=0x14003101fa0 sp=0x14003101b60 pc=0x101267908
+net/http.(*Server).Serve.func3()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x30 fp=0x14003101fd0 sp=0x14003101fa0 pc=0x10126bc20
+runtime.goexit()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/asm_arm64.s:1197 +0x4 fp=0x14003101fd0 sp=0x14003101fd0 pc=0x101068504
+created by net/http.(*Server).Serve in goroutine 53
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x4cc
+
+goroutine 28509 [select, 3 minutes]:
+runtime.gopark(0x14002fe9248?, 0x2?, 0xf8?, 0x90?, 0x14002fe91f4?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/proc.go:398 +0xc8 fp=0x14002fe90a0 sp=0x14002fe9080 pc=0x101037268
+runtime.selectgo(0x14002fe9248, 0x14002fe91f0, 0x14002fe91e8?, 0x0, 0x14002fe91e8?, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/select.go:327 +0x608 fp=0x14002fe91b0 sp=0x14002fe90a0 pc=0x101047a38
+golang.org/x/sync/semaphore.(*Weighted).Acquire(0x1400045c0f0, {0x101914c48, 0x14002fd0600}, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/x/sync@v0.1.0/semaphore/semaphore.go:60 +0x3b4 fp=0x14002fe9270 sp=0x14002fe91b0 pc=0x10164a604
+github.com/jackc/puddle/v2.(*Pool[...]).acquire(0x101921560, {0x101914c48, 0x14002fd0600})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:350 +0x78 fp=0x14002fe9300 sp=0x14002fe9270 pc=0x101651498
+github.com/jackc/puddle/v2.(*Pool[...]).Acquire(0x101921560, {0x101914c48, 0x14002fd0600})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:337 +0xc0 fp=0x14002fe9330 sp=0x14002fe9300 pc=0x101651990
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Acquire(0x140004a60a0, {0x101914c48, 0x14002fd0600})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:503 +0x50 fp=0x14002fe9370 sp=0x14002fe9330 pc=0x10164d840
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Query(0x14002fe2030?, {0x101914c48, 0x14002fd0600}, {0x140001a2090, 0x8d}, {0x1400041ea00, 0x2, 0x2})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:603 +0x3c fp=0x14002fe9400 sp=0x14002fe9370 pc=0x10164e1cc
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCount(0x1400050c358, {0x101914c48, 0x14002fd0600}, {0x14002fe201c, 0x9}, {0x14002fe2030, 0xd})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:35 +0xe8 fp=0x14002fe9460 sp=0x14002fe9400 pc=0x101655de8
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCountStrict(0x3f?, {0x101914c48?, 0x14002fd0600?}, {0x14002fe201c?, 0x0?}, {0x14002fe2030?, 0x14002fe9518?})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:43 +0x2c fp=0x14002fe94c0 sp=0x14002fe9460 pc=0x101655ebc
+github.com/Deimvis/reactionsstorage/src/services.(*ReactionsService).GetUserReactions(0x1400052cfa0, {0x101914c48, 0x14002fd0600}, {{{0x14002fe201c, 0x9}, {0x14002fe2030, 0xd}, {0x14002fe2046, 0x9}}})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/services/reactions.go:22 +0x58 fp=0x14002fe9620 sp=0x14002fe94c0 pc=0x101658448
+github.com/Deimvis/reactionsstorage/src/servers.NewRouter.func6(0x1010693f0?)
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/servers/http.go:92 +0x11c fp=0x14002fe9710 sp=0x14002fe9620 pc=0x10165a40c
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002fd0600)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002fe9760 sp=0x14002fe9710 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002fd0600)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002fe97b0 sp=0x14002fe9760 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x14002fd0600)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0 fp=0x14002fe9960 sp=0x14002fe97b0 pc=0x1014dfa80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000102ea0, 0x14002fd0600)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 +0x524 fp=0x14002fe9af0 sp=0x14002fe9960 pc=0x1014debb4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000102ea0, {0x101913110?, 0x14002f87500}, 0x14002fd0500)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0 fp=0x14002fe9b30 sp=0x14002fe9af0 pc=0x1014de500
+net/http.serverHandler.ServeHTTP({0x14002fcc3f0?}, {0x101913110?, 0x14002f87500?}, 0x6?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2938 +0xbc fp=0x14002fe9b60 sp=0x14002fe9b30 pc=0x10126b50c
+net/http.(*conn).serve(0x14002e5a630, {0x101914c80, 0x140003723c0})
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2009 +0x518 fp=0x14002fe9fa0 sp=0x14002fe9b60 pc=0x101267908
+net/http.(*Server).Serve.func3()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x30 fp=0x14002fe9fd0 sp=0x14002fe9fa0 pc=0x10126bc20
+runtime.goexit()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/asm_arm64.s:1197 +0x4 fp=0x14002fe9fd0 sp=0x14002fe9fd0 pc=0x101068504
+created by net/http.(*Server).Serve in goroutine 53
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x4cc
+
+goroutine 28510 [select, 3 minutes]:
+runtime.gopark(0x14002fdb318?, 0x2?, 0x80?, 0x61?, 0x14002fdb2c4?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/proc.go:398 +0xc8 fp=0x14002fdb170 sp=0x14002fdb150 pc=0x101037268
+runtime.selectgo(0x14002fdb318, 0x14002fdb2c0, 0x0?, 0x0, 0x14002fdb2b8?, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/select.go:327 +0x608 fp=0x14002fdb280 sp=0x14002fdb170 pc=0x101047a38
+golang.org/x/sync/semaphore.(*Weighted).Acquire(0x1400045c0f0, {0x101914c48, 0x14002fd0400}, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/x/sync@v0.1.0/semaphore/semaphore.go:60 +0x3b4 fp=0x14002fdb340 sp=0x14002fdb280 pc=0x10164a604
+github.com/jackc/puddle/v2.(*Pool[...]).acquire(0x101921560, {0x101914c48, 0x14002fd0400})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:350 +0x78 fp=0x14002fdb3d0 sp=0x14002fdb340 pc=0x101651498
+github.com/jackc/puddle/v2.(*Pool[...]).Acquire(0x101921560, {0x101914c48, 0x14002fd0400})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:337 +0xc0 fp=0x14002fdb400 sp=0x14002fdb3d0 pc=0x101651990
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Acquire(0x140004a60a0, {0x101914c48, 0x14002fd0400})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:503 +0x50 fp=0x14002fdb440 sp=0x14002fdb400 pc=0x10164d840
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Query(0x14000a82810?, {0x101914c48, 0x14002fd0400}, {0x140001a2000, 0x86}, {0x14002d0b740, 0x1, 0x1})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:603 +0x3c fp=0x14002fdb4d0 sp=0x14002fdb440 pc=0x10164e1cc
+github.com/Deimvis/reactionsstorage/src/storages.(*ConfigurationStorage).GetNamespace(0x1400050c280, {0x101914c48, 0x14002fd0400}, {0x14000a82810, 0x9})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/configuration.go:50 +0xa4 fp=0x14002fdb530 sp=0x14002fdb4d0 pc=0x101654784
+github.com/Deimvis/reactionsstorage/src/services.(*ReactionsService).AddUserReaction(0x1400052cfa0, {0x101914c48, 0x14002fd0400}, {{0x14000a827f4}, {{0x14000a82810, 0x9}, {0x14000a82820, 0xd}, {0x14000a82808, 0x8}, ...}})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/services/reactions.go:36 +0x60 fp=0x14002fdb5d0 sp=0x14002fdb530 pc=0x101658720
+github.com/Deimvis/reactionsstorage/src/servers.NewRouter.func7(0x1010693f0?)
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/servers/http.go:107 +0x200 fp=0x14002fdb710 sp=0x14002fdb5d0 pc=0x10165a180
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002fd0400)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002fdb760 sp=0x14002fdb710 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002fd0400)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002fdb7b0 sp=0x14002fdb760 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x14002fd0400)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0 fp=0x14002fdb960 sp=0x14002fdb7b0 pc=0x1014dfa80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000102ea0, 0x14002fd0400)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 +0x524 fp=0x14002fdbaf0 sp=0x14002fdb960 pc=0x1014debb4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000102ea0, {0x101913110?, 0x14002f87340}, 0x14002fd0300)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0 fp=0x14002fdbb30 sp=0x14002fdbaf0 pc=0x1014de500
+net/http.serverHandler.ServeHTTP({0x101910360?}, {0x101913110?, 0x14002f87340?}, 0x6?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2938 +0xbc fp=0x14002fdbb60 sp=0x14002fdbb30 pc=0x10126b50c
+net/http.(*conn).serve(0x14002e5a6c0, {0x101914c80, 0x140003723c0})
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2009 +0x518 fp=0x14002fdbfa0 sp=0x14002fdbb60 pc=0x101267908
+net/http.(*Server).Serve.func3()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x30 fp=0x14002fdbfd0 sp=0x14002fdbfa0 pc=0x10126bc20
+runtime.goexit()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/asm_arm64.s:1197 +0x4 fp=0x14002fdbfd0 sp=0x14002fdbfd0 pc=0x101068504
+created by net/http.(*Server).Serve in goroutine 53
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x4cc
+
+goroutine 28511 [select, 3 minutes]:
+runtime.gopark(0x14003053248?, 0x2?, 0xf8?, 0x30?, 0x140030531f4?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/proc.go:398 +0xc8 fp=0x140030530a0 sp=0x14003053080 pc=0x101037268
+runtime.selectgo(0x14003053248, 0x140030531f0, 0x140030531e8?, 0x0, 0x140030531e8?, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/select.go:327 +0x608 fp=0x140030531b0 sp=0x140030530a0 pc=0x101047a38
+golang.org/x/sync/semaphore.(*Weighted).Acquire(0x1400045c0f0, {0x101914c48, 0x14003009a00}, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/x/sync@v0.1.0/semaphore/semaphore.go:60 +0x3b4 fp=0x14003053270 sp=0x140030531b0 pc=0x10164a604
+github.com/jackc/puddle/v2.(*Pool[...]).acquire(0x101921560, {0x101914c48, 0x14003009a00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:350 +0x78 fp=0x14003053300 sp=0x14003053270 pc=0x101651498
+github.com/jackc/puddle/v2.(*Pool[...]).Acquire(0x101921560, {0x101914c48, 0x14003009a00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:337 +0xc0 fp=0x14003053330 sp=0x14003053300 pc=0x101651990
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Acquire(0x140004a60a0, {0x101914c48, 0x14003009a00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:503 +0x50 fp=0x14003053370 sp=0x14003053330 pc=0x10164d840
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Query(0x14002937cb0?, {0x101914c48, 0x14003009a00}, {0x140001a2090, 0x8d}, {0x1400228adc0, 0x2, 0x2})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:603 +0x3c fp=0x14003053400 sp=0x14003053370 pc=0x10164e1cc
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCount(0x1400050c358, {0x101914c48, 0x14003009a00}, {0x14002937c9c, 0x9}, {0x14002937cb0, 0xd})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:35 +0xe8 fp=0x14003053460 sp=0x14003053400 pc=0x101655de8
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCountStrict(0x3f?, {0x101914c48?, 0x14003009a00?}, {0x14002937c9c?, 0x0?}, {0x14002937cb0?, 0x14003053518?})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:43 +0x2c fp=0x140030534c0 sp=0x14003053460 pc=0x101655ebc
+github.com/Deimvis/reactionsstorage/src/services.(*ReactionsService).GetUserReactions(0x1400052cfa0, {0x101914c48, 0x14003009a00}, {{{0x14002937c9c, 0x9}, {0x14002937cb0, 0xd}, {0x14002937cc6, 0x9}}})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/services/reactions.go:22 +0x58 fp=0x14003053620 sp=0x140030534c0 pc=0x101658448
+github.com/Deimvis/reactionsstorage/src/servers.NewRouter.func6(0x1010693f0?)
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/servers/http.go:92 +0x11c fp=0x14003053710 sp=0x14003053620 pc=0x10165a40c
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14003009a00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14003053760 sp=0x14003053710 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14003009a00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x140030537b0 sp=0x14003053760 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x14003009a00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0 fp=0x14003053960 sp=0x140030537b0 pc=0x1014dfa80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000102ea0, 0x14003009a00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 +0x524 fp=0x14003053af0 sp=0x14003053960 pc=0x1014debb4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000102ea0, {0x101913110?, 0x14003026a80}, 0x14003009900)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0 fp=0x14003053b30 sp=0x14003053af0 pc=0x1014de500
+net/http.serverHandler.ServeHTTP({0x14003017a10?}, {0x101913110?, 0x14003026a80?}, 0x6?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2938 +0xbc fp=0x14003053b60 sp=0x14003053b30 pc=0x10126b50c
+net/http.(*conn).serve(0x14002e5a750, {0x101914c80, 0x140003723c0})
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2009 +0x518 fp=0x14003053fa0 sp=0x14003053b60 pc=0x101267908
+net/http.(*Server).Serve.func3()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x30 fp=0x14003053fd0 sp=0x14003053fa0 pc=0x10126bc20
+runtime.goexit()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/asm_arm64.s:1197 +0x4 fp=0x14003053fd0 sp=0x14003053fd0 pc=0x101068504
+created by net/http.(*Server).Serve in goroutine 53
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x4cc
+
+goroutine 28512 [select, 3 minutes]:
+runtime.gopark(0x14003107318?, 0x2?, 0x80?, 0x61?, 0x140031072c4?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/proc.go:398 +0xc8 fp=0x14003107170 sp=0x14003107150 pc=0x101037268
+runtime.selectgo(0x14003107318, 0x140031072c0, 0x1?, 0x0, 0x140031072b8?, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/select.go:327 +0x608 fp=0x14003107280 sp=0x14003107170 pc=0x101047a38
+golang.org/x/sync/semaphore.(*Weighted).Acquire(0x1400045c0f0, {0x101914c48, 0x14002e35f00}, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/x/sync@v0.1.0/semaphore/semaphore.go:60 +0x3b4 fp=0x14003107340 sp=0x14003107280 pc=0x10164a604
+github.com/jackc/puddle/v2.(*Pool[...]).acquire(0x101921560, {0x101914c48, 0x14002e35f00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:350 +0x78 fp=0x140031073d0 sp=0x14003107340 pc=0x101651498
+github.com/jackc/puddle/v2.(*Pool[...]).Acquire(0x101921560, {0x101914c48, 0x14002e35f00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:337 +0xc0 fp=0x14003107400 sp=0x140031073d0 pc=0x101651990
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Acquire(0x140004a60a0, {0x101914c48, 0x14002e35f00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:503 +0x50 fp=0x14003107440 sp=0x14003107400 pc=0x10164d840
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Query(0x14000a0a8f0?, {0x101914c48, 0x14002e35f00}, {0x140001a2000, 0x86}, {0x14002759b80, 0x1, 0x1})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:603 +0x3c fp=0x140031074d0 sp=0x14003107440 pc=0x10164e1cc
+github.com/Deimvis/reactionsstorage/src/storages.(*ConfigurationStorage).GetNamespace(0x1400050c280, {0x101914c48, 0x14002e35f00}, {0x14000a0a8f0, 0x9})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/configuration.go:50 +0xa4 fp=0x14003107530 sp=0x140031074d0 pc=0x101654784
+github.com/Deimvis/reactionsstorage/src/services.(*ReactionsService).AddUserReaction(0x1400052cfa0, {0x101914c48, 0x14002e35f00}, {{0x14000a0a8d8}, {{0x14000a0a8f0, 0x9}, {0x14000a0a900, 0xd}, {0x14000a0a910, 0x8}, ...}})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/services/reactions.go:36 +0x60 fp=0x140031075d0 sp=0x14003107530 pc=0x101658720
+github.com/Deimvis/reactionsstorage/src/servers.NewRouter.func7(0x1010693f0?)
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/servers/http.go:107 +0x200 fp=0x14003107710 sp=0x140031075d0 pc=0x10165a180
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002e35f00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14003107760 sp=0x14003107710 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002e35f00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x140031077b0 sp=0x14003107760 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x14002e35f00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0 fp=0x14003107960 sp=0x140031077b0 pc=0x1014dfa80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000102ea0, 0x14002e35f00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 +0x524 fp=0x14003107af0 sp=0x14003107960 pc=0x1014debb4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000102ea0, {0x101913110?, 0x14002e608c0}, 0x14003009800)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0 fp=0x14003107b30 sp=0x14003107af0 pc=0x1014de500
+net/http.serverHandler.ServeHTTP({0x101910360?}, {0x101913110?, 0x14002e608c0?}, 0x6?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2938 +0xbc fp=0x14003107b60 sp=0x14003107b30 pc=0x10126b50c
+net/http.(*conn).serve(0x14002e5a7e0, {0x101914c80, 0x140003723c0})
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2009 +0x518 fp=0x14003107fa0 sp=0x14003107b60 pc=0x101267908
+net/http.(*Server).Serve.func3()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x30 fp=0x14003107fd0 sp=0x14003107fa0 pc=0x10126bc20
+runtime.goexit()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/asm_arm64.s:1197 +0x4 fp=0x14003107fd0 sp=0x14003107fd0 pc=0x101068504
+created by net/http.(*Server).Serve in goroutine 53
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x4cc
+
+goroutine 28513 [select, 3 minutes]:
+runtime.gopark(0x14002ff1248?, 0x2?, 0xf8?, 0x10?, 0x14002ff11f4?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/proc.go:398 +0xc8 fp=0x14002ff10a0 sp=0x14002ff1080 pc=0x101037268
+runtime.selectgo(0x14002ff1248, 0x14002ff11f0, 0x14002ff11e8?, 0x0, 0x14002ff11e8?, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/select.go:327 +0x608 fp=0x14002ff11b0 sp=0x14002ff10a0 pc=0x101047a38
+golang.org/x/sync/semaphore.(*Weighted).Acquire(0x1400045c0f0, {0x101914c48, 0x14002df2f00}, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/x/sync@v0.1.0/semaphore/semaphore.go:60 +0x3b4 fp=0x14002ff1270 sp=0x14002ff11b0 pc=0x10164a604
+github.com/jackc/puddle/v2.(*Pool[...]).acquire(0x101921560, {0x101914c48, 0x14002df2f00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:350 +0x78 fp=0x14002ff1300 sp=0x14002ff1270 pc=0x101651498
+github.com/jackc/puddle/v2.(*Pool[...]).Acquire(0x101921560, {0x101914c48, 0x14002df2f00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:337 +0xc0 fp=0x14002ff1330 sp=0x14002ff1300 pc=0x101651990
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Acquire(0x140004a60a0, {0x101914c48, 0x14002df2f00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:503 +0x50 fp=0x14002ff1370 sp=0x14002ff1330 pc=0x10164d840
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Query(0x14002ddc6f0?, {0x101914c48, 0x14002df2f00}, {0x140001a2090, 0x8d}, {0x140008850a0, 0x2, 0x2})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:603 +0x3c fp=0x14002ff1400 sp=0x14002ff1370 pc=0x10164e1cc
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCount(0x1400050c358, {0x101914c48, 0x14002df2f00}, {0x14002ddc6dc, 0x9}, {0x14002ddc6f0, 0xd})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:35 +0xe8 fp=0x14002ff1460 sp=0x14002ff1400 pc=0x101655de8
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCountStrict(0x3f?, {0x101914c48?, 0x14002df2f00?}, {0x14002ddc6dc?, 0x0?}, {0x14002ddc6f0?, 0x14002ff1518?})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:43 +0x2c fp=0x14002ff14c0 sp=0x14002ff1460 pc=0x101655ebc
+github.com/Deimvis/reactionsstorage/src/services.(*ReactionsService).GetUserReactions(0x1400052cfa0, {0x101914c48, 0x14002df2f00}, {{{0x14002ddc6dc, 0x9}, {0x14002ddc6f0, 0xd}, {0x14002ddc706, 0x9}}})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/services/reactions.go:22 +0x58 fp=0x14002ff1620 sp=0x14002ff14c0 pc=0x101658448
+github.com/Deimvis/reactionsstorage/src/servers.NewRouter.func6(0x1010693f0?)
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/servers/http.go:92 +0x11c fp=0x14002ff1710 sp=0x14002ff1620 pc=0x10165a40c
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002df2f00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002ff1760 sp=0x14002ff1710 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002df2f00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002ff17b0 sp=0x14002ff1760 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x14002df2f00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0 fp=0x14002ff1960 sp=0x14002ff17b0 pc=0x1014dfa80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000102ea0, 0x14002df2f00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 +0x524 fp=0x14002ff1af0 sp=0x14002ff1960 pc=0x1014debb4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000102ea0, {0x101913110?, 0x140030920e0}, 0x14002df2e00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0 fp=0x14002ff1b30 sp=0x14002ff1af0 pc=0x1014de500
+net/http.serverHandler.ServeHTTP({0x14002dcf1d0?}, {0x101913110?, 0x140030920e0?}, 0x6?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2938 +0xbc fp=0x14002ff1b60 sp=0x14002ff1b30 pc=0x10126b50c
+net/http.(*conn).serve(0x14002e5a870, {0x101914c80, 0x140003723c0})
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2009 +0x518 fp=0x14002ff1fa0 sp=0x14002ff1b60 pc=0x101267908
+net/http.(*Server).Serve.func3()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x30 fp=0x14002ff1fd0 sp=0x14002ff1fa0 pc=0x10126bc20
+runtime.goexit()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/asm_arm64.s:1197 +0x4 fp=0x14002ff1fd0 sp=0x14002ff1fd0 pc=0x101068504
+created by net/http.(*Server).Serve in goroutine 53
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x4cc
+
+goroutine 28546 [select, 3 minutes]:
+runtime.gopark(0x14002feb248?, 0x2?, 0xf8?, 0xb0?, 0x14002feb1f4?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/proc.go:398 +0xc8 fp=0x14002feb0a0 sp=0x14002feb080 pc=0x101037268
+runtime.selectgo(0x14002feb248, 0x14002feb1f0, 0x14002feb1e8?, 0x0, 0x14002feb1e8?, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/select.go:327 +0x608 fp=0x14002feb1b0 sp=0x14002feb0a0 pc=0x101047a38
+golang.org/x/sync/semaphore.(*Weighted).Acquire(0x1400045c0f0, {0x101914c48, 0x14002fd0800}, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/x/sync@v0.1.0/semaphore/semaphore.go:60 +0x3b4 fp=0x14002feb270 sp=0x14002feb1b0 pc=0x10164a604
+github.com/jackc/puddle/v2.(*Pool[...]).acquire(0x101921560, {0x101914c48, 0x14002fd0800})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:350 +0x78 fp=0x14002feb300 sp=0x14002feb270 pc=0x101651498
+github.com/jackc/puddle/v2.(*Pool[...]).Acquire(0x101921560, {0x101914c48, 0x14002fd0800})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:337 +0xc0 fp=0x14002feb330 sp=0x14002feb300 pc=0x101651990
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Acquire(0x140004a60a0, {0x101914c48, 0x14002fd0800})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:503 +0x50 fp=0x14002feb370 sp=0x14002feb330 pc=0x10164d840
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Query(0x14002fe2150?, {0x101914c48, 0x14002fd0800}, {0x140001a2090, 0x8d}, {0x1400041ea20, 0x2, 0x2})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:603 +0x3c fp=0x14002feb400 sp=0x14002feb370 pc=0x10164e1cc
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCount(0x1400050c358, {0x101914c48, 0x14002fd0800}, {0x14002fe213c, 0x9}, {0x14002fe2150, 0xd})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:35 +0xe8 fp=0x14002feb460 sp=0x14002feb400 pc=0x101655de8
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCountStrict(0x3f?, {0x101914c48?, 0x14002fd0800?}, {0x14002fe213c?, 0x0?}, {0x14002fe2150?, 0x14002feb518?})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:43 +0x2c fp=0x14002feb4c0 sp=0x14002feb460 pc=0x101655ebc
+github.com/Deimvis/reactionsstorage/src/services.(*ReactionsService).GetUserReactions(0x1400052cfa0, {0x101914c48, 0x14002fd0800}, {{{0x14002fe213c, 0x9}, {0x14002fe2150, 0xd}, {0x14002fe2166, 0x9}}})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/services/reactions.go:22 +0x58 fp=0x14002feb620 sp=0x14002feb4c0 pc=0x101658448
+github.com/Deimvis/reactionsstorage/src/servers.NewRouter.func6(0x1010693f0?)
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/servers/http.go:92 +0x11c fp=0x14002feb710 sp=0x14002feb620 pc=0x10165a40c
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002fd0800)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002feb760 sp=0x14002feb710 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002fd0800)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002feb7b0 sp=0x14002feb760 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x14002fd0800)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0 fp=0x14002feb960 sp=0x14002feb7b0 pc=0x1014dfa80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000102ea0, 0x14002fd0800)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 +0x524 fp=0x14002febaf0 sp=0x14002feb960 pc=0x1014debb4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000102ea0, {0x101913110?, 0x14002f876c0}, 0x14002df2d00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0 fp=0x14002febb30 sp=0x14002febaf0 pc=0x1014de500
+net/http.serverHandler.ServeHTTP({0x14002dcf170?}, {0x101913110?, 0x14002f876c0?}, 0x6?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2938 +0xbc fp=0x14002febb60 sp=0x14002febb30 pc=0x10126b50c
+net/http.(*conn).serve(0x14002e5a900, {0x101914c80, 0x140003723c0})
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2009 +0x518 fp=0x14002febfa0 sp=0x14002febb60 pc=0x101267908
+net/http.(*Server).Serve.func3()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x30 fp=0x14002febfd0 sp=0x14002febfa0 pc=0x10126bc20
+runtime.goexit()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/asm_arm64.s:1197 +0x4 fp=0x14002febfd0 sp=0x14002febfd0 pc=0x101068504
+created by net/http.(*Server).Serve in goroutine 53
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x4cc
+
+goroutine 28547 [select, 3 minutes]:
+runtime.gopark(0x14002f5b248?, 0x2?, 0xf8?, 0xb0?, 0x14002f5b1f4?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/proc.go:398 +0xc8 fp=0x14002f5b0a0 sp=0x14002f5b080 pc=0x101037268
+runtime.selectgo(0x14002f5b248, 0x14002f5b1f0, 0x14002f5b1e8?, 0x0, 0x14002f5b1e8?, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/select.go:327 +0x608 fp=0x14002f5b1b0 sp=0x14002f5b0a0 pc=0x101047a38
+golang.org/x/sync/semaphore.(*Weighted).Acquire(0x1400045c0f0, {0x101914c48, 0x140028f7d00}, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/x/sync@v0.1.0/semaphore/semaphore.go:60 +0x3b4 fp=0x14002f5b270 sp=0x14002f5b1b0 pc=0x10164a604
+github.com/jackc/puddle/v2.(*Pool[...]).acquire(0x101921560, {0x101914c48, 0x140028f7d00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:350 +0x78 fp=0x14002f5b300 sp=0x14002f5b270 pc=0x101651498
+github.com/jackc/puddle/v2.(*Pool[...]).Acquire(0x101921560, {0x101914c48, 0x140028f7d00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:337 +0xc0 fp=0x14002f5b330 sp=0x14002f5b300 pc=0x101651990
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Acquire(0x140004a60a0, {0x101914c48, 0x140028f7d00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:503 +0x50 fp=0x14002f5b370 sp=0x14002f5b330 pc=0x10164d840
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Query(0x14002f14a50?, {0x101914c48, 0x140028f7d00}, {0x140001a2090, 0x8d}, {0x140008850c0, 0x2, 0x2})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:603 +0x3c fp=0x14002f5b400 sp=0x14002f5b370 pc=0x10164e1cc
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCount(0x1400050c358, {0x101914c48, 0x140028f7d00}, {0x14002f14a3c, 0x9}, {0x14002f14a50, 0xd})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:35 +0xe8 fp=0x14002f5b460 sp=0x14002f5b400 pc=0x101655de8
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCountStrict(0x3f?, {0x101914c48?, 0x140028f7d00?}, {0x14002f14a3c?, 0x0?}, {0x14002f14a50?, 0x14002f5b518?})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:43 +0x2c fp=0x14002f5b4c0 sp=0x14002f5b460 pc=0x101655ebc
+github.com/Deimvis/reactionsstorage/src/services.(*ReactionsService).GetUserReactions(0x1400052cfa0, {0x101914c48, 0x140028f7d00}, {{{0x14002f14a3c, 0x9}, {0x14002f14a50, 0xd}, {0x14002f14a66, 0x9}}})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/services/reactions.go:22 +0x58 fp=0x14002f5b620 sp=0x14002f5b4c0 pc=0x101658448
+github.com/Deimvis/reactionsstorage/src/servers.NewRouter.func6(0x1010693f0?)
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/servers/http.go:92 +0x11c fp=0x14002f5b710 sp=0x14002f5b620 pc=0x10165a40c
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x140028f7d00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002f5b760 sp=0x14002f5b710 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x140028f7d00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002f5b7b0 sp=0x14002f5b760 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x140028f7d00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0 fp=0x14002f5b960 sp=0x14002f5b7b0 pc=0x1014dfa80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000102ea0, 0x140028f7d00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 +0x524 fp=0x14002f5baf0 sp=0x14002f5b960 pc=0x1014debb4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000102ea0, {0x101913110?, 0x140028f37a0}, 0x14002fd0700)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0 fp=0x14002f5bb30 sp=0x14002f5baf0 pc=0x1014de500
+net/http.serverHandler.ServeHTTP({0x14002fcc5a0?}, {0x101913110?, 0x140028f37a0?}, 0x6?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2938 +0xbc fp=0x14002f5bb60 sp=0x14002f5bb30 pc=0x10126b50c
+net/http.(*conn).serve(0x14002e5a990, {0x101914c80, 0x140003723c0})
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2009 +0x518 fp=0x14002f5bfa0 sp=0x14002f5bb60 pc=0x101267908
+net/http.(*Server).Serve.func3()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x30 fp=0x14002f5bfd0 sp=0x14002f5bfa0 pc=0x10126bc20
+runtime.goexit()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/asm_arm64.s:1197 +0x4 fp=0x14002f5bfd0 sp=0x14002f5bfd0 pc=0x101068504
+created by net/http.(*Server).Serve in goroutine 53
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x4cc
+
+goroutine 28548 [select, 3 minutes]:
+runtime.gopark(0x14002fe5248?, 0x2?, 0xf8?, 0x50?, 0x14002fe51f4?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/proc.go:398 +0xc8 fp=0x14002fe50a0 sp=0x14002fe5080 pc=0x101037268
+runtime.selectgo(0x14002fe5248, 0x14002fe51f0, 0x14002fe51e8?, 0x0, 0x14002fe51e8?, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/select.go:327 +0x608 fp=0x14002fe51b0 sp=0x14002fe50a0 pc=0x101047a38
+golang.org/x/sync/semaphore.(*Weighted).Acquire(0x1400045c0f0, {0x101914c48, 0x14003009d00}, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/x/sync@v0.1.0/semaphore/semaphore.go:60 +0x3b4 fp=0x14002fe5270 sp=0x14002fe51b0 pc=0x10164a604
+github.com/jackc/puddle/v2.(*Pool[...]).acquire(0x101921560, {0x101914c48, 0x14003009d00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:350 +0x78 fp=0x14002fe5300 sp=0x14002fe5270 pc=0x101651498
+github.com/jackc/puddle/v2.(*Pool[...]).Acquire(0x101921560, {0x101914c48, 0x14003009d00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:337 +0xc0 fp=0x14002fe5330 sp=0x14002fe5300 pc=0x101651990
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Acquire(0x140004a60a0, {0x101914c48, 0x14003009d00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:503 +0x50 fp=0x14002fe5370 sp=0x14002fe5330 pc=0x10164d840
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Query(0x14002937dd0?, {0x101914c48, 0x14003009d00}, {0x140001a2090, 0x8d}, {0x1400041ea40, 0x2, 0x2})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:603 +0x3c fp=0x14002fe5400 sp=0x14002fe5370 pc=0x10164e1cc
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCount(0x1400050c358, {0x101914c48, 0x14003009d00}, {0x14002937dbc, 0x9}, {0x14002937dd0, 0xd})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:35 +0xe8 fp=0x14002fe5460 sp=0x14002fe5400 pc=0x101655de8
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCountStrict(0x3f?, {0x101914c48?, 0x14003009d00?}, {0x14002937dbc?, 0x0?}, {0x14002937dd0?, 0x14002fe5518?})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:43 +0x2c fp=0x14002fe54c0 sp=0x14002fe5460 pc=0x101655ebc
+github.com/Deimvis/reactionsstorage/src/services.(*ReactionsService).GetUserReactions(0x1400052cfa0, {0x101914c48, 0x14003009d00}, {{{0x14002937dbc, 0x9}, {0x14002937dd0, 0xd}, {0x14002937de6, 0x9}}})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/services/reactions.go:22 +0x58 fp=0x14002fe5620 sp=0x14002fe54c0 pc=0x101658448
+github.com/Deimvis/reactionsstorage/src/servers.NewRouter.func6(0x1010693f0?)
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/servers/http.go:92 +0x11c fp=0x14002fe5710 sp=0x14002fe5620 pc=0x10165a40c
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14003009d00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002fe5760 sp=0x14002fe5710 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14003009d00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002fe57b0 sp=0x14002fe5760 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x14003009d00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0 fp=0x14002fe5960 sp=0x14002fe57b0 pc=0x1014dfa80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000102ea0, 0x14003009d00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 +0x524 fp=0x14002fe5af0 sp=0x14002fe5960 pc=0x1014debb4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000102ea0, {0x101913110?, 0x14003026c40}, 0x14003009c00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0 fp=0x14002fe5b30 sp=0x14002fe5af0 pc=0x1014de500
+net/http.serverHandler.ServeHTTP({0x14003017c20?}, {0x101913110?, 0x14003026c40?}, 0x6?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2938 +0xbc fp=0x14002fe5b60 sp=0x14002fe5b30 pc=0x10126b50c
+net/http.(*conn).serve(0x14002e5aa20, {0x101914c80, 0x140003723c0})
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2009 +0x518 fp=0x14002fe5fa0 sp=0x14002fe5b60 pc=0x101267908
+net/http.(*Server).Serve.func3()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x30 fp=0x14002fe5fd0 sp=0x14002fe5fa0 pc=0x10126bc20
+runtime.goexit()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/asm_arm64.s:1197 +0x4 fp=0x14002fe5fd0 sp=0x14002fe5fd0 pc=0x101068504
+created by net/http.(*Server).Serve in goroutine 53
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x4cc
+
+goroutine 28549 [select, 3 minutes]:
+runtime.gopark(0x14002ff5248?, 0x2?, 0xf8?, 0x50?, 0x14002ff51f4?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/proc.go:398 +0xc8 fp=0x14002ff50a0 sp=0x14002ff5080 pc=0x101037268
+runtime.selectgo(0x14002ff5248, 0x14002ff51f0, 0x14002ff51e8?, 0x0, 0x14002ff51e8?, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/select.go:327 +0x608 fp=0x14002ff51b0 sp=0x14002ff50a0 pc=0x101047a38
+golang.org/x/sync/semaphore.(*Weighted).Acquire(0x1400045c0f0, {0x101914c48, 0x14002fd0900}, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/x/sync@v0.1.0/semaphore/semaphore.go:60 +0x3b4 fp=0x14002ff5270 sp=0x14002ff51b0 pc=0x10164a604
+github.com/jackc/puddle/v2.(*Pool[...]).acquire(0x101921560, {0x101914c48, 0x14002fd0900})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:350 +0x78 fp=0x14002ff5300 sp=0x14002ff5270 pc=0x101651498
+github.com/jackc/puddle/v2.(*Pool[...]).Acquire(0x101921560, {0x101914c48, 0x14002fd0900})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:337 +0xc0 fp=0x14002ff5330 sp=0x14002ff5300 pc=0x101651990
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Acquire(0x140004a60a0, {0x101914c48, 0x14002fd0900})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:503 +0x50 fp=0x14002ff5370 sp=0x14002ff5330 pc=0x10164d840
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Query(0x14002fe22d0?, {0x101914c48, 0x14002fd0900}, {0x140001a2090, 0x8d}, {0x1400041ea60, 0x2, 0x2})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:603 +0x3c fp=0x14002ff5400 sp=0x14002ff5370 pc=0x10164e1cc
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCount(0x1400050c358, {0x101914c48, 0x14002fd0900}, {0x14002fe22bc, 0x9}, {0x14002fe22d0, 0xd})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:35 +0xe8 fp=0x14002ff5460 sp=0x14002ff5400 pc=0x101655de8
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCountStrict(0x3f?, {0x101914c48?, 0x14002fd0900?}, {0x14002fe22bc?, 0x0?}, {0x14002fe22d0?, 0x14002ff5518?})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:43 +0x2c fp=0x14002ff54c0 sp=0x14002ff5460 pc=0x101655ebc
+github.com/Deimvis/reactionsstorage/src/services.(*ReactionsService).GetUserReactions(0x1400052cfa0, {0x101914c48, 0x14002fd0900}, {{{0x14002fe22bc, 0x9}, {0x14002fe22d0, 0xd}, {0x14002fe22e6, 0x9}}})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/services/reactions.go:22 +0x58 fp=0x14002ff5620 sp=0x14002ff54c0 pc=0x101658448
+github.com/Deimvis/reactionsstorage/src/servers.NewRouter.func6(0x1010693f0?)
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/servers/http.go:92 +0x11c fp=0x14002ff5710 sp=0x14002ff5620 pc=0x10165a40c
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002fd0900)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002ff5760 sp=0x14002ff5710 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002fd0900)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002ff57b0 sp=0x14002ff5760 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x14002fd0900)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0 fp=0x14002ff5960 sp=0x14002ff57b0 pc=0x1014dfa80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000102ea0, 0x14002fd0900)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 +0x524 fp=0x14002ff5af0 sp=0x14002ff5960 pc=0x1014debb4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000102ea0, {0x101913110?, 0x14002f87880}, 0x14003009b00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0 fp=0x14002ff5b30 sp=0x14002ff5af0 pc=0x1014de500
+net/http.serverHandler.ServeHTTP({0x14003017bc0?}, {0x101913110?, 0x14002f87880?}, 0x6?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2938 +0xbc fp=0x14002ff5b60 sp=0x14002ff5b30 pc=0x10126b50c
+net/http.(*conn).serve(0x14002e5aab0, {0x101914c80, 0x140003723c0})
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2009 +0x518 fp=0x14002ff5fa0 sp=0x14002ff5b60 pc=0x101267908
+net/http.(*Server).Serve.func3()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x30 fp=0x14002ff5fd0 sp=0x14002ff5fa0 pc=0x10126bc20
+runtime.goexit()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/asm_arm64.s:1197 +0x4 fp=0x14002ff5fd0 sp=0x14002ff5fd0 pc=0x101068504
+created by net/http.(*Server).Serve in goroutine 53
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x4cc
+
+goroutine 28550 [select, 3 minutes]:
+runtime.gopark(0x14002ff3248?, 0x2?, 0xf8?, 0x30?, 0x14002ff31f4?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/proc.go:398 +0xc8 fp=0x14002ff30a0 sp=0x14002ff3080 pc=0x101037268
+runtime.selectgo(0x14002ff3248, 0x14002ff31f0, 0x14002ff31e8?, 0x0, 0x14002ff31e8?, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/select.go:327 +0x608 fp=0x14002ff31b0 sp=0x14002ff30a0 pc=0x101047a38
+golang.org/x/sync/semaphore.(*Weighted).Acquire(0x1400045c0f0, {0x101914c48, 0x14002df3000}, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/x/sync@v0.1.0/semaphore/semaphore.go:60 +0x3b4 fp=0x14002ff3270 sp=0x14002ff31b0 pc=0x10164a604
+github.com/jackc/puddle/v2.(*Pool[...]).acquire(0x101921560, {0x101914c48, 0x14002df3000})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:350 +0x78 fp=0x14002ff3300 sp=0x14002ff3270 pc=0x101651498
+github.com/jackc/puddle/v2.(*Pool[...]).Acquire(0x101921560, {0x101914c48, 0x14002df3000})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:337 +0xc0 fp=0x14002ff3330 sp=0x14002ff3300 pc=0x101651990
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Acquire(0x140004a60a0, {0x101914c48, 0x14002df3000})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:503 +0x50 fp=0x14002ff3370 sp=0x14002ff3330 pc=0x10164d840
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Query(0x14002ddc930?, {0x101914c48, 0x14002df3000}, {0x140001a2090, 0x8d}, {0x14000885100, 0x2, 0x2})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:603 +0x3c fp=0x14002ff3400 sp=0x14002ff3370 pc=0x10164e1cc
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCount(0x1400050c358, {0x101914c48, 0x14002df3000}, {0x14002ddc91c, 0x9}, {0x14002ddc930, 0xd})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:35 +0xe8 fp=0x14002ff3460 sp=0x14002ff3400 pc=0x101655de8
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCountStrict(0x3f?, {0x101914c48?, 0x14002df3000?}, {0x14002ddc91c?, 0x0?}, {0x14002ddc930?, 0x14002ff3518?})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:43 +0x2c fp=0x14002ff34c0 sp=0x14002ff3460 pc=0x101655ebc
+github.com/Deimvis/reactionsstorage/src/services.(*ReactionsService).GetUserReactions(0x1400052cfa0, {0x101914c48, 0x14002df3000}, {{{0x14002ddc91c, 0x9}, {0x14002ddc930, 0xd}, {0x14002ddc946, 0x9}}})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/services/reactions.go:22 +0x58 fp=0x14002ff3620 sp=0x14002ff34c0 pc=0x101658448
+github.com/Deimvis/reactionsstorage/src/servers.NewRouter.func6(0x1010693f0?)
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/servers/http.go:92 +0x11c fp=0x14002ff3710 sp=0x14002ff3620 pc=0x10165a40c
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002df3000)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002ff3760 sp=0x14002ff3710 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002df3000)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002ff37b0 sp=0x14002ff3760 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x14002df3000)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0 fp=0x14002ff3960 sp=0x14002ff37b0 pc=0x1014dfa80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000102ea0, 0x14002df3000)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 +0x524 fp=0x14002ff3af0 sp=0x14002ff3960 pc=0x1014debb4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000102ea0, {0x101913110?, 0x140030922a0}, 0x14002e35d00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0 fp=0x14002ff3b30 sp=0x14002ff3af0 pc=0x1014de500
+net/http.serverHandler.ServeHTTP({0x14002e572f0?}, {0x101913110?, 0x140030922a0?}, 0x6?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2938 +0xbc fp=0x14002ff3b60 sp=0x14002ff3b30 pc=0x10126b50c
+net/http.(*conn).serve(0x14002e5ab40, {0x101914c80, 0x140003723c0})
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2009 +0x518 fp=0x14002ff3fa0 sp=0x14002ff3b60 pc=0x101267908
+net/http.(*Server).Serve.func3()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x30 fp=0x14002ff3fd0 sp=0x14002ff3fa0 pc=0x10126bc20
+runtime.goexit()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/asm_arm64.s:1197 +0x4 fp=0x14002ff3fd0 sp=0x14002ff3fd0 pc=0x101068504
+created by net/http.(*Server).Serve in goroutine 53
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x4cc
+
+goroutine 28551 [select, 3 minutes]:
+runtime.gopark(0x14002ff7248?, 0x2?, 0xf8?, 0x70?, 0x14002ff71f4?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/proc.go:398 +0xc8 fp=0x14002ff70a0 sp=0x14002ff7080 pc=0x101037268
+runtime.selectgo(0x14002ff7248, 0x14002ff71f0, 0x14002ff71e8?, 0x0, 0x14002ff71e8?, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/select.go:327 +0x608 fp=0x14002ff71b0 sp=0x14002ff70a0 pc=0x101047a38
+golang.org/x/sync/semaphore.(*Weighted).Acquire(0x1400045c0f0, {0x101914c48, 0x14002fd0a00}, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/x/sync@v0.1.0/semaphore/semaphore.go:60 +0x3b4 fp=0x14002ff7270 sp=0x14002ff71b0 pc=0x10164a604
+github.com/jackc/puddle/v2.(*Pool[...]).acquire(0x101921560, {0x101914c48, 0x14002fd0a00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:350 +0x78 fp=0x14002ff7300 sp=0x14002ff7270 pc=0x101651498
+github.com/jackc/puddle/v2.(*Pool[...]).Acquire(0x101921560, {0x101914c48, 0x14002fd0a00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:337 +0xc0 fp=0x14002ff7330 sp=0x14002ff7300 pc=0x101651990
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Acquire(0x140004a60a0, {0x101914c48, 0x14002fd0a00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:503 +0x50 fp=0x14002ff7370 sp=0x14002ff7330 pc=0x10164d840
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Query(0x14002fe23f0?, {0x101914c48, 0x14002fd0a00}, {0x140001a2090, 0x8d}, {0x140008850e0, 0x2, 0x2})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:603 +0x3c fp=0x14002ff7400 sp=0x14002ff7370 pc=0x10164e1cc
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCount(0x1400050c358, {0x101914c48, 0x14002fd0a00}, {0x14002fe23dc, 0x9}, {0x14002fe23f0, 0xd})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:35 +0xe8 fp=0x14002ff7460 sp=0x14002ff7400 pc=0x101655de8
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCountStrict(0x3f?, {0x101914c48?, 0x14002fd0a00?}, {0x14002fe23dc?, 0x0?}, {0x14002fe23f0?, 0x14002ff7518?})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:43 +0x2c fp=0x14002ff74c0 sp=0x14002ff7460 pc=0x101655ebc
+github.com/Deimvis/reactionsstorage/src/services.(*ReactionsService).GetUserReactions(0x1400052cfa0, {0x101914c48, 0x14002fd0a00}, {{{0x14002fe23dc, 0x9}, {0x14002fe23f0, 0xd}, {0x14002fe2406, 0x9}}})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/services/reactions.go:22 +0x58 fp=0x14002ff7620 sp=0x14002ff74c0 pc=0x101658448
+github.com/Deimvis/reactionsstorage/src/servers.NewRouter.func6(0x1010693f0?)
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/servers/http.go:92 +0x11c fp=0x14002ff7710 sp=0x14002ff7620 pc=0x10165a40c
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002fd0a00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002ff7760 sp=0x14002ff7710 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002fd0a00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14002ff77b0 sp=0x14002ff7760 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x14002fd0a00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0 fp=0x14002ff7960 sp=0x14002ff77b0 pc=0x1014dfa80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000102ea0, 0x14002fd0a00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 +0x524 fp=0x14002ff7af0 sp=0x14002ff7960 pc=0x1014debb4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000102ea0, {0x101913110?, 0x14002f87a40}, 0x14002e35e00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0 fp=0x14002ff7b30 sp=0x14002ff7af0 pc=0x1014de500
+net/http.serverHandler.ServeHTTP({0x14002e57350?}, {0x101913110?, 0x14002f87a40?}, 0x6?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2938 +0xbc fp=0x14002ff7b60 sp=0x14002ff7b30 pc=0x10126b50c
+net/http.(*conn).serve(0x14002e5abd0, {0x101914c80, 0x140003723c0})
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2009 +0x518 fp=0x14002ff7fa0 sp=0x14002ff7b60 pc=0x101267908
+net/http.(*Server).Serve.func3()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x30 fp=0x14002ff7fd0 sp=0x14002ff7fa0 pc=0x10126bc20
+runtime.goexit()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/asm_arm64.s:1197 +0x4 fp=0x14002ff7fd0 sp=0x14002ff7fd0 pc=0x101068504
+created by net/http.(*Server).Serve in goroutine 53
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x4cc
+
+goroutine 28552 [select, 3 minutes]:
+runtime.gopark(0x1400310f248?, 0x2?, 0xf8?, 0xf0?, 0x1400310f1f4?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/proc.go:398 +0xc8 fp=0x1400310f0a0 sp=0x1400310f080 pc=0x101037268
+runtime.selectgo(0x1400310f248, 0x1400310f1f0, 0x1400310f1e8?, 0x0, 0x1400310f1e8?, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/select.go:327 +0x608 fp=0x1400310f1b0 sp=0x1400310f0a0 pc=0x101047a38
+golang.org/x/sync/semaphore.(*Weighted).Acquire(0x1400045c0f0, {0x101914c48, 0x14003108000}, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/x/sync@v0.1.0/semaphore/semaphore.go:60 +0x3b4 fp=0x1400310f270 sp=0x1400310f1b0 pc=0x10164a604
+github.com/jackc/puddle/v2.(*Pool[...]).acquire(0x101921560, {0x101914c48, 0x14003108000})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:350 +0x78 fp=0x1400310f300 sp=0x1400310f270 pc=0x101651498
+github.com/jackc/puddle/v2.(*Pool[...]).Acquire(0x101921560, {0x101914c48, 0x14003108000})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:337 +0xc0 fp=0x1400310f330 sp=0x1400310f300 pc=0x101651990
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Acquire(0x140004a60a0, {0x101914c48, 0x14003108000})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:503 +0x50 fp=0x1400310f370 sp=0x1400310f330 pc=0x10164d840
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Query(0x14002e2b410?, {0x101914c48, 0x14003108000}, {0x140001a2090, 0x8d}, {0x140023207e0, 0x2, 0x2})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:603 +0x3c fp=0x1400310f400 sp=0x1400310f370 pc=0x10164e1cc
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCount(0x1400050c358, {0x101914c48, 0x14003108000}, {0x14002e2b3fc, 0x9}, {0x14002e2b410, 0xd})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:35 +0xe8 fp=0x1400310f460 sp=0x1400310f400 pc=0x101655de8
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCountStrict(0x3f?, {0x101914c48?, 0x14003108000?}, {0x14002e2b3fc?, 0x0?}, {0x14002e2b410?, 0x1400310f518?})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:43 +0x2c fp=0x1400310f4c0 sp=0x1400310f460 pc=0x101655ebc
+github.com/Deimvis/reactionsstorage/src/services.(*ReactionsService).GetUserReactions(0x1400052cfa0, {0x101914c48, 0x14003108000}, {{{0x14002e2b3fc, 0x9}, {0x14002e2b410, 0xd}, {0x14002e2b426, 0x9}}})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/services/reactions.go:22 +0x58 fp=0x1400310f620 sp=0x1400310f4c0 pc=0x101658448
+github.com/Deimvis/reactionsstorage/src/servers.NewRouter.func6(0x1010693f0?)
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/servers/http.go:92 +0x11c fp=0x1400310f710 sp=0x1400310f620 pc=0x10165a40c
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14003108000)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x1400310f760 sp=0x1400310f710 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14003108000)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x1400310f7b0 sp=0x1400310f760 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x14003108000)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0 fp=0x1400310f960 sp=0x1400310f7b0 pc=0x1014dfa80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000102ea0, 0x14003108000)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 +0x524 fp=0x1400310faf0 sp=0x1400310f960 pc=0x1014debb4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000102ea0, {0x101913110?, 0x14002e60a80}, 0x140028f7c00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0 fp=0x1400310fb30 sp=0x1400310faf0 pc=0x1014de500
+net/http.serverHandler.ServeHTTP({0x14002f3e720?}, {0x101913110?, 0x14002e60a80?}, 0x6?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2938 +0xbc fp=0x1400310fb60 sp=0x1400310fb30 pc=0x10126b50c
+net/http.(*conn).serve(0x14002e5ac60, {0x101914c80, 0x140003723c0})
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2009 +0x518 fp=0x1400310ffa0 sp=0x1400310fb60 pc=0x101267908
+net/http.(*Server).Serve.func3()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x30 fp=0x1400310ffd0 sp=0x1400310ffa0 pc=0x10126bc20
+runtime.goexit()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/asm_arm64.s:1197 +0x4 fp=0x1400310ffd0 sp=0x1400310ffd0 pc=0x101068504
+created by net/http.(*Server).Serve in goroutine 53
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x4cc
+
+goroutine 28553 [select, 3 minutes]:
+runtime.gopark(0x14003105248?, 0x2?, 0xf8?, 0x50?, 0x140031051f4?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/proc.go:398 +0xc8 fp=0x140031050a0 sp=0x14003105080 pc=0x101037268
+runtime.selectgo(0x14003105248, 0x140031051f0, 0x140031051e8?, 0x0, 0x140031051e8?, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/select.go:327 +0x608 fp=0x140031051b0 sp=0x140031050a0 pc=0x101047a38
+golang.org/x/sync/semaphore.(*Weighted).Acquire(0x1400045c0f0, {0x101914c48, 0x14002e35c00}, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/x/sync@v0.1.0/semaphore/semaphore.go:60 +0x3b4 fp=0x14003105270 sp=0x140031051b0 pc=0x10164a604
+github.com/jackc/puddle/v2.(*Pool[...]).acquire(0x101921560, {0x101914c48, 0x14002e35c00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:350 +0x78 fp=0x14003105300 sp=0x14003105270 pc=0x101651498
+github.com/jackc/puddle/v2.(*Pool[...]).Acquire(0x101921560, {0x101914c48, 0x14002e35c00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:337 +0xc0 fp=0x14003105330 sp=0x14003105300 pc=0x101651990
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Acquire(0x140004a60a0, {0x101914c48, 0x14002e35c00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:503 +0x50 fp=0x14003105370 sp=0x14003105330 pc=0x10164d840
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Query(0x14002e2b290?, {0x101914c48, 0x14002e35c00}, {0x140001a2090, 0x8d}, {0x140023207c0, 0x2, 0x2})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:603 +0x3c fp=0x14003105400 sp=0x14003105370 pc=0x10164e1cc
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCount(0x1400050c358, {0x101914c48, 0x14002e35c00}, {0x14002e2b27c, 0x9}, {0x14002e2b290, 0xd})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:35 +0xe8 fp=0x14003105460 sp=0x14003105400 pc=0x101655de8
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCountStrict(0x3f?, {0x101914c48?, 0x14002e35c00?}, {0x14002e2b27c?, 0x0?}, {0x14002e2b290?, 0x14003105518?})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:43 +0x2c fp=0x140031054c0 sp=0x14003105460 pc=0x101655ebc
+github.com/Deimvis/reactionsstorage/src/services.(*ReactionsService).GetUserReactions(0x1400052cfa0, {0x101914c48, 0x14002e35c00}, {{{0x14002e2b27c, 0x9}, {0x14002e2b290, 0xd}, {0x14002e2b2a6, 0x9}}})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/services/reactions.go:22 +0x58 fp=0x14003105620 sp=0x140031054c0 pc=0x101658448
+github.com/Deimvis/reactionsstorage/src/servers.NewRouter.func6(0x1010693f0?)
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/servers/http.go:92 +0x11c fp=0x14003105710 sp=0x14003105620 pc=0x10165a40c
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002e35c00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14003105760 sp=0x14003105710 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002e35c00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x140031057b0 sp=0x14003105760 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x14002e35c00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0 fp=0x14003105960 sp=0x140031057b0 pc=0x1014dfa80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000102ea0, 0x14002e35c00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 +0x524 fp=0x14003105af0 sp=0x14003105960 pc=0x1014debb4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000102ea0, {0x101913110?, 0x14002e60700}, 0x14002e35b00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0 fp=0x14003105b30 sp=0x14003105af0 pc=0x1014de500
+net/http.serverHandler.ServeHTTP({0x14002e57140?}, {0x101913110?, 0x14002e60700?}, 0x6?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2938 +0xbc fp=0x14003105b60 sp=0x14003105b30 pc=0x10126b50c
+net/http.(*conn).serve(0x14002e5acf0, {0x101914c80, 0x140003723c0})
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2009 +0x518 fp=0x14003105fa0 sp=0x14003105b60 pc=0x101267908
+net/http.(*Server).Serve.func3()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x30 fp=0x14003105fd0 sp=0x14003105fa0 pc=0x10126bc20
+runtime.goexit()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/asm_arm64.s:1197 +0x4 fp=0x14003105fd0 sp=0x14003105fd0 pc=0x101068504
+created by net/http.(*Server).Serve in goroutine 53
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x4cc
+
+goroutine 28557 [select, 3 minutes]:
+runtime.gopark(0x1400310b248?, 0x2?, 0xf8?, 0xb0?, 0x1400310b1f4?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/proc.go:398 +0xc8 fp=0x1400310b0a0 sp=0x1400310b080 pc=0x101037268
+runtime.selectgo(0x1400310b248, 0x1400310b1f0, 0x1400310b1e8?, 0x0, 0x1400310b1e8?, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/select.go:327 +0x608 fp=0x1400310b1b0 sp=0x1400310b0a0 pc=0x101047a38
+golang.org/x/sync/semaphore.(*Weighted).Acquire(0x1400045c0f0, {0x101914c48, 0x14002df3200}, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/x/sync@v0.1.0/semaphore/semaphore.go:60 +0x3b4 fp=0x1400310b270 sp=0x1400310b1b0 pc=0x10164a604
+github.com/jackc/puddle/v2.(*Pool[...]).acquire(0x101921560, {0x101914c48, 0x14002df3200})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:350 +0x78 fp=0x1400310b300 sp=0x1400310b270 pc=0x101651498
+github.com/jackc/puddle/v2.(*Pool[...]).Acquire(0x101921560, {0x101914c48, 0x14002df3200})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:337 +0xc0 fp=0x1400310b330 sp=0x1400310b300 pc=0x101651990
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Acquire(0x140004a60a0, {0x101914c48, 0x14002df3200})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:503 +0x50 fp=0x1400310b370 sp=0x1400310b330 pc=0x10164d840
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Query(0x14002ddca50?, {0x101914c48, 0x14002df3200}, {0x140001a2090, 0x8d}, {0x14000885120, 0x2, 0x2})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:603 +0x3c fp=0x1400310b400 sp=0x1400310b370 pc=0x10164e1cc
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCount(0x1400050c358, {0x101914c48, 0x14002df3200}, {0x14002ddca3c, 0x9}, {0x14002ddca50, 0xd})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:35 +0xe8 fp=0x1400310b460 sp=0x1400310b400 pc=0x101655de8
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCountStrict(0x3f?, {0x101914c48?, 0x14002df3200?}, {0x14002ddca3c?, 0x0?}, {0x14002ddca50?, 0x1400310b518?})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:43 +0x2c fp=0x1400310b4c0 sp=0x1400310b460 pc=0x101655ebc
+github.com/Deimvis/reactionsstorage/src/services.(*ReactionsService).GetUserReactions(0x1400052cfa0, {0x101914c48, 0x14002df3200}, {{{0x14002ddca3c, 0x9}, {0x14002ddca50, 0xd}, {0x14002ddca66, 0x9}}})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/services/reactions.go:22 +0x58 fp=0x1400310b620 sp=0x1400310b4c0 pc=0x101658448
+github.com/Deimvis/reactionsstorage/src/servers.NewRouter.func6(0x1010693f0?)
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/servers/http.go:92 +0x11c fp=0x1400310b710 sp=0x1400310b620 pc=0x10165a40c
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002df3200)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x1400310b760 sp=0x1400310b710 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002df3200)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x1400310b7b0 sp=0x1400310b760 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x14002df3200)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0 fp=0x1400310b960 sp=0x1400310b7b0 pc=0x1014dfa80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000102ea0, 0x14002df3200)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 +0x524 fp=0x1400310baf0 sp=0x1400310b960 pc=0x1014debb4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000102ea0, {0x101913110?, 0x14003092460}, 0x14002df3100)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0 fp=0x1400310bb30 sp=0x1400310baf0 pc=0x1014de500
+net/http.serverHandler.ServeHTTP({0x14002dcf560?}, {0x101913110?, 0x14003092460?}, 0x6?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2938 +0xbc fp=0x1400310bb60 sp=0x1400310bb30 pc=0x10126b50c
+net/http.(*conn).serve(0x14002e5b0e0, {0x101914c80, 0x140003723c0})
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2009 +0x518 fp=0x1400310bfa0 sp=0x1400310bb60 pc=0x101267908
+net/http.(*Server).Serve.func3()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x30 fp=0x1400310bfd0 sp=0x1400310bfa0 pc=0x10126bc20
+runtime.goexit()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/asm_arm64.s:1197 +0x4 fp=0x1400310bfd0 sp=0x1400310bfd0 pc=0x101068504
+created by net/http.(*Server).Serve in goroutine 53
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x4cc
+
+goroutine 28558 [select, 3 minutes]:
+runtime.gopark(0x14003185248?, 0x2?, 0xf8?, 0x50?, 0x140031851f4?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/proc.go:398 +0xc8 fp=0x140031850a0 sp=0x14003185080 pc=0x101037268
+runtime.selectgo(0x14003185248, 0x140031851f0, 0x140031851e8?, 0x0, 0x140031851e8?, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/select.go:327 +0x608 fp=0x140031851b0 sp=0x140031850a0 pc=0x101047a38
+golang.org/x/sync/semaphore.(*Weighted).Acquire(0x1400045c0f0, {0x101914c48, 0x14002fd0c00}, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/x/sync@v0.1.0/semaphore/semaphore.go:60 +0x3b4 fp=0x14003185270 sp=0x140031851b0 pc=0x10164a604
+github.com/jackc/puddle/v2.(*Pool[...]).acquire(0x101921560, {0x101914c48, 0x14002fd0c00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:350 +0x78 fp=0x14003185300 sp=0x14003185270 pc=0x101651498
+github.com/jackc/puddle/v2.(*Pool[...]).Acquire(0x101921560, {0x101914c48, 0x14002fd0c00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:337 +0xc0 fp=0x14003185330 sp=0x14003185300 pc=0x101651990
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Acquire(0x140004a60a0, {0x101914c48, 0x14002fd0c00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:503 +0x50 fp=0x14003185370 sp=0x14003185330 pc=0x10164d840
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Query(0x14002fe24b0?, {0x101914c48, 0x14002fd0c00}, {0x140001a2090, 0x8d}, {0x1400041ea80, 0x2, 0x2})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:603 +0x3c fp=0x14003185400 sp=0x14003185370 pc=0x10164e1cc
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCount(0x1400050c358, {0x101914c48, 0x14002fd0c00}, {0x14002fe249c, 0x9}, {0x14002fe24b0, 0xd})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:35 +0xe8 fp=0x14003185460 sp=0x14003185400 pc=0x101655de8
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCountStrict(0x3f?, {0x101914c48?, 0x14002fd0c00?}, {0x14002fe249c?, 0x0?}, {0x14002fe24b0?, 0x14003185518?})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:43 +0x2c fp=0x140031854c0 sp=0x14003185460 pc=0x101655ebc
+github.com/Deimvis/reactionsstorage/src/services.(*ReactionsService).GetUserReactions(0x1400052cfa0, {0x101914c48, 0x14002fd0c00}, {{{0x14002fe249c, 0x9}, {0x14002fe24b0, 0xd}, {0x14002fe24c6, 0x9}}})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/services/reactions.go:22 +0x58 fp=0x14003185620 sp=0x140031854c0 pc=0x101658448
+github.com/Deimvis/reactionsstorage/src/servers.NewRouter.func6(0x1010693f0?)
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/servers/http.go:92 +0x11c fp=0x14003185710 sp=0x14003185620 pc=0x10165a40c
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002fd0c00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14003185760 sp=0x14003185710 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002fd0c00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x140031857b0 sp=0x14003185760 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x14002fd0c00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0 fp=0x14003185960 sp=0x140031857b0 pc=0x1014dfa80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000102ea0, 0x14002fd0c00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 +0x524 fp=0x14003185af0 sp=0x14003185960 pc=0x1014debb4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000102ea0, {0x101913110?, 0x14002f87c00}, 0x14002fd0b00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0 fp=0x14003185b30 sp=0x14003185af0 pc=0x1014de500
+net/http.serverHandler.ServeHTTP({0x14002fcc9f0?}, {0x101913110?, 0x14002f87c00?}, 0x6?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2938 +0xbc fp=0x14003185b60 sp=0x14003185b30 pc=0x10126b50c
+net/http.(*conn).serve(0x14002e5b170, {0x101914c80, 0x140003723c0})
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2009 +0x518 fp=0x14003185fa0 sp=0x14003185b60 pc=0x101267908
+net/http.(*Server).Serve.func3()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x30 fp=0x14003185fd0 sp=0x14003185fa0 pc=0x10126bc20
+runtime.goexit()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/asm_arm64.s:1197 +0x4 fp=0x14003185fd0 sp=0x14003185fd0 pc=0x101068504
+created by net/http.(*Server).Serve in goroutine 53
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x4cc
+
+goroutine 28559 [select, 3 minutes]:
+runtime.gopark(0x14003187248?, 0x2?, 0xf8?, 0x70?, 0x140031871f4?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/proc.go:398 +0xc8 fp=0x140031870a0 sp=0x14003187080 pc=0x101037268
+runtime.selectgo(0x14003187248, 0x140031871f0, 0x140031871e8?, 0x0, 0x140031871e8?, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/select.go:327 +0x608 fp=0x140031871b0 sp=0x140031870a0 pc=0x101047a38
+golang.org/x/sync/semaphore.(*Weighted).Acquire(0x1400045c0f0, {0x101914c48, 0x14002fd0d00}, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/x/sync@v0.1.0/semaphore/semaphore.go:60 +0x3b4 fp=0x14003187270 sp=0x140031871b0 pc=0x10164a604
+github.com/jackc/puddle/v2.(*Pool[...]).acquire(0x101921560, {0x101914c48, 0x14002fd0d00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:350 +0x78 fp=0x14003187300 sp=0x14003187270 pc=0x101651498
+github.com/jackc/puddle/v2.(*Pool[...]).Acquire(0x101921560, {0x101914c48, 0x14002fd0d00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:337 +0xc0 fp=0x14003187330 sp=0x14003187300 pc=0x101651990
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Acquire(0x140004a60a0, {0x101914c48, 0x14002fd0d00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:503 +0x50 fp=0x14003187370 sp=0x14003187330 pc=0x10164d840
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Query(0x14002fe25d0?, {0x101914c48, 0x14002fd0d00}, {0x140001a2090, 0x8d}, {0x1400041eaa0, 0x2, 0x2})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:603 +0x3c fp=0x14003187400 sp=0x14003187370 pc=0x10164e1cc
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCount(0x1400050c358, {0x101914c48, 0x14002fd0d00}, {0x14002fe25bc, 0x9}, {0x14002fe25d0, 0xd})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:35 +0xe8 fp=0x14003187460 sp=0x14003187400 pc=0x101655de8
+github.com/Deimvis/reactionsstorage/src/storages.(*ReactionsStorage).GetEntityReactionsCountStrict(0x3f?, {0x101914c48?, 0x14002fd0d00?}, {0x14002fe25bc?, 0x0?}, {0x14002fe25d0?, 0x14003187518?})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/reactions.go:43 +0x2c fp=0x140031874c0 sp=0x14003187460 pc=0x101655ebc
+github.com/Deimvis/reactionsstorage/src/services.(*ReactionsService).GetUserReactions(0x1400052cfa0, {0x101914c48, 0x14002fd0d00}, {{{0x14002fe25bc, 0x9}, {0x14002fe25d0, 0xd}, {0x14002fe25e6, 0x9}}})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/services/reactions.go:22 +0x58 fp=0x14003187620 sp=0x140031874c0 pc=0x101658448
+github.com/Deimvis/reactionsstorage/src/servers.NewRouter.func6(0x1010693f0?)
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/servers/http.go:92 +0x11c fp=0x14003187710 sp=0x14003187620 pc=0x10165a40c
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002fd0d00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14003187760 sp=0x14003187710 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002fd0d00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x140031877b0 sp=0x14003187760 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x14002fd0d00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0 fp=0x14003187960 sp=0x140031877b0 pc=0x1014dfa80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000102ea0, 0x14002fd0d00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 +0x524 fp=0x14003187af0 sp=0x14003187960 pc=0x1014debb4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000102ea0, {0x101913110?, 0x14002f87dc0}, 0x14003108200)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0 fp=0x14003187b30 sp=0x14003187af0 pc=0x1014de500
+net/http.serverHandler.ServeHTTP({0x14002e577d0?}, {0x101913110?, 0x14002f87dc0?}, 0x6?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2938 +0xbc fp=0x14003187b60 sp=0x14003187b30 pc=0x10126b50c
+net/http.(*conn).serve(0x14002e5b200, {0x101914c80, 0x140003723c0})
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2009 +0x518 fp=0x14003187fa0 sp=0x14003187b60 pc=0x101267908
+net/http.(*Server).Serve.func3()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x30 fp=0x14003187fd0 sp=0x14003187fa0 pc=0x10126bc20
+runtime.goexit()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/asm_arm64.s:1197 +0x4 fp=0x14003187fd0 sp=0x14003187fd0 pc=0x101068504
+created by net/http.(*Server).Serve in goroutine 53
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x4cc
+
+goroutine 28560 [select, 3 minutes]:
+runtime.gopark(0x14003181318?, 0x2?, 0x80?, 0x61?, 0x140031812c4?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/proc.go:398 +0xc8 fp=0x14003181170 sp=0x14003181150 pc=0x101037268
+runtime.selectgo(0x14003181318, 0x140031812c0, 0x0?, 0x0, 0x140031812b8?, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/select.go:327 +0x608 fp=0x14003181280 sp=0x14003181170 pc=0x101047a38
+golang.org/x/sync/semaphore.(*Weighted).Acquire(0x1400045c0f0, {0x101914c48, 0x14002fd0e00}, 0x1)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/x/sync@v0.1.0/semaphore/semaphore.go:60 +0x3b4 fp=0x14003181340 sp=0x14003181280 pc=0x10164a604
+github.com/jackc/puddle/v2.(*Pool[...]).acquire(0x101921560, {0x101914c48, 0x14002fd0e00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:350 +0x78 fp=0x140031813d0 sp=0x14003181340 pc=0x101651498
+github.com/jackc/puddle/v2.(*Pool[...]).Acquire(0x101921560, {0x101914c48, 0x14002fd0e00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/puddle/v2@v2.2.1/pool.go:337 +0xc0 fp=0x14003181400 sp=0x140031813d0 pc=0x101651990
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Acquire(0x140004a60a0, {0x101914c48, 0x14002fd0e00})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:503 +0x50 fp=0x14003181440 sp=0x14003181400 pc=0x10164d840
+github.com/jackc/pgx/v5/pgxpool.(*Pool).Query(0x14000a82920?, {0x101914c48, 0x14002fd0e00}, {0x140001a2000, 0x86}, {0x14002d0bc40, 0x1, 0x1})
+	/Users/dbrusenin/.go/pkg/mod/github.com/jackc/pgx/v5@v5.5.3/pgxpool/pool.go:603 +0x3c fp=0x140031814d0 sp=0x14003181440 pc=0x10164e1cc
+github.com/Deimvis/reactionsstorage/src/storages.(*ConfigurationStorage).GetNamespace(0x1400050c280, {0x101914c48, 0x14002fd0e00}, {0x14000a82920, 0x9})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/storages/configuration.go:50 +0xa4 fp=0x14003181530 sp=0x140031814d0 pc=0x101654784
+github.com/Deimvis/reactionsstorage/src/services.(*ReactionsService).AddUserReaction(0x1400052cfa0, {0x101914c48, 0x14002fd0e00}, {{0x14000a828fc}, {{0x14000a82920, 0x9}, {0x14000a82930, 0xd}, {0x14000a82940, 0x8}, ...}})
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/services/reactions.go:36 +0x60 fp=0x140031815d0 sp=0x14003181530 pc=0x101658720
+github.com/Deimvis/reactionsstorage/src/servers.NewRouter.func7(0x1010693f0?)
+	/Users/dbrusenin/Projects/code/ReactionsStorage/src/servers/http.go:107 +0x200 fp=0x14003181710 sp=0x140031815d0 pc=0x10165a180
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002fd0e00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x14003181760 sp=0x14003181710 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14002fd0e00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80 fp=0x140031817b0 sp=0x14003181760 pc=0x1014e06e0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x14002fd0e00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0 fp=0x14003181960 sp=0x140031817b0 pc=0x1014dfa80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000102ea0, 0x14002fd0e00)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 +0x524 fp=0x14003181af0 sp=0x14003181960 pc=0x1014debb4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000102ea0, {0x101913110?, 0x14002ffc000}, 0x14003108100)
+	/Users/dbrusenin/.go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0 fp=0x14003181b30 sp=0x14003181af0 pc=0x1014de500
+net/http.serverHandler.ServeHTTP({0x101910360?}, {0x101913110?, 0x14002ffc000?}, 0x6?)
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2938 +0xbc fp=0x14003181b60 sp=0x14003181b30 pc=0x10126b50c
+net/http.(*conn).serve(0x14002e5b290, {0x101914c80, 0x140003723c0})
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:2009 +0x518 fp=0x14003181fa0 sp=0x14003181b60 pc=0x101267908
+net/http.(*Server).Serve.func3()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x30 fp=0x14003181fd0 sp=0x14003181fa0 pc=0x10126bc20
+runtime.goexit()
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/runtime/asm_arm64.s:1197 +0x4 fp=0x14003181fd0 sp=0x14003181fd0 pc=0x101068504
+created by net/http.(*Server).Serve in goroutine 53
+	/Users/dbrusenin/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.21.5.darwin-arm64/src/net/http/server.go:3086 +0x4cc
+
+r0      0x104
+r1      0x0
+r2      0x9df00
+r3      0x0
+r4      0x0
+r5      0xa0
+r6      0x0
+r7      0x0
+r8      0x16ee029c8
+r9      0x0
+r10     0x101e2f260
+r11     0x110000001102
+r12     0x1100
+r13     0x0
+r14     0x1100
+r15     0x110000001100
+r16     0x131
+r17     0x208944ed8
+r18     0x0
+r19     0x101e2f248
+r20     0x101e2f288
+r21     0x203e1dc20
+r22     0x0
+r23     0x0
+r24     0x9df00
+r25     0x9df01
+r26     0x9e000
+r27     0x60
+r28     0x101e2e460
+r29     0x16ee02a40
+lr      0x1a89bc574
+sp      0x16ee029b0
+pc      0x1a897f710
+fault   0x1a897f710

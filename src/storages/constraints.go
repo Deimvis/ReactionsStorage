@@ -20,7 +20,7 @@ func checkAddUserReaction(ctx context.Context, userId string, reactionId string,
 		return &MaxUniqReactionsError{}
 	}
 
-	conflictingReactions := getConflictingReactions(ctx, reactionId, uniqEntityUserReactions, mutExclReactions)
+	conflictingReactions := getConflictingReactionIds(reactionId, uniqEntityUserReactions, mutExclReactions)
 	if len(conflictingReactions) > 0 {
 		return &ConflictingReactionError{reactionId, conflictingReactions}
 	}
@@ -28,7 +28,7 @@ func checkAddUserReaction(ctx context.Context, userId string, reactionId string,
 	return nil
 }
 
-func getConflictingReactions(ctx context.Context, reactionId string, uniqEntityUserReactions map[string]struct{}, mutExclReactions [][]string) []string {
+func getConflictingReactionIds(reactionId string, uniqEntityUserReactions map[string]struct{}, mutExclReactions [][]string) []string {
 	var conflictingReactions []string
 	for _, conflictingGroup := range mutExclReactions {
 		ind := slices.Index(conflictingGroup, reactionId)

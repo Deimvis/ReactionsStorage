@@ -8,6 +8,7 @@ import (
 
 	"github.com/Deimvis/reactionsstorage/src/models"
 	"github.com/Deimvis/reactionsstorage/src/storages"
+	"github.com/Deimvis/reactionsstorage/src/utils"
 )
 
 func NewConfigurationService(lc fx.Lifecycle, cs *storages.ConfigurationStorage) *ConfigurationService {
@@ -16,6 +17,17 @@ func NewConfigurationService(lc fx.Lifecycle, cs *storages.ConfigurationStorage)
 
 type ConfigurationService struct {
 	cs *storages.ConfigurationStorage
+}
+
+func (s *ConfigurationService) SetConfiguration(ctx context.Context, req *models.ConfigurationPOSTRequest) models.Response {
+	err := utils.UntilFirstErr(
+		func() error { return models.CheckCorrectness(&req.Body) },
+		func() error { return s.cs.SetConfiguration(ctx, &req.Body) },
+	)
+	if err != nil {
+		return &models.ConfigurationPOSTResponse422{Error: err.Error()}
+	}
+	return &models.ConfigurationPOSTResponse200{Status: "ok"}
 }
 
 func (s *ConfigurationService) GetNamespace(ctx context.Context, req *models.NamespaceGETRequest) models.Response {
@@ -33,5 +45,3 @@ func (s *ConfigurationService) GetAvailableReactions(ctx context.Context, req *m
 	reactions := s.cs.GetAvailableReactionsStrict(ctx, req.Query.NamespaceId)
 	return &models.AvailableReactionsGETResponse200{Reactions: reactions}
 }
-
-// func (cs *ConfigurationService) SetConfiguration(ctx context.Context, conf *models.Configuration)

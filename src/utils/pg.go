@@ -4,39 +4,42 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
+
+	"github.com/Deimvis/reactionsstorage/src/metrics"
 )
 
-type myQueryTracer struct {
+type QueryStartCtxKey struct{}
+
+type SQLTracer struct {
 	log *zap.SugaredLogger
 }
 
-func (tracer *myQueryTracer) TraceQueryStart(
-	ctx context.Context,
-	_ *pgx.Conn,
-	data pgx.TraceQueryStartData) context.Context {
-	tracer.log.Infow("Executing command", "sql", data.SQL, "args", data.Args)
-
+func (tracer *SQLTracer) TraceQueryStart(ctx context.Context, _ *pgx.Conn, data pgx.TraceQueryStartData) context.Context {
+	tracer.log.Debugw("SQL", "query", data.SQL, "args", data.Args)
+	ctx = context.WithValue(ctx, QueryStartCtxKey{}, time.Now())
 	return ctx
 }
 
-func (tracer *myQueryTracer) TraceQueryEnd(ctx context.Context, conn *pgx.Conn, data pgx.TraceQueryEndData) {
+func (tracer *SQLTracer) TraceQueryEnd(ctx context.Context, conn *pgx.Conn, data pgx.TraceQueryEndData) {
+	start := ctx.Value(QueryStartCtxKey{}).(time.Time)
+	elapsed := float64(time.Since(start)) / float64(time.Second)
+	metrics.SQLReqCnt.Inc()
+	metrics.SQLReqDur.Observe(elapsed)
 }
 
-func NewPostgresConnectionPool(lc fx.Lifecycle, logger *zap.Logger) *pgxpool.Pool {
-	// TODO: pass tracer as a dependency
-	config, err := pgxpool.ParseConfig(os.Getenv("DATABASE_URL")) // Using environment variables instead of a connection string.
+func NewPostgresConnectionPool(lc fx.Lifecycle, logger *zap.SugaredLogger) *pgxpool.Pool {
+	config, err := pgxpool.ParseConfig(os.Getenv("DATABASE_URL"))
 	if err != nil {
 		panic(err)
 	}
-	tracer := &myQueryTracer{log: logger.Sugar()}
+	tracer := &SQLTracer{log: logger}
 	config.ConnConfig.Tracer = tracer
-
-	// ---
 
 	pool, err := pgxpool.NewWithConfig(context.Background(), config)
 	if err != nil {

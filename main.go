@@ -2,6 +2,10 @@ package main
 
 import (
 	"net/http"
+	"os"
+	"os/signal"
+	"runtime/debug"
+	"syscall"
 
 	"go.uber.org/fx"
 
@@ -29,4 +33,16 @@ func CreateOptions() fx.Option {
 
 func main() {
 	fx.New(CreateOptions()).Run()
+}
+
+func setupSigHandlers() {
+	if utils.IsDebugEnv() {
+		sigChan := make(chan os.Signal)
+		go func() {
+			for range sigChan {
+				debug.PrintStack()
+			}
+		}()
+		signal.Notify(sigChan, syscall.SIGQUIT)
+	}
 }

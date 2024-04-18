@@ -5,4 +5,4 @@ run: build
 	@./bin/reactions_storage $(ARGS)
 
 test:
-	@gotestsum --format dots
+	@devtools/kportpid 8080 && gotestsum --format dots

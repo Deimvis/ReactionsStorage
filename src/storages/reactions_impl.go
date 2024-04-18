@@ -10,6 +10,11 @@ import (
 	"github.com/Deimvis/reactionsstorage/src/utils"
 )
 
+func (rs *ReactionsStorage) init(pg PG, ctx context.Context) error {
+	_, err := pg.Exec(ctx, sql.InitReactionsStorage)
+	return err
+}
+
 func (rs *ReactionsStorage) getUniqEntityReactions(pg PG, ctx context.Context, namespaceId string, entityId string) (map[string]struct{}, error) {
 	rows, err := pg.Query(ctx, sql.GetUniqueEntityReactions, namespaceId, entityId)
 	if err != nil {
@@ -84,4 +89,9 @@ func (rs *ReactionsStorage) getUserReactions(pg PG, ctx context.Context) ([]mode
 		return nil, err
 	}
 	return pgx.CollectRows(rows, pgx.RowToStructByName[models.UserReaction])
+}
+
+func (rs *ReactionsStorage) clear(pg PG, ctx context.Context) error {
+	_, err := pg.Exec(ctx, sql.ClearUserReactionsStorage)
+	return err
 }

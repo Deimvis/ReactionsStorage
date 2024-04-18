@@ -9,7 +9,6 @@ import (
 	"go.uber.org/fx"
 
 	"github.com/Deimvis/reactionsstorage/src/models"
-	"github.com/Deimvis/reactionsstorage/src/sql"
 	"github.com/Deimvis/reactionsstorage/src/utils"
 )
 
@@ -28,8 +27,7 @@ type ReactionsStorage struct {
 }
 
 func (rs *ReactionsStorage) Init(ctx context.Context) error {
-	_, err := rs.pool.Exec(ctx, sql.InitReactionsStorage)
-	return err
+	return rs.init(rs.pool, ctx)
 }
 
 func (rs *ReactionsStorage) GetEntityReactionsCount(ctx context.Context, namespaceId string, entityId string) ([]models.ReactionCount, error) {
@@ -65,8 +63,7 @@ func (rs *ReactionsStorage) GetUserReactions(ctx context.Context) ([]models.User
 }
 
 func (rs *ReactionsStorage) Clear(ctx context.Context) error {
-	_, err := rs.pool.Exec(ctx, sql.ClearUserReactionsStorage)
-	return err
+	return rs.clear(rs.pool, ctx)
 }
 
 func (rs *ReactionsStorage) beginTx(ctx context.Context) (pgx.Tx, error) {

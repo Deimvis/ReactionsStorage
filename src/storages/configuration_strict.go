@@ -36,16 +36,16 @@ func (cs *ConfigurationStorage) GetAvailableReactionsStrict(ctx context.Context,
 	return res
 }
 
-func (cs *ConfigurationStorage) GetMutuallyExclusiveReactionsStrict(namespaceId string) [][]string {
-	res, err := cs.GetMutuallyExclusiveReactions(namespaceId)
+func (cs *ConfigurationStorage) GetMutuallyExclusiveReactionsStrict(ctx context.Context, namespaceId string) [][]string {
+	res, err := cs.GetMutuallyExclusiveReactions(ctx, namespaceId)
 	if err != nil {
 		panic(fmt.Errorf("failed to get mutually exclusive reactions: %w", err))
 	}
 	return res
 }
 
-func (cs *ConfigurationStorage) GetMaxUniqueReactionsStrict(namespaceId string) int {
-	res, err := cs.GetMaxUniqueReactions(namespaceId)
+func (cs *ConfigurationStorage) GetMaxUniqueReactionsStrict(ctx context.Context, namespaceId string) int {
+	res, err := cs.GetMaxUniqueReactions(ctx, namespaceId)
 	if err != nil {
 		panic(fmt.Errorf("failed to get max unique reactions: %w", err))
 	}

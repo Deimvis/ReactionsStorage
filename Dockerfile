@@ -12,7 +12,6 @@ COPY src ./src
 COPY main.go ./
 COPY Makefile ./
 
-# ENTRYPOINT ["/bin/bash"]
 RUN CGO_ENABLED=0 GOOS=linux go build -o ./bin/reactions_storage
 
 EXPOSE 8080

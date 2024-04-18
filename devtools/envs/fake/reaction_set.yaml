@@ -1,0 +1,6 @@
+- id: reaction_set
+  reaction_ids:
+    - reaction
+    - reaction1
+    - reaction2
+    - reaction3

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# kwtrace (kill with trace) -- kill proces by pid and print trace
+# (golang binary prints stacktrace on ABRT signal)
+
+kill -ABRT $@

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+
+ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "sudo apt update -y &> /dev/null"
+ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "sudo apt install python3.11 -y &> /dev/null"
+ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "sudo apt install docker.io -y &> /dev/null"
+ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "sudo apt install docker-compose -y &> /dev/null"
+ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "sudo apt install docker-compose-v2 -y &> /dev/null"
+ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "sudo apt install postgresql-client -y &> /dev/null"

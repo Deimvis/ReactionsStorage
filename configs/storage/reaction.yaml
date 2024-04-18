@@ -1,0 +1,11 @@
+- id: reaction1
+  type: 'unicode'
+  code: '1'
+
+- id: reaction2
+  type: 'unicode'
+  code: '2'
+
+- id: reaction3
+  type: 'unicode'
+  code: '3'

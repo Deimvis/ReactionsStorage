@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# kportpid-- kill pid that uses given port
+
+function fport() {
+    lsof -n -i :$1
+}
+
+function fportpid() {
+    pid=$(fport $1 | tail -n +2 | awk '{print $2}')
+    echo $pid
+}
+
+pid=$(fportpid $@)
+if [ ! -z $pid ]; then kill $pid; fi

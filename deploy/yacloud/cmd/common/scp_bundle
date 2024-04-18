@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+
+ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "mkdir -p $REMOTE_WORKDIR"
+
+${SCRIPTS_DIR}/patch_docker_compose --unset-build --unset-depends-on < docker-compose.yaml > docker-compose.yaml.tmp
+scp docker-compose.yaml.tmp $SSH_USER@$SSH_HOST:$REMOTE_WORKDIR/docker-compose.yaml
+rm docker-compose.yaml.tmp
+
+ln -sf .env.yacloud .env
+scp $(realpath .env) $SSH_USER@$SSH_HOST:$REMOTE_WORKDIR/.env

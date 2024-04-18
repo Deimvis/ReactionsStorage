@@ -2,7 +2,6 @@ package services
 
 import (
 	"context"
-	"log"
 
 	"go.uber.org/fx"
 
@@ -38,8 +37,7 @@ func (s *ReactionsService) AddUserReaction(ctx context.Context, req models.React
 	if err != nil {
 		return &models.ReactionsPOSTResponse403{Error: err.Error()}
 	}
-	log.Println("Namespace:", namespace)
-	err = s.rs.AddUserReaction(ctx, req.Body, namespace.MaxUniqReactions, namespace.MutuallyExclusiveReactions)
+	err = s.rs.AddUserReaction(ctx, req.Body, namespace.MaxUniqReactions, namespace.MutuallyExclusiveReactions, *req.Query.Force)
 	if err != nil {
 		return &models.ReactionsPOSTResponse403{Error: err.Error()}
 	}

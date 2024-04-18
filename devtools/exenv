@@ -3,8 +3,9 @@
 # is supposed to be compatible with docker env file syntax:
 # https://docs.docker.com/compose/environment-variables/env-file/
 
+# usage: . exenv .env
 
-FILE_PATH=${1:-.env.test}
+FILE_PATH=${1:-.env}
 IFS=$'\n'
 for line in $(cat $FILE_PATH | grep -v '^#'); do
     export "$line"

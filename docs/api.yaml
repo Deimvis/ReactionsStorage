@@ -67,10 +67,30 @@ paths:
             application/json:
               schema:
                 $ref: 'definitions/responses.yaml#/components/schemas/ReactionsPOSTResponse403'
+    delete:
+      description: |
+        Remove single user reaction.
+        Does nothing if reaction does not exist.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'definitions/requests.yaml#/components/schemas/ReactionsDELETERequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/responses.yaml#/components/schemas/ReactionsDELETEResponse200'
 
   /configuration:
     post:
-      description: Set new reactions configuration
+      description: |
+        Set new reactions configuration.
+        Doesn't check compatibility with current configuration.
+        Does check that configuration is itself correct.
       requestBody:
         description: |
           Reactions Storage Configuration.

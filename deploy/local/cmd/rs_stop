@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+devtools/kportpid 8080

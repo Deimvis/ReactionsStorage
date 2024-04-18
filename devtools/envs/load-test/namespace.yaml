@@ -1,0 +1,6 @@
+- id: namespace
+  reaction_set_id: reaction_set
+  max_uniq_reactions: 6
+  mutually_exclusive_reactions:
+    - - 👍
+      - 👎

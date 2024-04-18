@@ -1,4 +1,6 @@
 bin/
+debug/
+deploy/yacloud/conf.json
 tmp/
 .vscode/
 .DS_Store

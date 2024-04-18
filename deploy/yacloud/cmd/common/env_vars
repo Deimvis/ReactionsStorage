@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -e
+
+export RESOURCE=$1
+
+export CMD_DIR=$(dirname $(dirname "${BASH_SOURCE[0]}"))
+export SCRIPTS_DIR=$(dirname $CMD_DIR)/scripts
+
+export CONF_FILE=$(dirname $CMD_DIR)/conf.json
+export SSH_HOST=$(cat $CONF_FILE | jq -r ".$RESOURCE.ssh_host")
+export SSH_USER=$(cat $CONF_FILE | jq -r ".$RESOURCE.ssh_user")
+export REMOTE_WORKDIR=$(cat $CONF_FILE | jq -r ".$RESOURCE.workdir")
+export SERVICES=$(cat $CONF_FILE | jq -r ".$RESOURCE.services | join(\" \")")

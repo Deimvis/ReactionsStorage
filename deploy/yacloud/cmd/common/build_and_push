@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -e
+
+${SCRIPTS_DIR}/patch_docker_compose --set-platform linux/x86_64 < docker-compose.yaml > docker-compose.yaml.tmp
+docker-compose -f docker-compose.yaml.tmp build $SERVICES
+docker-compose -f docker-compose.yaml.tmp push $SERVICES
+rm docker-compose.yaml.tmp

@@ -3,11 +3,13 @@
 set -e
 
 function sql() {
-    psql -U dbrusenin -d reactions -f $1
+    PGPASSWORD=$POSTGRES_PASSWORD psql -h $POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USER -d $POSTGRES_DB -f $1
     return $?
 }
 
 sql devtools/sql/destroy_db.sql
 sql sql/init_configuration_storage.sql
 sql sql/init_reactions_storage.sql
-sql devtools/sql/setup_db.sql
+
+env_name=${1:-fake}
+sql devtools/sql/setup_${env_name}_env.sql

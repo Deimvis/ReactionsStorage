@@ -5,7 +5,7 @@ tmp_dir = "tmp"
 [build]
   args_bin = []
   bin = "./bin/reactions_storage"
-  cmd = "make build && kill $(fportpid 8080)"
+  cmd = "make build && devtools/kportpid 8080"
   delay = 1000
   exclude_dir = ["assets", "bin", "tmp", "vendor", "testdata"]
   exclude_file = []

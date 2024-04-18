@@ -1,11 +1,14 @@
 package models
 
+import "net/http"
+
 // type ReactionsGETRequest =
 
 type Request interface {
 	Method() string
 	Path() string
 	QueryString() string
+	Header() http.Header
 	BodyRaw() []byte
 }
 
@@ -28,8 +31,9 @@ type ReactionsDELETERequest struct {
 	Body UserReaction
 }
 
-type ConfiguratinPOSTRequest struct {
-	Body Configuration
+type ConfigurationPOSTRequest struct {
+	Headers http.Header
+	Body    Configuration
 }
 
 type NamespaceGETRequest struct {

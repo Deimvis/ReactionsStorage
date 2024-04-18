@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -ex
+
+HOST=localhost
+PORT=9090
+METRIC_NAME_REGEX=$1
+
+curl -X POST "http://$HOST:$PORT/api/v1/admin/tsdb/delete_series" \
+  --data-urlencode "match[]={__name__=\"$METRIC_NAME_REGEX\"}"
+curl -X POST "http://$HOST:$PORT/api/v1/admin/tsdb/clean_tombstones"

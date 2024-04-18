@@ -287,6 +287,79 @@ var reactionsPOST_testCase_Complex = []reactionsPOST_testCase{
 			},
 		},
 	},
+	{
+		name: "add reaction to hit the max uniq reactions limit (5)",
+		initialURs: []models.UserReaction{
+			{
+				NamespaceId: fake.NamespaceId,
+				EntityId:    fake.EntityId,
+				UserId:      fake.UserId,
+				ReactionId:  fake.FreeReactionId1,
+			},
+			{
+				NamespaceId: fake.NamespaceId,
+				EntityId:    fake.EntityId,
+				UserId:      fake.UserId,
+				ReactionId:  fake.FreeReactionId2,
+			},
+			{
+				NamespaceId: fake.NamespaceId,
+				EntityId:    fake.EntityId,
+				UserId:      fake.UserId,
+				ReactionId:  fake.FreeReactionId3,
+			},
+			{
+				NamespaceId: fake.NamespaceId,
+				EntityId:    fake.EntityId,
+				UserId:      fake.UserId,
+				ReactionId:  fake.FreeReactionId4,
+			},
+		},
+		requests: []reactionsPOST_request{
+			{
+				userReaction: models.UserReaction{
+					NamespaceId: fake.NamespaceId,
+					EntityId:    fake.EntityId,
+					UserId:      fake.UserId,
+					ReactionId:  fake.FreeReactionId5,
+				},
+				force:              true,
+				expectedStatusCode: 200,
+			},
+		},
+		expectedURs: []models.UserReaction{
+			{
+				NamespaceId: fake.NamespaceId,
+				EntityId:    fake.EntityId,
+				UserId:      fake.UserId,
+				ReactionId:  fake.FreeReactionId1,
+			},
+			{
+				NamespaceId: fake.NamespaceId,
+				EntityId:    fake.EntityId,
+				UserId:      fake.UserId,
+				ReactionId:  fake.FreeReactionId2,
+			},
+			{
+				NamespaceId: fake.NamespaceId,
+				EntityId:    fake.EntityId,
+				UserId:      fake.UserId,
+				ReactionId:  fake.FreeReactionId3,
+			},
+			{
+				NamespaceId: fake.NamespaceId,
+				EntityId:    fake.EntityId,
+				UserId:      fake.UserId,
+				ReactionId:  fake.FreeReactionId4,
+			},
+			{
+				NamespaceId: fake.NamespaceId,
+				EntityId:    fake.EntityId,
+				UserId:      fake.UserId,
+				ReactionId:  fake.FreeReactionId5,
+			},
+		},
+	},
 }
 
 var reactionsPOST_testCase_403 = []reactionsPOST_testCase{

@@ -61,7 +61,11 @@ func (u *UserImpl) DoRandomAction() {
 func (u *UserImpl) chooseAction() Action {
 	var choices []weightedrand.Choice
 	if u.CanSwitchTopic() {
-		choices = append(choices, weightedrand.NewChoice(User.SwitchTopic, u.probs.SwitchTopic))
+		w := u.probs.SwitchTopic
+		if !u.CanScroll() {
+			w += u.probs.Scroll
+		}
+		choices = append(choices, weightedrand.NewChoice(User.SwitchTopic, w))
 	}
 	if u.CanScroll() {
 		choices = append(choices, weightedrand.NewChoice(User.Scroll, u.probs.Scroll))

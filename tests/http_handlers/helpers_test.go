@@ -2,7 +2,6 @@ package http_handlers_test
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -13,22 +12,8 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/Deimvis/reactionsstorage/src/models"
-	"github.com/Deimvis/reactionsstorage/tests/fake"
+	setup "github.com/Deimvis/reactionsstorage/tests/setup"
 )
-
-func setFakeConfiguration() {
-	ctx := context.Background()
-	cs.ClearStrict(ctx)
-	cs.AddReactionStrict(ctx, &fake.Reaction)
-	cs.AddReactionStrict(ctx, &fake.Reaction2)
-	cs.AddReactionStrict(ctx, &fake.Reaction3)
-	cs.AddReactionSetStrict(ctx, &fake.ReactionSet)
-	cs.AddNamespaceStrict(ctx, &fake.Namespace)
-}
-
-func clearUserReactions() {
-	rs.ClearStrict(context.Background())
-}
 
 func test(t *testing.T, req models.Request, resp models.Response) {
 	w := request(t, req)
@@ -36,14 +21,15 @@ func test(t *testing.T, req models.Request, resp models.Response) {
 }
 
 func request(t *testing.T, r models.Request) *httptest.ResponseRecorder {
-	return requestRaw(t, r.Method(), fmt.Sprintf("%s?%s", r.Path(), r.QueryString()), bytes.NewReader(r.BodyRaw()))
+	return requestRaw(t, r.Method(), fmt.Sprintf("%s?%s", r.Path(), r.QueryString()), bytes.NewReader(r.BodyRaw()), r.Header())
 }
 
-func requestRaw(t *testing.T, method string, url string, body io.Reader) *httptest.ResponseRecorder {
+func requestRaw(t *testing.T, method string, url string, body io.Reader, headers ...http.Header) *httptest.ResponseRecorder {
 	req, err := http.NewRequest(method, url, body)
 	require.NoError(t, err)
+	req.Header = mergeHeaders(headers...)
 	w := httptest.NewRecorder()
-	srv.Handler.ServeHTTP(w, req)
+	setup.SRV.Handler.ServeHTTP(w, req)
 	return w
 }
 
@@ -55,5 +41,17 @@ func requireResponse(t *testing.T, exp models.Response, act *httptest.ResponseRe
 
 func requireResponseRaw(t *testing.T, expCode int, expBody string, act *httptest.ResponseRecorder) {
 	require.Equal(t, expCode, act.Code)
-	require.Equal(t, expBody, act.Body.String())
+	require.JSONEq(t, expBody, act.Body.String())
+}
+
+func mergeHeaders(headers ...http.Header) http.Header {
+	result := make(http.Header)
+	for _, headersGroup := range headers {
+		for k, vs := range headersGroup {
+			for _, v := range vs {
+				result.Add(k, v)
+			}
+		}
+	}
+	return result
 }

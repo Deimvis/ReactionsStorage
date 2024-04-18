@@ -21,7 +21,7 @@ rules:
 
     # on each turn user can or can't perform some action
     # among available actions will be chosen one using weighted random choice
-    # exceotL if user can't scroll, scroll weight will be added to switch topic weight
+    # except if user can't scroll, scroll weight will be added to switch topic weight
     action_probs:
       switch_topic: 5
       scroll: 75

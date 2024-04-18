@@ -32,8 +32,10 @@ rules:
   # rationale: users might have different feed
   #            or to be interested in different topics,
   #            so there are many topics
+  #            (it also useful to make total number of entities significant)
+  #            (it especially useful if simulation lasts long)
   topics:
-  - count: 100
+  - count: 1000
     namespace_id: namespace
     size: 30
     shuffle_per_user: true

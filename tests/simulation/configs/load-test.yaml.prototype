@@ -1,0 +1,49 @@
+seed: 42
+
+rules:
+  turns:
+    count: 120
+    min_duration_ms: 1000
+
+  users:
+    # rationale: ~1200 read rps, ~3 write rps
+    count: 500
+    turn_start_skew_ms: 900
+  
+    # rationale: loading with pagination - 10 entities per page
+    screen:
+      visible_entities_count: 10
+  
+    app:
+      background:
+        refresh_reactions:
+          timer_in_turns: 3
+
+    # rationale: 1% engagement rate for 10 entities per scroll
+    # rationale: ~1200 read rps, ~3 write rps
+    action_probs:
+      switch_topic: 10
+      scroll: 70
+      add_reaction: 9
+      remove_reaction: 1
+      quit: 10
+
+  # rationale: users do not scroll further 30 entities
+  # rationale: users might have different feed
+  #            or to be interested in different topics,
+  #            so there are many topics
+  topics:
+  - count: 100
+    namespace_id: namespace
+    size: 30
+    shuffle_per_user: true
+
+server:
+  host: localhost
+  port: 8080
+  ssl: false
+
+prometheus_pushgateway:
+  host: localhost
+  port: 9091
+  ssl: false

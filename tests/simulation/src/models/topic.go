@@ -44,6 +44,8 @@ func (t *TopicImpl) CopyForUser() Topic {
 	return tc
 }
 
+// copy returns a copy of given topic.
+// All entities lose local information about reactions.
 func (t *TopicImpl) copy() *TopicImpl {
 	var topic TopicImpl
 	topic.id = t.id

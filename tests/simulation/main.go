@@ -9,6 +9,7 @@ import (
 	"os/signal"
 	"runtime/debug"
 	"sync"
+	"sync/atomic"
 	"syscall"
 	"time"
 
@@ -72,24 +73,23 @@ func main() {
 		}
 	}
 
-	var users []models.User
+	var apps []models.App
 	for i := 0; i < config.Rules.Users.Count; i++ {
 		app := models.NewApp(rsClient, topics, config.Rules.Users.Screen.VisibleEntitiesCount, logger)
-		id := fmt.Sprintf("user_%04d", i)
-		users = append(users, models.NewUser(id, app, config.Rules.Users.ActionProbs, logger))
+		apps = append(apps, app)
 	}
 
 	setupSigHandlers()
-	run(config, users, logger)
+	run(config, apps, logger)
 }
 
-func run(config configs.Simulation, users []models.User, logger *zap.SugaredLogger) {
-	n := len(users)
+func run(config configs.Simulation, apps []models.App, logger *zap.SugaredLogger) {
+	n := len(apps)
 
 	wgChs := make([]chan *sync.WaitGroup, n)
-	for i, u := range users {
+	for i, a := range apps {
 		wgChs[i] = make(chan *sync.WaitGroup)
-		go runUser(config, u, wgChs[i], logger)
+		go runUser(config, a, wgChs[i], logger)
 	}
 
 	expectedDur := time.Duration(config.Rules.Turns.MinDurMs) * time.Millisecond
@@ -113,22 +113,39 @@ func run(config configs.Simulation, users []models.User, logger *zap.SugaredLogg
 	logger.Info("Simulation finished")
 }
 
-func runUser(config configs.Simulation, user models.User, wgCh <-chan *sync.WaitGroup, logger *zap.SugaredLogger) {
+func runUser(config configs.Simulation, app models.App, wgCh <-chan *sync.WaitGroup, logger *zap.SugaredLogger) {
 	// simulates app loading
 	time.Sleep(time.Duration(rand.Intn(100)) * time.Millisecond)
-	user.GetApp().Refresh(user.GetId()).Wait()
+	user := logIn(config, app, logger)
 
 	for i := 0; i < config.Rules.Turns.Count; i++ {
 		wg := <-wgCh
 		time.Sleep(time.Duration(rand.Intn(config.Rules.Users.TurnStartSkewMs)) * time.Millisecond)
 		if needRefresh(config, i) {
 			// do not wait, it's a background process
-			user.GetApp().Refresh(user.GetId())
+			app.Refresh(user.GetId())
 		}
-		user.DoRandomAction()
-		logger.Infof("User %s finished turn %d", user.GetId(), i)
+
+		{
+			defer logger.Infof("User %s finished turn %d", user.GetId(), i) // it's unsafe to use user after quit, so use defer
+			user.DoRandomAction()
+		}
+
+		if user.IsQuit() {
+			// user quit => log in a new user
+			user = logIn(config, app, logger)
+		}
 		wg.Done()
 	}
+}
+
+// logIn logins a new user
+func logIn(config configs.Simulation, app models.App, logger *zap.SugaredLogger) models.User {
+	id := fmt.Sprintf("user_%04d", userCounter.Add(1))
+	user := models.NewUser(id, app, config.Rules.Users.ActionProbs, logger)
+	app.Restart(id).Wait()
+	logger.Infof("User %s logged in", id)
+	return user
 }
 
 // Returns whether it's right turn to call Refresh
@@ -159,3 +176,5 @@ func setupSigHandlers() {
 	}()
 	signal.Notify(sigChan, syscall.SIGQUIT)
 }
+
+var userCounter atomic.Uint64

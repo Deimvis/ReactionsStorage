@@ -24,9 +24,10 @@ rules:
     # exceotL if user can't scroll, scroll weight will be added to switch topic weight
     action_probs:
       switch_topic: 5
-      scroll: 80
+      scroll: 75
       add_reaction: 10
       remove_reaction: 5
+      quit: 5
 
   topics:
   - count: 10

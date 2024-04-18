@@ -30,10 +30,14 @@ type User interface {
 
 	CanRemoveReaction() bool
 	RemoveReaction()
+
+	CanQuit() bool
+	Quit()
+	IsQuit() bool
 }
 
 func NewUser(id string, app App, probs configs.ActionProbs, logger *zap.SugaredLogger) User {
-	return &UserImpl{id: id, app: app, probs: probs, logger: logger}
+	return &UserImpl{id: id, app: app, probs: probs, quit: false, logger: logger}
 }
 
 type Action = func(u User)
@@ -42,6 +46,8 @@ type UserImpl struct {
 	id    string
 	app   App
 	probs configs.ActionProbs
+
+	quit bool
 
 	logger *zap.SugaredLogger
 }
@@ -75,6 +81,9 @@ func (u *UserImpl) chooseAction() Action {
 	}
 	if u.CanRemoveReaction() {
 		choices = append(choices, weightedrand.NewChoice(User.RemoveReaction, u.probs.RemoveReaction))
+	}
+	if u.CanQuit() {
+		choices = append(choices, weightedrand.NewChoice(User.Quit, u.probs.Quit))
 	}
 	if len(choices) == 0 {
 		u.logger.Warnf("User %s has no options what to do next - skip this turn")
@@ -164,6 +173,18 @@ func (u *UserImpl) RemoveReaction() {
 	options := getRemoveReactionOptions(e)
 	reactionId := options[rand.Intn(len(options))]
 	u.app.RemoveReaction(e, u.GetId(), reactionId).Wait()
+}
+
+func (u *UserImpl) CanQuit() bool {
+	return true
+}
+
+func (u *UserImpl) Quit() {
+	u.quit = true
+}
+
+func (u *UserImpl) IsQuit() bool {
+	return u.quit
 }
 
 func chooseRandomEntity(entities []Entity, pred func(e Entity) bool) (Entity, error) {

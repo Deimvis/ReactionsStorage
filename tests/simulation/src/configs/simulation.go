@@ -54,4 +54,5 @@ type ActionProbs struct {
 	Scroll         uint `yaml:"scroll" json:"scroll"`
 	AddReaction    uint `yaml:"add_reaction" json:"add_reaction"`
 	RemoveReaction uint `yaml:"remove_reaction" json:"remove_reaction"`
+	Quit           uint `yaml:"quit" json:"quit"`
 }

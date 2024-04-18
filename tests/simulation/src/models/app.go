@@ -13,7 +13,9 @@ import (
 	"github.com/Deimvis/reactionsstorage/tests/simulation/src/utils"
 )
 
-// App encapsulates application functionality
+// App encapsulates application functionality.
+// App beholds to a single user at a time.
+// For another user to use it, Restart should be called.
 type App interface {
 	GetCurrentTopicId() string
 	GetAvailableTopicIds() []string
@@ -42,12 +44,18 @@ type App interface {
 	// Simulates click on existing reaction.
 	// Asynchronously sends request and updates given entity.
 	RemoveReaction(e Entity, userId string, reactionId string) Waitable
+
+	// Simulates that app is restarted.
+	// Loses all local information about reactions.
+	// Should be called before new user starts using this app.
+	Restart(userId string) Waitable
 }
 
 type AppImpl struct {
 	client               rs.Client
 	topics               []Topic
 	visibleEntitiesCount int
+
 	curTopicId           string
 	curTopicPos          int
 
@@ -66,8 +74,20 @@ func NewApp(client rs.Client, topics []Topic, visibleEntitiesCount int, logger *
 		app.topics[i] = t.CopyForUser()
 	}
 	app.curTopicId = app.topics[rand.Intn(len(app.topics))].GetId()
+	app.curTopicPos = 0
 	app.logger = logger
 	return &app
+}
+
+func (a *AppImpl) Restart(userId string) Waitable {
+	cleanTopics := make([]Topic, len(a.topics))
+	for i, t := range a.topics {
+		cleanTopics[i] = t.CopyForUser()
+	}
+	a.topics = cleanTopics
+	a.curTopicId = a.topics[rand.Intn(len(a.topics))].GetId()
+	a.curTopicPos = 0
+	return a.Refresh(userId)
 }
 
 func (a *AppImpl) GetCurrentTopicId() string {

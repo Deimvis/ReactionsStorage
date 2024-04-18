@@ -54,3 +54,13 @@ scrape_configs:
   - source_labels: ['method', 'path']
     separator: '_'
     target_label: method_path
+- job_name: node_exporter
+  static_configs:
+  - targets:
+    - prometheus_node_exporter:9100
+  metric_relabel_configs:
+      - source_labels: [ __name__ ]
+        target_label: __name__
+        regex: '(.*)'
+        action: replace
+        replacement: localhost_${1}

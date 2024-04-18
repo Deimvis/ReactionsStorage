@@ -55,6 +55,17 @@ services:
     volumes:
       - ./deploy/docker-compose/prometheus:/etc/prometheus
       - prometheus_data:/prometheus
+  
+  prometheus_node_exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: rs_prometheus_node_exporter
+    command:
+      - '--path.rootfs=/host'
+    network_mode: host
+    pid: host
+    restart: unless-stopped
+    volumes:
+      - '/:/host:ro,rslave'
 
   grafana:
     image: grafana/grafana

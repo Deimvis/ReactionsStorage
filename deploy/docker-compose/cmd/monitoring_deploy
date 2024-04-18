@@ -3,4 +3,4 @@
 set -e
 
 ln -sf .env.docker-compose .env
-docker-compose up -d --build prometheus prometheus_pushgateway grafana
+docker-compose up -d --build prometheus prometheus_pushgateway prometheus_node_exporter grafana

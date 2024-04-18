@@ -2,10 +2,11 @@
 
 set -ex
 
-HOST=localhost
-PORT=9090
-METRIC_NAME_REGEX=$1
+# METRIC_NAME_REGEX=$1
+MATCH=$1 # example: {__name__="<METRIC_NAME_REGEX>"}
+HOST=${2:-localhost}
+PORT=${3:-9090}
 
 curl -X POST "http://$HOST:$PORT/api/v1/admin/tsdb/delete_series" \
-  --data-urlencode "match[]={__name__=\"$METRIC_NAME_REGEX\"}"
+  --data-urlencode "match[]=$MATCH"
 curl -X POST "http://$HOST:$PORT/api/v1/admin/tsdb/clean_tombstones"

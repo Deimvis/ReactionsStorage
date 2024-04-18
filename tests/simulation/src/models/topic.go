@@ -3,7 +3,7 @@ package models
 import (
 	"fmt"
 
-	"github.com/Deimvis/reactionsstorage/tests/simulation/utils"
+	"github.com/Deimvis/reactionsstorage/tests/simulation/src/utils"
 )
 
 type Topic interface {

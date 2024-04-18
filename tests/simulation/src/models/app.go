@@ -9,8 +9,8 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/Deimvis/reactionsstorage/src/models"
-	rs "github.com/Deimvis/reactionsstorage/tests/simulation/rs_client"
-	"github.com/Deimvis/reactionsstorage/tests/simulation/utils"
+	rs "github.com/Deimvis/reactionsstorage/tests/simulation/src/rs_client"
+	"github.com/Deimvis/reactionsstorage/tests/simulation/src/utils"
 )
 
 // App encapsulates application functionality

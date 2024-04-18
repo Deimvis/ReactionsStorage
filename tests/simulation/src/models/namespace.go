@@ -2,8 +2,8 @@ package models
 
 import (
 	"github.com/Deimvis/reactionsstorage/src/models"
-	rs "github.com/Deimvis/reactionsstorage/tests/simulation/rs_client"
-	"github.com/Deimvis/reactionsstorage/tests/simulation/utils"
+	rs "github.com/Deimvis/reactionsstorage/tests/simulation/src/rs_client"
+	"github.com/Deimvis/reactionsstorage/tests/simulation/src/utils"
 )
 
 type Namespace interface {

@@ -6,7 +6,7 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/Deimvis/reactionsstorage/src/models"
-	"github.com/Deimvis/reactionsstorage/tests/simulation/metrics"
+	"github.com/Deimvis/reactionsstorage/tests/simulation/src/metrics"
 )
 
 type ClientType string

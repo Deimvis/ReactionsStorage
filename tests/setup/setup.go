@@ -17,7 +17,7 @@ import (
 	"github.com/Deimvis/reactionsstorage/src/storages"
 	"github.com/Deimvis/reactionsstorage/src/utils"
 	thelpers "github.com/Deimvis/reactionsstorage/tests/helpers"
-	rs "github.com/Deimvis/reactionsstorage/tests/simulation/rs_client"
+	rs "github.com/Deimvis/reactionsstorage/tests/simulation/src/rs_client"
 )
 
 var Logger *zap.SugaredLogger

@@ -8,7 +8,7 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/Deimvis/reactionsstorage/src/models"
-	"github.com/Deimvis/reactionsstorage/tests/simulation/utils"
+	"github.com/Deimvis/reactionsstorage/tests/simulation/src/utils"
 )
 
 type ReactionCount = models.ReactionCount

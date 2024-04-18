@@ -9,8 +9,8 @@ import (
 	"github.com/mroth/weightedrand"
 	"go.uber.org/zap"
 
-	"github.com/Deimvis/reactionsstorage/tests/simulation/configs"
-	"github.com/Deimvis/reactionsstorage/tests/simulation/utils"
+	"github.com/Deimvis/reactionsstorage/tests/simulation/src/configs"
+	"github.com/Deimvis/reactionsstorage/tests/simulation/src/utils"
 )
 
 // User encapsulates user activities

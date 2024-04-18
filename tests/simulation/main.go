@@ -16,11 +16,11 @@ import (
 	"go.uber.org/zap"
 	"gopkg.in/yaml.v3"
 
-	"github.com/Deimvis/reactionsstorage/tests/simulation/configs"
-	"github.com/Deimvis/reactionsstorage/tests/simulation/metrics"
-	"github.com/Deimvis/reactionsstorage/tests/simulation/models"
-	rs "github.com/Deimvis/reactionsstorage/tests/simulation/rs_client"
-	"github.com/Deimvis/reactionsstorage/tests/simulation/utils"
+	"github.com/Deimvis/reactionsstorage/tests/simulation/src/configs"
+	"github.com/Deimvis/reactionsstorage/tests/simulation/src/metrics"
+	"github.com/Deimvis/reactionsstorage/tests/simulation/src/models"
+	rs "github.com/Deimvis/reactionsstorage/tests/simulation/src/rs_client"
+	"github.com/Deimvis/reactionsstorage/tests/simulation/src/utils"
 )
 
 func main() {

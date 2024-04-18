@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/Deimvis/reactionsstorage/src/models"
+	"github.com/Deimvis/reactionsstorage/src/utils"
 	"github.com/Deimvis/reactionsstorage/tests/fake"
-	"github.com/Deimvis/reactionsstorage/tests/simulation/utils"
 )
 
 func SetConfiguration(conf models.Configuration) {
@@ -30,7 +30,7 @@ func SetFakeConfiguration() {
 			fake.Reaction3,
 			fake.FreeReaction1,
 			fake.FreeReaction2,
-			fake.FreeReaction3, 
+			fake.FreeReaction3,
 			fake.FreeReaction4,
 			fake.FreeReaction5,
 			fake.FreeReaction6,

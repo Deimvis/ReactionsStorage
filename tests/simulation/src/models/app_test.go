@@ -9,7 +9,7 @@ import (
 	"github.com/Deimvis/reactionsstorage/src/models"
 	"github.com/Deimvis/reactionsstorage/tests/fake"
 	"github.com/Deimvis/reactionsstorage/tests/setup"
-	"github.com/Deimvis/reactionsstorage/tests/simulation/utils"
+	"github.com/Deimvis/reactionsstorage/tests/simulation/src/utils"
 )
 
 func TestApp_Refresh(t *testing.T) {

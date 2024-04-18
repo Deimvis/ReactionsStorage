@@ -8,9 +8,9 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/Deimvis/reactionsstorage/src/models"
+	"github.com/Deimvis/reactionsstorage/src/utils"
 	"github.com/Deimvis/reactionsstorage/tests/fake"
 	setup "github.com/Deimvis/reactionsstorage/tests/setup"
-	"github.com/Deimvis/reactionsstorage/tests/simulation/utils"
 )
 
 func TestAvailableReactionsGET_Simple(t *testing.T) {

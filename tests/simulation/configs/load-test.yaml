@@ -1,0 +1,40 @@
+seed: 42
+
+rules:
+  turns:
+    count: 120
+    min_duration_ms: 1000
+
+  users:
+    count: 1500 # rationale: ~1200 rps read, ~3 rps write
+    turn_start_skew_ms: 900
+  
+    screen:
+      visible_entities_count: 10
+  
+    app:
+      background:
+        refresh_reactions:
+          timer_in_turns: 3
+
+    action_probs:
+      switch_topic: 5
+      scroll: 85 # rationale: 1% engagement rate for 10 entities per scroll
+      add_reaction: 8
+      remove_reaction: 2
+
+  topics:
+  - count: 30
+    namespace_id: namespace
+    size: 100 # rationale: users do not scroll further
+    shuffle_per_user: true
+
+server:
+  host: localhost
+  port: 8080
+  ssl: false
+
+prometheus_pushgateway:
+  host: localhost
+  port: 9091
+  ssl: false

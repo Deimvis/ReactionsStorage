@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+. exenv .env.local
+cd tests/simulation
+go run main.go $@
+cd -

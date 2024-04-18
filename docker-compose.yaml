@@ -93,6 +93,15 @@ services:
       - nginx_static_data:/static
     depends_on:
       - reactions_storage
+  
+  simulation:
+    image: deimvis/rs_simulation:latest
+    build:
+      context: .
+      dockerfile: tests/simulation/Dockerfile
+    container_name: rs_simulation
+    volumes:
+      - ./deploy/docker-compose/simulation/configs:/app/tests/simulation/configs
 
 volumes:
   postgres_data:

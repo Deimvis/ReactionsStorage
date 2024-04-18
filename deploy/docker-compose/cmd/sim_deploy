@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -e
+
+ln -sf .env.docker-compose .env
+docker-compose build simulation
+docker-compose run simulation $@

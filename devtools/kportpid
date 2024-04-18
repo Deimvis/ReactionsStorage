@@ -6,10 +6,12 @@ function fport() {
     lsof -n -i :$1
 }
 
-function fportpid() {
-    pid=$(fport $1 | tail -n +2 | awk '{print $2}')
-    echo $pid
+function fportpids() {
+    pids="$(fport $1 | tail -n +2 | awk '{print $2}')" # quotes are needed to preserve new lines as they are special characters
+    echo "$pids"
 }
 
-pid=$(fportpid $@)
-if [ ! -z $pid ]; then kill $pid; fi
+pids="$(fportpids $@)"
+if [[ ! -z "$pids" ]]; then
+    echo "$pids" | xargs -n 1 kill
+fi

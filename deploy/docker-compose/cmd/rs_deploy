@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -e
+
+ln -sf .env.docker-compose .env
+docker-compose up -d --build reactions_storage

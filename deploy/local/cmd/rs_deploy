@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+. exenv .env.local
+air

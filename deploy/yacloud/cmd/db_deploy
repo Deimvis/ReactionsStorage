@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -ex
+
+CMD_DIR=$(dirname "${BASH_SOURCE[0]}")
+
+set +x
+source $CMD_DIR/common/env_vars db
+set -x
+
+$CMD_DIR/common/build_and_push db
+
+$CMD_DIR/common/scp_bundle db
+
+$CMD_DIR/common/setup_vm db
+
+$CMD_DIR/common/pull_and_up db

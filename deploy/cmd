@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+DEPLOY_TYPE=$1
+RESOURCE=$2
+CMD_TYPE=$3
+
+./deploy/${DEPLOY_TYPE}/cmd/${RESOURCE}_${CMD_TYPE}

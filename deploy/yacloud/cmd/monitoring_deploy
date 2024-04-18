@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -ex
+
+CMD_DIR=$(dirname "${BASH_SOURCE[0]}")
+
+set +x
+source $CMD_DIR/common/env_vars monitoring
+set -x
+
+$CMD_DIR/common/build_and_push monitoring
+
+$CMD_DIR/common/scp_bundle monitoring
+
+ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "mkdir -p $REMOTE_WORKDIR/deploy/docker-compose"
+scp -r deploy/yacloud/grafana $SSH_USER@$SSH_HOST:$REMOTE_WORKDIR/deploy/docker-compose/
+scp -r deploy/yacloud/prometheus $SSH_USER@$SSH_HOST:$REMOTE_WORKDIR/deploy/docker-compose/
+
+$CMD_DIR/common/setup_vm monitoring
+
+$CMD_DIR/common/pull_and_up monitoring

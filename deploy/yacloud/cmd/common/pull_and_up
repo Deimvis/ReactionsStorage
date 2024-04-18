@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -e
+
+ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "sudo docker-compose -f $REMOTE_WORKDIR/docker-compose.yaml pull $SERVICES"
+ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "sudo docker-compose -f $REMOTE_WORKDIR/docker-compose.yaml down"
+ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "sudo docker-compose -f $REMOTE_WORKDIR/docker-compose.yaml up -d $SERVICES"

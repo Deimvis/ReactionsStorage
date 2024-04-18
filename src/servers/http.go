@@ -52,6 +52,10 @@ func NewRouter(cs *services.ConfigurationService, rs *services.ReactionsService,
 	router.SetTrustedProxies(nil)
 	UsePrometheusMiddleware(router)
 
+	router.NoRoute(func(c *gin.Context) {
+		c.AbortWithStatus(http.StatusNotFound)
+	})
+
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{"status": "Ok"})
 	})

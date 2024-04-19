@@ -141,7 +141,7 @@ func runUser(config configs.Simulation, app models.App, wgCh <-chan *sync.WaitGr
 
 // logIn logins a new user
 func logIn(config configs.Simulation, app models.App, logger *zap.SugaredLogger) models.User {
-	id := fmt.Sprintf("user_%04d", userCounter.Add(1))
+	id := fmt.Sprintf("user_%06d", userCounter.Add(1))
 	user := models.NewUser(id, app, config.Rules.Users.ActionProbs, logger)
 	app.Restart(id).Wait()
 	logger.Infof("User %s logged in", id)

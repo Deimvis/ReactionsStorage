@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+import argparse
+import os
+
+import psycopg2
+import psycopg2.extras
+
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-t', '--table-name', default='user_reaction', help='Table name for user reactions')
+    return parser.parse_args()
+
+
+def main():
+    args = parse_args()
+    pg_con = psycopg2.connect(
+        dbname=os.getenv('POSTGRES_DB'),
+        user=os.getenv('POSTGRES_USER'),
+        password=os.getenv('POSTGRES_PASSWORD'),
+        host=os.getenv('POSTGRES_HOST'),
+        port=os.getenv('POSTGRES_PORT'),
+    )
+    pg_con.autocommit = True
+    with pg_con.cursor() as cursor:
+         cursor.execute(f"TRUNCATE {args.table_name}")
+
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+import argparse
+import os
+import uuid
+from typing import Sequence, Tuple
+
+import psycopg2
+import psycopg2.extras
+from tqdm import tqdm
+
+
+BATCH_SIZE = 50_000
+COLUMNS = ["namespace_id", "entity_id", "user_id", "reaction_id"]
+
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('count', type=int, help='Number of random user reactions to add')
+    parser.add_argument('-t', '--table-name', default='user_reaction', help='Table name for user reactions')
+    return parser.parse_args()
+
+
+def insert_many(pg_con, table_name: str, columns: Sequence[str], values_seq: Sequence[Tuple]) -> None:
+        if len(values_seq) == 0:
+            return
+        with pg_con.cursor() as cursor:
+            values_format = '(' + ','.join(['%s' for _ in range(len(values_seq[0]))]) + ')'
+            values_str = ','.join(cursor.mogrify(values_format, values).decode('utf-8') for values in values_seq)
+            query = ''.join([
+                'INSERT INTO ',
+                f'"{table_name}" ',
+                f'({",".join(columns)}) ' if columns is not None else '',
+                'VALUES ',
+                f'{values_str} '
+            ])
+            cursor.execute(query)
+
+
+def gen_random_reaction() -> Tuple:
+    s = lambda: str(uuid.uuid4())
+    return (s(), s(), s(), s())
+
+
+def main():
+    args = parse_args()
+    pg_con = psycopg2.connect(
+        dbname=os.getenv('POSTGRES_DB'),
+        user=os.getenv('POSTGRES_USER'),
+        password=os.getenv('POSTGRES_PASSWORD'),
+        host=os.getenv('POSTGRES_HOST'),
+        port=os.getenv('POSTGRES_PORT'),
+    )
+    pg_con.autocommit = True
+
+    with tqdm(desc='Add user reactions', total=args.count, position=0) as pbar:
+        left = args.count
+        while left > 0:
+            cur_batch_size = min(BATCH_SIZE, left)
+            batch = [None]*cur_batch_size
+            for i in range(cur_batch_size):
+                batch[i] = gen_random_reaction()
+            insert_many(pg_con, args.table_name, COLUMNS, batch)
+            left -= cur_batch_size
+            pbar.update(cur_batch_size)
+
+
+if __name__ == '__main__':
+    main()

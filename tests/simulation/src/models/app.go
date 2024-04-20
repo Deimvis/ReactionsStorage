@@ -56,8 +56,8 @@ type AppImpl struct {
 	topics               []Topic
 	visibleEntitiesCount int
 
-	curTopicId           string
-	curTopicPos          int
+	curTopicId  string
+	curTopicPos int
 
 	logger *zap.SugaredLogger
 }
@@ -149,7 +149,7 @@ func (a *AppImpl) Refresh(userId string) Waitable {
 				reactionsCount := utils.Map(resp200.ReactionsCount, func(rc models.ReactionCount) ReactionCount { return ReactionCount(rc) })
 				err := e.Update(reactionsCount, resp200.UserReactions.Reactions, WithLastUpdateTs(entityTsExpected))
 				if err != nil {
-					a.logger.Warnw("failed to refresh entity reactions since it was updated during request",
+					a.logger.Warnw("refresh won't be applied since entity reactions were updated during request",
 						"user_id", userId, "entity_id", e.GetId())
 					return
 				}

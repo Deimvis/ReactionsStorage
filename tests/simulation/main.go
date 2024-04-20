@@ -50,18 +50,21 @@ func main() {
 
 	rand.Seed(config.Seed)
 
-	pgwRecorder := metrics.NewPrometheusPushgatewayRecorder(
-		config.PrometheusPushgateway.Host,
-		config.PrometheusPushgateway.Port,
-		config.PrometheusPushgateway.SSL,
-		"rs_client",
-	)
-	defer pgwRecorder.Sync()
-	cron := utils.NewCron(func() {
-		pgwRecorder.Sync()
-	}, time.Second)
-	cron.Start()
-	defer cron.Stop()
+	var pgwRecorder metrics.HTTPRecorder = nil
+	if config.PrometheusPushgateway != nil {
+		pgwRecorder = metrics.NewPrometheusPushgatewayRecorder(
+			config.PrometheusPushgateway.Host,
+			config.PrometheusPushgateway.Port,
+			config.PrometheusPushgateway.SSL,
+			"rs_client",
+		)
+		defer pgwRecorder.Sync()
+		cron := utils.NewCron(func() {
+			pgwRecorder.Sync()
+		}, 15*time.Second)
+		cron.Start()
+		defer cron.Stop()
+	}
 	rsClient := rs.NewClientHTTP(config.Server.Host, config.Server.Port, config.Server.SSL, logger, pgwRecorder)
 
 	var topics []models.Topic
@@ -126,9 +129,11 @@ func runUser(config configs.Simulation, app models.App, wgCh <-chan *sync.WaitGr
 			app.Refresh(user.GetId())
 		}
 
+		start := time.Now()
 		{
-			defer logger.Infof("User %s finished turn %d", user.GetId(), i) // it's unsafe to use user after quit, so use defer
+			id := user.GetId() // it's unsafe to use user after quit
 			user.DoRandomAction()
+			logger.Infof("User %s finished turn %d (%s)", id, i, time.Since(start))
 		}
 
 		if user.IsQuit() {

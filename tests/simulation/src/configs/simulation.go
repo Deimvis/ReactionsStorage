@@ -2,9 +2,9 @@ package configs
 
 type Simulation struct {
 	Seed                  int64
-	Rules                 Rules                 `yaml:"rules" json:"rules"`
-	Server                Server                `yaml:"server" json:"server"`
-	PrometheusPushgateway PrometheusPushgateway `yaml:"prometheus_pushgateway" json:"prometheus_pushgateway"`
+	Rules                 Rules                  `yaml:"rules" json:"rules"`
+	Server                Server                 `yaml:"server" json:"server"`
+	PrometheusPushgateway *PrometheusPushgateway `yaml:"prometheus_pushgateway,omitempty" json:"prometheus_pushgateway"`
 }
 
 type Rules struct {

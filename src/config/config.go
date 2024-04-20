@@ -47,7 +47,7 @@ type PrometheusMiddleware struct {
 }
 
 type GinHandlers struct {
-	DebugHandlers GinDebugHandlers `yaml:"debug_handlers"`
+	DebugHandlers GinDebugHandlers `yaml:"debug"`
 }
 
 type GinDebugHandlers struct {
@@ -56,13 +56,13 @@ type GinDebugHandlers struct {
 }
 
 type PprofHandler struct {
-	Option
+	Option     `yaml:",inline"`
 	PathPrefix *string `yaml:"path_prefix,omitempty"`
 }
 
 type MemUsageHandler struct {
-	Option
-	Path *string `yaml:"path"`
+	Option `yaml:",inline"`
+	Path   *string `yaml:"path"`
 }
 
 type Option struct {

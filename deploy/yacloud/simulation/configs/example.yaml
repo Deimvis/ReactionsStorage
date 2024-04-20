@@ -42,3 +42,4 @@ prometheus_pushgateway:
   host: localhost
   port: 9091
   ssl: false
+  push_interval_s: 15

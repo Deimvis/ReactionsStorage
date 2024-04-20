@@ -33,7 +33,7 @@ func NewPrometheusPushgatewayRecorder(host string, port int, ssl bool, subsystem
 			Name:      "requests_total",
 			Help:      "Requests counter",
 		},
-		[]string{"code", "method", "host", "path", "url", "error"},
+		[]string{"code", "method", "host", "path", "has_error"},
 	)
 	reqDur := prometheus.NewHistogramVec(
 		prometheus.HistogramOpts{
@@ -41,7 +41,7 @@ func NewPrometheusPushgatewayRecorder(host string, port int, ssl bool, subsystem
 			Name:      "request_duration_seconds",
 			Help:      "HTTP request latencies in seconds",
 		},
-		[]string{"code", "method", "host", "path", "url", "error"},
+		[]string{"code", "method", "host", "path", "has_error"},
 	)
 	pusher := push.New(baseUrl.String(), subsystem).
 		Collector(reqCnt).
@@ -59,17 +59,14 @@ func (r *PrometheusPushgatewayRecorder) Record(handler HTTPHandler, req *http.Re
 	resp, err := handler(req)
 	end := time.Now()
 
+	hasError := fmt.Sprintf("%t", err != nil)
 	code := ""
 	if err == nil {
 		code = strconv.Itoa(resp.StatusCode)
 	}
-	errMsg := ""
-	if err != nil {
-		errMsg = err.Error()
-	}
 	elapsed := float64(end.Sub(start)) / float64(time.Second)
-	r.reqDur.WithLabelValues(code, req.Method, req.Host, req.URL.Path, req.URL.String(), errMsg).Observe(elapsed)
-	r.reqCnt.WithLabelValues(code, req.Method, req.Host, req.URL.Path, req.URL.String(), errMsg).Inc()
+	r.reqDur.WithLabelValues(code, req.Method, req.Host, req.URL.Path, hasError).Observe(elapsed)
+	r.reqCnt.WithLabelValues(code, req.Method, req.Host, req.URL.Path, hasError).Inc()
 
 	return resp, err
 }

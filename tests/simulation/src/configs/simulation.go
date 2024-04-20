@@ -44,9 +44,10 @@ type Server struct {
 }
 
 type PrometheusPushgateway struct {
-	Host string `yaml:"host" json:"host"`
-	Port int    `yaml:"port" json:"port"`
-	SSL  bool   `yaml:"ssl" json:"ssl"`
+	Host          string `yaml:"host" json:"host"`
+	Port          int    `yaml:"port" json:"port"`
+	SSL           bool   `yaml:"ssl" json:"ssl"`
+	PushIntervalS int    `yaml:"push_interval_s" json:"push_interval_s"`
 }
 
 type ActionProbs struct {

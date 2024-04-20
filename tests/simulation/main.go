@@ -61,7 +61,7 @@ func main() {
 		defer pgwRecorder.Sync()
 		cron := utils.NewCron(func() {
 			pgwRecorder.Sync()
-		}, 15*time.Second)
+		}, time.Duration(config.PrometheusPushgateway.PushIntervalS)*time.Second)
 		cron.Start()
 		defer cron.Stop()
 	}
@@ -90,39 +90,58 @@ func run(config configs.Simulation, apps []models.App, logger *zap.SugaredLogger
 	n := len(apps)
 
 	wgChs := make([]chan *sync.WaitGroup, n)
+	userTurnInds := make([]atomic.Uint64, n)
 	for i, a := range apps {
 		wgChs[i] = make(chan *sync.WaitGroup)
-		go runUser(config, a, wgChs[i], logger)
+		go runUser(config, a, wgChs[i], &userTurnInds[i], logger)
 	}
 
-	expectedDur := time.Duration(config.Rules.Turns.MinDurMs) * time.Millisecond
+	expectedTurnDur := time.Duration(config.Rules.Turns.MinDurMs) * time.Millisecond
+	var wg *sync.WaitGroup
 	for i := 0; i < config.Rules.Turns.Count; i++ {
 		logger.Infof("Turn %d", i)
-		timer := time.NewTimer(expectedDur)
-		wg := &sync.WaitGroup{}
+
+		timer := time.NewTimer(expectedTurnDur)
+		wg = &sync.WaitGroup{}
 		wg.Add(n)
 		for _, ch := range wgChs {
 			ch <- wg
 		}
 		<-timer.C
-		extraDur := utils.MeasureDuration(func() {
-			wg.Wait()
-		})
-		if extraDur > expectedDur/10 {
-			logger.Warnf("Turn was significantly longer than expected: %s (expected: %s)", expectedDur+extraDur, expectedDur)
-		}
+
+		logUsersBehind(logger, i, userTurnInds, 3)
+	}
+	extraSimDur := utils.MeasureDuration(func() {
+		wg.Wait()
+	})
+	expectedSimDur := expectedTurnDur * time.Duration(config.Rules.Turns.Count)
+	if float64(extraSimDur) > float64(0.05)*float64(expectedSimDur) {
+		logger.Warnf("Simulation was significantly longer than expected: %s (expected: %s)", expectedSimDur+extraSimDur, expectedSimDur)
 	}
 
 	logger.Info("Simulation finished")
 }
 
-func runUser(config configs.Simulation, app models.App, wgCh <-chan *sync.WaitGroup, logger *zap.SugaredLogger) {
+func logUsersBehind(logger *zap.SugaredLogger, turn int, userTurnInds []atomic.Uint64, maxTurnsBehind int) {
+	usersBehind := 0
+	for j := range userTurnInds {
+		if turn >= maxTurnsBehind && uint64(turn-maxTurnsBehind) > userTurnInds[j].Load() {
+			usersBehind++
+		}
+	}
+	if usersBehind > 0 {
+		logger.Warnf("%d users are more than %d turns behind", usersBehind, maxTurnsBehind)
+	}
+}
+
+func runUser(config configs.Simulation, app models.App, wgCh <-chan *sync.WaitGroup, turnInd *atomic.Uint64, logger *zap.SugaredLogger) {
 	// simulates app loading
 	time.Sleep(time.Duration(rand.Intn(100)) * time.Millisecond)
 	user := logIn(config, app, logger)
 
 	for i := 0; i < config.Rules.Turns.Count; i++ {
 		wg := <-wgCh
+		turnInd.Store(uint64(i))
 		time.Sleep(time.Duration(rand.Intn(config.Rules.Users.TurnStartSkewMs)) * time.Millisecond)
 		if needRefresh(config, i) {
 			// do not wait, it's a background process

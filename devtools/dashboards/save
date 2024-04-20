@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -ex
+
+SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}")
+
+envsubst < $SCRIPT_DIR/importer.yml.template > $SCRIPT_DIR/importer.yml
+gdg backup dashboards download -c $SCRIPT_DIR/importer.yml
+rm $SCRIPT_DIR/importer.yml

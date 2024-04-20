@@ -1,0 +1,13 @@
+context_name: all
+
+contexts:
+  all:
+    url: http://$GRAFANA_HOST:$GRAFANA_PORT
+    token: "$GRAFANA_TOKEN"
+    output_path: $PWD/grafana/dashboards
+    watched:
+      - General
+
+global:
+  debug: true
+  ignore_ssl_errors: false

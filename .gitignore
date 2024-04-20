@@ -1,6 +1,9 @@
 bin/
 debug/
 deploy/yacloud/conf.json
+!deploy/yacloud/conf.json.template
+devtools/dashboards/importer.yml
+!devtools/dashboards/importer.yml.template
 tmp/
 .vscode/
 .DS_Store

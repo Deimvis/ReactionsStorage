@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# exenv before using it (e.g. `. exenv .env`)
+go tool pprof -http=localhost:8081 http://$HOST:$PORT/debug/pprof/heap

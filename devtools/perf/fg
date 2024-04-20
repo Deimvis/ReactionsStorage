@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# exenv before using it (e.g. `. exenv .env`)
+SECONDS=${1:-30}
+
+go tool pprof \
+  -raw -output=cpu.txt \
+  "http://$HOST:$PORT/debug/pprof/profile?seconds=$SECONDS"
+./devtools/perf/FlameGraph/stackcollapse-go.pl ./devtools/perf/cpu.txt |
+./devtools/perf/FlameGraph/flamegraph.pl > ./devtools/perf/flame.svg
+
+open ./devtools/perf/flame.svg

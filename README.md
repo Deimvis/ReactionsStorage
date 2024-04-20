@@ -28,6 +28,7 @@ make run
 ### Testing
 
 ```bash
+. devtools/exenv .env
 make test
 ```
 

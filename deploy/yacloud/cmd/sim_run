@@ -9,11 +9,10 @@ source $CMD_DIR/common/env_vars sim
 set -x
 
 function sigint_handler() {
-    ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "sudo docker-compose -f $REMOTE_WORKDIR/docker-compose.yaml stop simulation"
-    ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "sudo docker-compose -f $REMOTE_WORKDIR/docker-compose.yaml rm simulation"
+    $CMD_DIR/sim_stop
 }
 
 trap sigint_handler SIGINT
 
 scp -r deploy/yacloud/simulation $SSH_USER@$SSH_HOST:$REMOTE_WORKDIR/deploy/docker-compose/
-ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "sudo docker-compose -f $REMOTE_WORKDIR/docker-compose.yaml run simulation $@"
+ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "sudo docker-compose -f $REMOTE_WORKDIR/docker-compose.yaml run --rm --name simulation simulation $@"

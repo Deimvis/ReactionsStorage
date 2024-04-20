@@ -1,7 +1,8 @@
 global:
-  scrape_interval: 15s
-  scrape_timeout: 10s
+  scrape_interval: 30s
+  scrape_timeout: 15s
   evaluation_interval: 15s
+
 alerting:
   alertmanagers:
   - static_configs:
@@ -9,12 +10,11 @@ alerting:
     scheme: http
     timeout: 10s
     api_version: v1
-scrape_configs:
 
+scrape_configs:
 - job_name: reactions_storage
+  scrape_timeout: 30s
   honor_timestamps: true
-  scrape_interval: 15s
-  scrape_timeout: 10s
   metrics_path: /metrics
   scheme: http
   static_configs:
@@ -63,6 +63,7 @@ scrape_configs:
         replacement: db_${1}
 
 - job_name: monitoring_node_exporter
+  honor_timestamps: true
   static_configs:
   - targets:
     - 172.17.0.1:9100
@@ -72,3 +73,14 @@ scrape_configs:
         regex: '(.*)'
         action: replace
         replacement: monitoring_${1}
+
+- job_name: simulation_node_exporter
+  static_configs:
+  - targets:
+    - 10.128.0.9:9100
+  metric_relabel_configs:
+      - source_labels: [ __name__ ]
+        target_label: __name__
+        regex: '(.*)'
+        action: replace
+        replacement: sim_${1}

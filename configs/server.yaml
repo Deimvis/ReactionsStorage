@@ -1,0 +1,22 @@
+gin:
+  general:
+    mode: release
+    trusted_proxies: []
+  middlewares:
+    logger:
+      enabled: true
+    recovery:
+      enabled: true
+    prometheus:
+      enabled: true
+      metrics_path: /metrics
+    pprof:
+      enabled: true
+  handlers:
+    debug:
+      pprof:
+        enabled: true
+        path_prefix: /debug/pprof
+      mem_usage:
+        enabled: true
+        path: /debug/sys/mem

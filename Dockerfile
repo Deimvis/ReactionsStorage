@@ -7,6 +7,7 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 
+COPY configs ./configs
 COPY sql ./sql
 COPY src ./src
 COPY main.go ./
@@ -16,4 +17,5 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o ./bin/reactions_storage
 
 EXPOSE 8080
 ENV SQL_SCRIPTS_DIR=/app/sql
-CMD ["./bin/reactions_storage"]
+ENTRYPOINT ["./bin/reactions_storage"]
+CMD ["--config", "configs/server.yaml"]

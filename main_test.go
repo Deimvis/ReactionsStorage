@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -17,4 +18,12 @@ func TestLaunch(t *testing.T) {
 	app := fxtest.New(t, CreateOptions())
 	app.RequireStart()
 	app.RequireStop()
+}
+
+func TestMain(m *testing.M) {
+	ParseArgs()
+
+	code := m.Run()
+
+	os.Exit(code)
 }

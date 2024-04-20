@@ -29,8 +29,12 @@ func (tracer *SQLTracer) TraceQueryStart(ctx context.Context, _ *pgx.Conn, data 
 func (tracer *SQLTracer) TraceQueryEnd(ctx context.Context, conn *pgx.Conn, data pgx.TraceQueryEndData) {
 	start := ctx.Value(QueryStartCtxKey{}).(time.Time)
 	elapsed := float64(time.Since(start)) / float64(time.Second)
-	metrics.SQLReqCnt.Inc()
-	metrics.SQLReqDur.Observe(elapsed)
+	if metrics.SQLReqCnt != nil {
+		metrics.SQLReqCnt.Inc()
+	}
+	if metrics.SQLReqDur != nil {
+		metrics.SQLReqDur.Observe(elapsed)
+	}
 }
 
 func NewPostgresConnectionPool(lc fx.Lifecycle, logger *zap.SugaredLogger) *pgxpool.Pool {

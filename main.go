@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"net/http"
 	"os"
 	"os/signal"
@@ -9,6 +10,7 @@ import (
 
 	"go.uber.org/fx"
 
+	"github.com/Deimvis/reactionsstorage/src/config"
 	"github.com/Deimvis/reactionsstorage/src/loggers"
 	"github.com/Deimvis/reactionsstorage/src/servers"
 	"github.com/Deimvis/reactionsstorage/src/services"
@@ -16,9 +18,17 @@ import (
 	"github.com/Deimvis/reactionsstorage/src/utils"
 )
 
+var cfgFilePath *string
+
+func ParseArgs() {
+	cfgFilePath = flag.String("config", "configs/server.yaml", "Path to the server configuration file")
+	flag.Parse()
+}
+
 func CreateOptions() fx.Option {
 	return fx.Options(
 		fx.Provide(
+			config.NewConfig(cfgFilePath),
 			loggers.NewLogger,
 			utils.NewPostgresConnectionPool,
 			storages.NewConfigurationStorage,
@@ -32,6 +42,7 @@ func CreateOptions() fx.Option {
 }
 
 func main() {
+	ParseArgs()
 	fx.New(CreateOptions()).Run()
 }
 

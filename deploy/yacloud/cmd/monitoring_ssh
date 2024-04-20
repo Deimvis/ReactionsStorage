@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -ex
+
+CMD_DIR=$(dirname "${BASH_SOURCE[0]}")
+
+set +x
+source $CMD_DIR/common/env_vars monitoring
+set -x
+
+ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST

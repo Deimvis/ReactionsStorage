@@ -94,7 +94,7 @@ paths:
       requestBody:
         description: |
           Reactions Storage Configuration.
-          application/gzip: Gzip-encoded tar archive with 3 files (reaction.yaml, reaction_set.yaml, namespace.yaml)
+          application/gzip: Gzip-encoded tar archive with 3 files (reactions.yaml, reaction_sets.yaml, namespaces.yaml)
         required: true
         content:
           appication/json:

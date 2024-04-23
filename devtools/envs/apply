@@ -23,11 +23,11 @@ def main():
     env_name = sys.argv[1]
     env_dir = Path(__file__).parent / env_name
     configuration = {}
-    with (env_dir / 'reaction.yaml').open('r') as f:
+    with (env_dir / 'reactions.yaml').open('r') as f:
         configuration['reaction'] = yaml.safe_load(f)
-    with (env_dir / 'reaction_set.yaml').open('r') as f:
+    with (env_dir / 'reaction_sets.yaml').open('r') as f:
         configuration['reaction_set'] = yaml.safe_load(f)
-    with (env_dir / 'namespace.yaml').open('r') as f:
+    with (env_dir / 'namespaces.yaml').open('r') as f:
         configuration['namespace'] = yaml.safe_load(f)
     
     handler = f"http://{os.getenv('HOST')}:{os.getenv('PORT')}/configuration"

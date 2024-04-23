@@ -6,9 +6,9 @@ import (
 )
 
 type Configuration struct {
-	Reactions    []Reaction    `yaml:"reaction" json:"reaction" filename:"reaction.yaml"`
-	ReactionSets []ReactionSet `yaml:"reaction_set" json:"reaction_set" filename:"reaction_set.yaml"`
-	Namespaces   []Namespace   `yaml:"namespace" json:"namespace" filename:"namespace.yaml"`
+	Reactions    []Reaction    `yaml:"reaction" json:"reaction" filename:"reactions.yaml"`
+	ReactionSets []ReactionSet `yaml:"reaction_set" json:"reaction_set" filename:"reaction_sets.yaml"`
+	Namespaces   []Namespace   `yaml:"namespace" json:"namespace" filename:"namespaces.yaml"`
 }
 
 type Reaction struct {

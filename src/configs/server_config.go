@@ -1,4 +1,4 @@
-package config
+package configs
 
 import (
 	"fmt"
@@ -10,13 +10,13 @@ import (
 	"github.com/Deimvis/reactionsstorage/src/utils"
 )
 
-type Config struct {
+type ServerConfig struct {
 	Gin Gin `yaml:"gin"`
 }
 
-func NewConfig(filePath *string) func(lc fx.Lifecycle) *Config {
-	return func(lc fx.Lifecycle) *Config {
-		cfg := &Config{}
+func NewServerConfig(filePath *string) func(lc fx.Lifecycle) *ServerConfig {
+	return func(lc fx.Lifecycle) *ServerConfig {
+		cfg := &ServerConfig{}
 		fileData := utils.Must(os.ReadFile(*filePath))
 		fmt.Println(string(fileData))
 		utils.Must0(yaml.Unmarshal(fileData, cfg))

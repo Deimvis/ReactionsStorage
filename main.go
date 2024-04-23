@@ -10,7 +10,7 @@ import (
 
 	"go.uber.org/fx"
 
-	"github.com/Deimvis/reactionsstorage/src/config"
+	"github.com/Deimvis/reactionsstorage/src/configs"
 	"github.com/Deimvis/reactionsstorage/src/loggers"
 	"github.com/Deimvis/reactionsstorage/src/servers"
 	"github.com/Deimvis/reactionsstorage/src/services"
@@ -28,7 +28,7 @@ func ParseArgs() {
 func CreateOptions() fx.Option {
 	return fx.Options(
 		fx.Provide(
-			config.NewConfig(cfgFilePath),
+			configs.NewServerConfig(cfgFilePath),
 			loggers.NewLogger,
 			utils.NewPostgresConnectionPool,
 			storages.NewConfigurationStorage,

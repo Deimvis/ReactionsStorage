@@ -15,14 +15,14 @@ import (
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 
-	"github.com/Deimvis/reactionsstorage/src/config"
+	"github.com/Deimvis/reactionsstorage/src/configs"
 	"github.com/Deimvis/reactionsstorage/src/metrics"
 	"github.com/Deimvis/reactionsstorage/src/models"
 	"github.com/Deimvis/reactionsstorage/src/services"
 	"github.com/Deimvis/reactionsstorage/src/utils"
 )
 
-func NewHTTPServer(lc fx.Lifecycle, cfg *config.Config, cs *services.ConfigurationService, rs *services.ReactionsService, logger *zap.SugaredLogger) *http.Server {
+func NewHTTPServer(lc fx.Lifecycle, cfg *configs.ServerConfig, cs *services.ConfigurationService, rs *services.ReactionsService, logger *zap.SugaredLogger) *http.Server {
 	addr := fmt.Sprintf(":%s", utils.Getenv("PORT", "8080"))
 	s := &http.Server{
 		Addr:    addr,
@@ -44,14 +44,14 @@ func NewHTTPServer(lc fx.Lifecycle, cfg *config.Config, cs *services.Configurati
 	return s
 }
 
-func NewRouter(cfg *config.Gin, cs *services.ConfigurationService, rs *services.ReactionsService, logger *zap.SugaredLogger) *gin.Engine {
+func NewRouter(cfg *configs.Gin, cs *services.ConfigurationService, rs *services.ReactionsService, logger *zap.SugaredLogger) *gin.Engine {
 	router := InitRouter(&cfg.General)
 	UseMiddlewares(&cfg.Middlewares, router)
 	SetHandlers(&cfg.Handlers, router, cs, rs, logger)
 	return router
 }
 
-func InitRouter(cfg *config.GinGeneral) *gin.Engine {
+func InitRouter(cfg *configs.GinGeneral) *gin.Engine {
 	if utils.IsDebugEnv() {
 		gin.SetMode(gin.DebugMode)
 	} else if cfg.Mode != nil {
@@ -64,7 +64,7 @@ func InitRouter(cfg *config.GinGeneral) *gin.Engine {
 	return router
 }
 
-func UseMiddlewares(cfg *config.GinMiddlewares, router *gin.Engine) {
+func UseMiddlewares(cfg *configs.GinMiddlewares, router *gin.Engine) {
 	if cfg.Logger.Enabled {
 		router.Use(gin.Logger())
 	}
@@ -76,7 +76,7 @@ func UseMiddlewares(cfg *config.GinMiddlewares, router *gin.Engine) {
 	}
 }
 
-func UsePrometheusMiddleware(cfg *config.GinMiddlewares, router *gin.Engine) {
+func UsePrometheusMiddleware(cfg *configs.GinMiddlewares, router *gin.Engine) {
 	customMetrics := []*ginprometheus.Metric{
 		metrics.GINReqDurV2Wrap.Metric,
 		metrics.SQLReqCntWrap.Metric,
@@ -109,7 +109,7 @@ func UsePrometheusMiddleware(cfg *config.GinMiddlewares, router *gin.Engine) {
 	})
 }
 
-func SetHandlers(cfg *config.GinHandlers, router *gin.Engine, cs *services.ConfigurationService, rs *services.ReactionsService, logger *zap.SugaredLogger) {
+func SetHandlers(cfg *configs.GinHandlers, router *gin.Engine, cs *services.ConfigurationService, rs *services.ReactionsService, logger *zap.SugaredLogger) {
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{"status": "Ok"})
 	})
@@ -214,7 +214,7 @@ func SetHandlers(cfg *config.GinHandlers, router *gin.Engine, cs *services.Confi
 	SetDebugHandlers(&cfg.DebugHandlers, router)
 }
 
-func SetDebugHandlers(cfg *config.GinDebugHandlers, router *gin.Engine) {
+func SetDebugHandlers(cfg *configs.GinDebugHandlers, router *gin.Engine) {
 	if cfg.Pprof.Enabled {
 		if cfg.Pprof.PathPrefix != nil {
 			pprof.Register(router, *cfg.Pprof.PathPrefix)

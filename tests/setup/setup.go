@@ -11,7 +11,7 @@ import (
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 
-	"github.com/Deimvis/reactionsstorage/src/config"
+	"github.com/Deimvis/reactionsstorage/src/configs"
 	"github.com/Deimvis/reactionsstorage/src/loggers"
 	"github.com/Deimvis/reactionsstorage/src/servers"
 	"github.com/Deimvis/reactionsstorage/src/services"
@@ -38,8 +38,8 @@ func Start() {
 	ctx := context.Background()
 	app = fx.New(
 		fx.Provide(
-			func(lc fx.Lifecycle) *config.Config {
-				return &config.Config{}
+			func(lc fx.Lifecycle) *configs.ServerConfig {
+				return &configs.ServerConfig{}
 			},
 			loggers.NewLogger,
 			utils.NewPostgresConnectionPool,

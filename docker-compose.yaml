@@ -11,6 +11,7 @@ services:
       - PORT=8080
     env_file:
       - .env
+    restart: unless-stopped
     depends_on:
       db:
         condition: service_healthy
@@ -26,7 +27,7 @@ services:
       - 5433:5432
     env_file:
       - .env
-    restart: always
+    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U dbrusenin -d reactions"]
       interval: 2s
@@ -41,20 +42,20 @@ services:
       - '--web.enable-admin-api'
     ports:
       - 9090:9090
-    restart: unless-stopped
     volumes:
       - ./deploy/docker-compose/prometheus:/etc/prometheus
       - prometheus_data:/prometheus
+    restart: unless-stopped
 
   prometheus_pushgateway:
     image: prom/pushgateway
     container_name: rs_prometheus_pushgateway
     ports:
       - 9091:9091
-    restart: unless-stopped
     volumes:
       - ./deploy/docker-compose/prometheus:/etc/prometheus
       - prometheus_data:/prometheus
+    restart: unless-stopped
   
   prometheus_node_exporter:
     image: quay.io/prometheus/node-exporter:latest
@@ -91,6 +92,7 @@ services:
     volumes:
       - ./deploy/docker-compose/nginx:/etc/nginx/conf.d
       - nginx_static_data:/static
+    restart: unless-stopped
     depends_on:
       - reactions_storage
   

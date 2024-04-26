@@ -20,6 +20,13 @@ def remove(p: Path):
         shutil.rmtree(p)
     else:
         p.unlink()
+
+
+def copy(src: Path, dst_dir: Path):
+    if src.is_dir():
+        shutil.copytree(src, dst_dir / src.name)
+    else:
+        shutil.copy(src, dst_dir)
         
 
 def clean_directory(dir_path: Path):
@@ -35,7 +42,7 @@ def copy_directory(src_dir: Path, dst_dir: Path):
     for child in src_dir.iterdir():
         if not is_hidden(child):
             logging.info(f'copy: {child.relative_to(Path.cwd())} -> {dst_dir.relative_to(Path.cwd())}/')
-            shutil.copy(child, dst_dir)
+            copy(child, dst_dir)
             
 
 def traverse(dir_path: Path, target_impl_name: str, action: Callable[[Path, Path], None]):

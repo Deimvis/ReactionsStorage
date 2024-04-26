@@ -100,7 +100,7 @@ func checkConfigurationIsApplied(t *testing.T, c models.Configuration) {
 		}
 		{
 			reactionSet := c.ReactionSets[slices.IndexFunc(c.ReactionSets, func(rs models.ReactionSet) bool { return rs.Id == n.ReactionSetId })]
-			availableReactions := utils.Filter(c.Reactions, func(r models.Reaction) bool { return !utils.Contains(reactionSet.ReactionIds, r.Id) })
+			availableReactions := utils.Filter(c.Reactions, func(r models.Reaction) bool { return utils.Contains(reactionSet.ReactionIds, r.Id) })
 
 			var req models.AvailableReactionsGETRequest
 			req.Query.NamespaceId = n.Id

@@ -174,7 +174,7 @@ func (e *EntityImpl) removeMyReactionUnsafe(reactionId string) bool {
 		return false
 	}
 
-	utils.FilterIn(&e.myReactionIds, func(id string) bool { return id == reactionId })
+	utils.FilterIn(&e.myReactionIds, func(id string) bool { return id != reactionId })
 	removed := false
 	for i := range e.reactionsCount {
 		if e.reactionsCount[i].ReactionId == reactionId && e.reactionsCount[i].Count >= 1 {

@@ -10,15 +10,16 @@ import (
 
 func SetConfiguration(conf models.Configuration) {
 	ctx := context.Background()
-	CS.ClearStrict(ctx)
+	must := utils.Must0
+	must(CS.Clear(ctx))
 	for _, r := range conf.Reactions {
-		CS.AddReaction(ctx, &r)
+		must(CS.AddReaction(ctx, &r))
 	}
 	for _, rs := range conf.ReactionSets {
-		CS.AddReactionSet(ctx, &rs)
+		must(CS.AddReactionSet(ctx, &rs))
 	}
 	for _, n := range conf.Namespaces {
-		CS.AddNamespace(ctx, &n)
+		must(CS.AddNamespace(ctx, &n))
 	}
 }
 
@@ -58,5 +59,5 @@ func GetUserReactions() []models.UserReaction {
 }
 
 func ClearUserReactions() {
-	RS.ClearStrict(context.Background())
+	utils.Must0(RS.Clear(context.Background()))
 }

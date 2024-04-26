@@ -64,7 +64,7 @@ func GetConflictingReactionIds(n Namespace, reactionId string) []string {
 	var res []string
 	for _, conflictingGroup := range n.GetMutuallyExclusiveReactions() {
 		if utils.Contains(conflictingGroup, reactionId) {
-			otherIds := utils.Filter(conflictingGroup, func(id string) bool { return id == reactionId })
+			otherIds := utils.Filter(conflictingGroup, func(id string) bool { return id != reactionId })
 			for _, id := range otherIds {
 				if !utils.Contains(res, id) {
 					res = append(res, id)

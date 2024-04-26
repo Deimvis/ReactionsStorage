@@ -3,16 +3,25 @@ package storages
 import (
 	"context"
 	"slices"
+
+	"github.com/Deimvis/reactionsstorage/src/utils"
 )
 
-func checkAddUserReaction(ctx context.Context, userId string, reactionId string, uniqEntityReactions map[string]struct{}, uniqEntityUserReactions map[string]struct{}, maxUniqReactions int, mutExclReactions [][]string) error {
-	_, alreadyExists := uniqEntityUserReactions[reactionId]
-	if alreadyExists {
+func checkAddUserReaction(ctx context.Context, userId string, reactionId string, reactionsCount map[string]int, uniqUserReactions []string, maxUniqReactions int, mutExclReactions [][]string) error {
+	if utils.Contains(uniqUserReactions, reactionId) {
 		return &ReactionAlreadyExistsError{userId, reactionId}
 	}
 
-	uniqReactions := len(uniqEntityReactions)
-	_, isExistingEntityReaction := uniqEntityReactions[reactionId]
+	// NOTE: conflictign reactions should be check first.
+	// In case with `force` flag, removing conflicting reactions can
+	// decrease number of unique reactions and allow to pass max_uniq_reactions constraint.
+	conflictingReactions := getConflictingReactionIds(reactionId, uniqUserReactions, mutExclReactions)
+	if len(conflictingReactions) > 0 {
+		return &ConflictingReactionError{reactionId, conflictingReactions}
+	}
+
+	uniqReactions := len(reactionsCount)
+	_, isExistingEntityReaction := reactionsCount[reactionId]
 	if !isExistingEntityReaction {
 		uniqReactions += 1
 	}
@@ -20,15 +29,10 @@ func checkAddUserReaction(ctx context.Context, userId string, reactionId string,
 		return &MaxUniqReactionsError{}
 	}
 
-	conflictingReactions := getConflictingReactionIds(reactionId, uniqEntityUserReactions, mutExclReactions)
-	if len(conflictingReactions) > 0 {
-		return &ConflictingReactionError{reactionId, conflictingReactions}
-	}
-
 	return nil
 }
 
-func getConflictingReactionIds(reactionId string, uniqEntityUserReactions map[string]struct{}, mutExclReactions [][]string) []string {
+func getConflictingReactionIds(reactionId string, uniqUserReactions []string, mutExclReactions [][]string) []string {
 	var conflictingReactions []string
 	for _, conflictingGroup := range mutExclReactions {
 		ind := slices.Index(conflictingGroup, reactionId)
@@ -36,8 +40,7 @@ func getConflictingReactionIds(reactionId string, uniqEntityUserReactions map[st
 			continue
 		}
 		for _, other := range conflictingGroup {
-			_, has := uniqEntityUserReactions[other]
-			if other != reactionId && has {
+			if other != reactionId && utils.Contains(uniqUserReactions, other) {
 				conflictingReactions = append(conflictingReactions, other)
 			}
 		}

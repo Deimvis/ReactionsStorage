@@ -1,1 +1,2 @@
-TRUNCATE "user_reaction";
+TRUNCATE "user_reactions";
+TRUNCATE "reactions_count";

@@ -32,7 +32,7 @@ func (tracer *SQLTracer) TraceQueryEnd(ctx context.Context, conn *pgx.Conn, data
 	queryId := ctx.Value(queryIdCtxKey{}).(uuid.UUID)
 	start := ctx.Value(queryStartCtxKey{}).(time.Time)
 	elapsed := float64(time.Since(start)) / float64(time.Second)
-	tracer.log.Debugw("SQL done", "query_id", queryId.String(), "start", start.String(), "now", time.Now().String(), "elapsed", elapsed)
+	tracer.log.Debugw("SQL done", "query_id", queryId.String(), "start", start.String(), "now", time.Now().String(), "elapsed", elapsed, "err", data.Err)
 	if metrics.SQLReqCnt != nil {
 		metrics.SQLReqCnt.Inc()
 	}

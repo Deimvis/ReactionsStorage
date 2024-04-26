@@ -1,9 +1,11 @@
 package http_handlers_test
 
 import (
+	"encoding/json"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"github.com/Deimvis/reactionsstorage/src/models"
 	"github.com/Deimvis/reactionsstorage/tests/fake"
@@ -27,7 +29,23 @@ func TestReactionsGET_Complex(t *testing.T) {
 				req.Query.NamespaceId = check.namespaceId
 				req.Query.EntityId = check.entityId
 				req.Query.UserId = check.userId
-				test(t, &req, check.resp)
+
+				resp := request(t, &req)
+				require.Equal(t, check.resp.Code(), resp.Code)
+				if resp.Code != 200 {
+					requireResponse(t, check.resp, resp)
+				} else {
+					// avoid JSONEq since it counts different ordering
+					// of json array as an error
+					exp := check.resp.(*models.ReactionsGETResponse200)
+					act := models.ReactionsGETResponse200{}
+					err := json.NewDecoder(resp.Body).Decode(&act)
+					require.NoError(t, err)
+					require.Equal(t, exp.EntityId, act.EntityId)
+					require.ElementsMatch(t, exp.ReactionsCount, act.ReactionsCount)
+					require.Equal(t, exp.UserReactions.UserId, act.UserReactions.UserId)
+					require.ElementsMatch(t, exp.UserReactions.Reactions, act.UserReactions.Reactions)
+				}
 			}
 		})
 	}

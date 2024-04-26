@@ -3,6 +3,9 @@ package sql
 import (
 	"os"
 	"path/filepath"
+	"strings"
+
+	"github.com/Deimvis/reactionsstorage/src/utils"
 )
 
 func ReadQueryFile(queryRelPath string) string {
@@ -12,4 +15,11 @@ func ReadQueryFile(queryRelPath string) string {
 		panic(err)
 	}
 	return string(query)
+}
+
+// ParseQueries parses sql queries separated with ";"
+func ParseQueries(s string) []string {
+	queries := strings.Split(s, ";")
+	utils.FilterIn(&queries, func(q string) bool { return strings.TrimSpace(q) != "" })
+	return queries
 }

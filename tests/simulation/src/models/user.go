@@ -212,7 +212,7 @@ func getAddReactionOptions(e Entity) []string {
 	}
 
 	// remove reactions that user already added
-	options = utils.Filter(options, func(r string) bool { return utils.Contains(e.GetMyReactionIds(), r) })
+	options = utils.Filter(options, func(r string) bool { return !utils.Contains(e.GetMyReactionIds(), r) })
 
 	return options
 }

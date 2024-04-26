@@ -2,7 +2,6 @@ package storages
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/jackc/pgx/v5"
 )
@@ -19,14 +18,6 @@ func scanUniqReactions(ctx context.Context, rows pgx.Rows) (map[string]struct{},
 		res[reactionId] = struct{}{}
 	}
 	return res, nil
-}
-
-func scanUniqReactionsStrict(ctx context.Context, rows pgx.Rows) map[string]struct{} {
-	res, err := scanUniqReactions(ctx, rows)
-	if err != nil {
-		panic(fmt.Errorf("failed to scan uniq reactions: %w", err))
-	}
-	return res
 }
 
 func stopOnError(fns ...func() error) error {

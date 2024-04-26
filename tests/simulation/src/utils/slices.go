@@ -46,20 +46,20 @@ func ShuffleIn[T any](sp *[]T) []T {
 	return s
 }
 
-// Filters slice.
-// Removes all elements for which given filFn returns true.
-func Filter[T any](s []T, filFn func(T) bool) []T {
+// Filter filters slice.
+// Keeps only those elements for which given filFn returns true.
+func Filter[T any](s []T, pred func(T) bool) []T {
 	scopy := make([]T, len(s))
 	copy(scopy, s)
-	return FilterIn(&scopy, filFn)
+	return FilterIn(&scopy, pred)
 }
 
-// Filters slice in-place.
-// Removes all elements for which given filFn returns true.
-func FilterIn[T any](s *[]T, filFn func(T) bool) []T {
+// FilterIn filters slice in-place.
+// Keeps only those elements for which given filFn returns true.
+func FilterIn[T any](s *[]T, pred func(T) bool) []T {
 	newSz := 0
 	for i := range *s {
-		if !filFn((*s)[i]) {
+		if pred((*s)[i]) {
 			(*s)[newSz] = (*s)[i]
 			newSz++
 		}

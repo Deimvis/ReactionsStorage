@@ -34,11 +34,12 @@ func (rs *ReactionsStorage) Init(ctx context.Context) error {
 	return rs.init(AcquirePG(ctx, rs), ctx)
 }
 
-func (rs *ReactionsStorage) GetEntityReactionsCount(ctx context.Context, namespaceId string, entityId string) ([]models.ReactionCount, error) {
+// GetEntityReactionsCount erturns only reactions with positive count (reactiosn with zero count can be stored physically)
+func (rs *ReactionsStorage) GetEntityReactionsCount(ctx context.Context, namespaceId string, entityId string) (map[string]int, error) {
 	return rs.getEntityReactionsCount(AcquirePG(ctx, rs), ctx, namespaceId, entityId)
 }
 
-func (rs *ReactionsStorage) GetUniqEntityUserReactions(ctx context.Context, namespaceId string, entityId string, userId string) (map[string]struct{}, error) {
+func (rs *ReactionsStorage) GetUniqEntityUserReactions(ctx context.Context, namespaceId string, entityId string, userId string) ([]string, error) {
 	return rs.getUniqEntityUserReactions(AcquirePG(ctx, rs), ctx, namespaceId, entityId, userId)
 }
 

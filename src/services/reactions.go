@@ -8,6 +8,7 @@ import (
 	"github.com/Deimvis/reactionsstorage/src/metrics"
 	"github.com/Deimvis/reactionsstorage/src/models"
 	"github.com/Deimvis/reactionsstorage/src/storages"
+	"github.com/Deimvis/reactionsstorage/src/utils"
 )
 
 func NewReactionsService(lc fx.Lifecycle, cs *storages.ConfigurationStorage, rs *storages.ReactionsStorage) *ReactionsService {
@@ -28,24 +29,24 @@ func (s *ReactionsService) GetUserReactions(ctx context.Context, req models.Reac
 	}, metrics.GETReactionsAcquire)
 	defer storages.CtxReleaseConn(&ctx)
 
-	var reactionsCount []models.ReactionCount
-	var userUniqReactions map[string]struct{}
+	var reactionsCount map[string]int
+	var userUniqReactions []string
 
 	// reactionsCount = s.rs.GetEntityReactionsCountStrict(ctx, req.Query.NamespaceId, req.Query.EntityId)
 	metrics.Record(func() {
-		reactionsCount = s.rs.GetEntityReactionsCountStrict(ctx, req.Query.NamespaceId, req.Query.EntityId)
+		reactionsCount = utils.Must(s.rs.GetEntityReactionsCount(ctx, req.Query.NamespaceId, req.Query.EntityId))
 	}, metrics.GetEntityReactionsCount)
 	// userUniqReactions = s.rs.GetUniqEntityUserReactionsStrict(ctx, req.Query.NamespaceId, req.Query.EntityId, req.Query.UserId)
 	metrics.Record(func() {
-		userUniqReactions = s.rs.GetUniqEntityUserReactionsStrict(ctx, req.Query.NamespaceId, req.Query.EntityId, req.Query.UserId)
+		userUniqReactions = utils.Must(s.rs.GetUniqEntityUserReactions(ctx, req.Query.NamespaceId, req.Query.EntityId, req.Query.UserId))
 	}, metrics.GetUniqEntityUserReactions)
 
 	resp := models.ReactionsGETResponse200{
 		EntityId:       req.Query.EntityId,
-		ReactionsCount: reactionsCount,
+		ReactionsCount: models.ReactionCount{}.FromMap(reactionsCount),
 		UserReactions: models.UserReactionsWithinEntity{
 			UserId:    req.Query.UserId,
-			Reactions: GetKeys(userUniqReactions),
+			Reactions: userUniqReactions,
 		},
 	}
 	return &resp

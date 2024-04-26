@@ -36,7 +36,7 @@ func TestAvailableReactionsGET_Complex(t *testing.T) {
 			setup.SetConfiguration(conf)
 			for _, n := range conf.Namespaces {
 				reactionSet := conf.ReactionSets[slices.IndexFunc(conf.ReactionSets, func(rs models.ReactionSet) bool { return rs.Id == n.ReactionSetId })]
-				availableReactions := utils.Filter(conf.Reactions, func(r models.Reaction) bool { return !utils.Contains(reactionSet.ReactionIds, r.Id) })
+				availableReactions := utils.Filter(conf.Reactions, func(r models.Reaction) bool { return utils.Contains(reactionSet.ReactionIds, r.Id) })
 
 				var req models.AvailableReactionsGETRequest
 				req.Query.NamespaceId = fake.NamespaceId

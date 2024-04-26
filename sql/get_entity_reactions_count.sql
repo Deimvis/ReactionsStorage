@@ -1,6 +1,4 @@
 SELECT
-    "reaction_id",
-    COUNT(*) as "count"
-FROM "user_reaction"
+    "reactions_count"
+FROM "reactions_count"
 WHERE "namespace_id" = $1 AND "entity_id" = $2
-GROUP BY "reaction_id"

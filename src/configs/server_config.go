@@ -12,6 +12,7 @@ import (
 
 type ServerConfig struct {
 	Gin Gin `yaml:"gin"`
+	PG  PG  `yaml:"pg"`
 }
 
 func NewServerConfig(filePath *string) func(lc fx.Lifecycle) *ServerConfig {
@@ -63,6 +64,16 @@ type PprofHandler struct {
 type MemUsageHandler struct {
 	Option `yaml:",inline"`
 	Path   *string `yaml:"path"`
+}
+
+type PG struct {
+	Pool PGPool `yaml:"pool"`
+}
+
+type PGPool struct {
+	MinConns               *int32 `yaml:"min_conns"`
+	MaxConns               *int32 `yaml:"max_conns"`
+	MaxConnLifetimeJitterS *int   `yaml:"max_conn_lifetime_jitter_s"`
 }
 
 type Option struct {

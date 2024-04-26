@@ -39,6 +39,9 @@ func (s *ConfigurationService) GetNamespace(ctx context.Context, req *models.Nam
 }
 
 func (s *ConfigurationService) GetAvailableReactions(ctx context.Context, req *models.AvailableReactionsGETRequest) models.Response {
+	ctx = storages.CtxAcquireConn(ctx, s.cs)
+	defer storages.CtxReleaseConn(&ctx)
+
 	if !s.cs.HasNamespace(ctx, req.Query.NamespaceId) {
 		return &models.AvailableReactionsGETResponse404{Error: fmt.Sprintf("Namespace `%s` not found", req.Query.NamespaceId)}
 	}

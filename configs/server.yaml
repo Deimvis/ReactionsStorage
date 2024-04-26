@@ -20,3 +20,9 @@ gin:
       mem_usage:
         enabled: true
         path: /debug/sys/mem
+
+pg:
+  pool:
+    min_conns: 5
+    max_conns: 490
+    max_conn_lifetime_jitter_s: 1

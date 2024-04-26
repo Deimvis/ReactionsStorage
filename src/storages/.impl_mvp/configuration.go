@@ -30,23 +30,23 @@ type ConfigurationStorage struct {
 }
 
 func (cs *ConfigurationStorage) Init(ctx context.Context) error {
-	return cs.init(cs.pool, ctx)
+	return cs.init(AcquireConn(ctx, cs), ctx)
 }
 
 func (cs *ConfigurationStorage) AddReaction(ctx context.Context, r *models.Reaction) error {
-	return cs.addReaction(cs.pool, ctx, r)
+	return cs.addReaction(AcquireConn(ctx, cs), ctx, r)
 }
 
 func (cs *ConfigurationStorage) AddReactionSet(ctx context.Context, r *models.ReactionSet) error {
-	return cs.addReactionSet(cs.pool, ctx, r)
+	return cs.addReactionSet(AcquireConn(ctx, cs), ctx, r)
 }
 
 func (cs *ConfigurationStorage) AddNamespace(ctx context.Context, n *models.Namespace) error {
-	return cs.addNamespace(cs.pool, ctx, n)
+	return cs.addNamespace(AcquireConn(ctx, cs), ctx, n)
 }
 
 func (cs *ConfigurationStorage) GetNamespace(ctx context.Context, namespaceId string) (*models.Namespace, error) {
-	return cs.getNamespace(cs.pool, ctx, namespaceId)
+	return cs.getNamespace(AcquireConn(ctx, cs), ctx, namespaceId)
 }
 
 func (cs *ConfigurationStorage) HasNamespace(ctx context.Context, namespaceId string) bool {
@@ -55,15 +55,15 @@ func (cs *ConfigurationStorage) HasNamespace(ctx context.Context, namespaceId st
 }
 
 func (cs *ConfigurationStorage) GetAvailableReactions(ctx context.Context, namespaceId string) ([]models.Reaction, error) {
-	return cs.getAvailableReactions(cs.pool, ctx, namespaceId)
+	return cs.getAvailableReactions(AcquireConn(ctx, cs), ctx, namespaceId)
 }
 
 func (cs *ConfigurationStorage) GetMutuallyExclusiveReactions(ctx context.Context, namespaceId string) ([][]string, error) {
-	return cs.getMutuallyExclusiveReactions(cs.pool, ctx, namespaceId)
+	return cs.getMutuallyExclusiveReactions(AcquireConn(ctx, cs), ctx, namespaceId)
 }
 
 func (cs *ConfigurationStorage) GetMaxUniqueReactions(ctx context.Context, namespaceId string) (int, error) {
-	return cs.getMaxUniqueReactions(cs.pool, ctx, namespaceId)
+	return cs.getMaxUniqueReactions(AcquireConn(ctx, cs), ctx, namespaceId)
 }
 
 func (cs *ConfigurationStorage) SetConfiguration(ctx context.Context, conf *models.Configuration) error {
@@ -85,7 +85,7 @@ func (cs *ConfigurationStorage) SetConfiguration(ctx context.Context, conf *mode
 }
 
 func (cs *ConfigurationStorage) Clear(ctx context.Context) error {
-	return cs.clear(cs.pool, ctx)
+	return cs.clear(AcquireConn(ctx, cs), ctx)
 }
 
 func (cs *ConfigurationStorage) beginTx(ctx context.Context) (pgx.Tx, error) {

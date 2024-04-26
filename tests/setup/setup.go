@@ -13,10 +13,10 @@ import (
 
 	"github.com/Deimvis/reactionsstorage/src/configs"
 	"github.com/Deimvis/reactionsstorage/src/loggers"
+	"github.com/Deimvis/reactionsstorage/src/pg"
 	"github.com/Deimvis/reactionsstorage/src/servers"
 	"github.com/Deimvis/reactionsstorage/src/services"
 	"github.com/Deimvis/reactionsstorage/src/storages"
-	"github.com/Deimvis/reactionsstorage/src/utils"
 	thelpers "github.com/Deimvis/reactionsstorage/tests/helpers"
 	rs "github.com/Deimvis/reactionsstorage/tests/simulation/src/rs_client"
 )
@@ -42,7 +42,7 @@ func Start() {
 				return &configs.ServerConfig{}
 			},
 			loggers.NewLogger,
-			utils.NewPostgresConnectionPool,
+			pg.NewPostgresConnectionPool,
 			storages.NewConfigurationStorage,
 			storages.NewReactionsStorage,
 			services.NewConfigurationService,

@@ -27,7 +27,7 @@ type HTTPClient struct {
 func NewClientHTTP(host string, port int, ssl bool, logger *zap.SugaredLogger, recorder metrics.HTTPRecorder) *HTTPClient {
 	t := http.DefaultTransport.(*http.Transport).Clone()
 	t.DisableKeepAlives = true
-	client := &http.Client{Transport: t, Timeout: 10 * time.Second}
+	client := &http.Client{Transport: t, Timeout: 60 * time.Second}
 	baseUrl := &url.URL{}
 	if ssl {
 		baseUrl.Scheme = "https"

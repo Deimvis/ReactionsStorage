@@ -6,3 +6,6 @@ run: build
 
 test:
 	@devtools/kportpid 8080 && gotestsum --format dots
+
+test-local:
+	@. devtools/exenv .env.local && devtools/kportpid 8080 && gotestsum --format dots

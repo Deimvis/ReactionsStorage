@@ -81,6 +81,11 @@ func UsePrometheusMiddleware(cfg *configs.GinMiddlewares, router *gin.Engine) {
 		metrics.GINReqDurV2Wrap.Metric,
 		metrics.SQLReqCntWrap.Metric,
 		metrics.SQLReqDurWrap.Metric,
+		metrics.GetEntityReactionsCountWrap.Metric,
+		metrics.GetUniqEntityUserReactionsWrap.Metric,
+		metrics.GetEntityReactionsCountQueryWrap.Metric,
+		metrics.GetEntityReactionsCountCollectRowsWrap.Metric,
+		metrics.GETReactionsAcquireWrap.Metric,
 	}
 
 	p := ginprometheus.NewPrometheus("gin", customMetrics)
@@ -93,6 +98,11 @@ func UsePrometheusMiddleware(cfg *configs.GinMiddlewares, router *gin.Engine) {
 	metrics.GINReqDurV2 = metrics.GINReqDurV2Wrap.Unwrap()
 	metrics.SQLReqCnt = metrics.SQLReqCntWrap.Unwrap()
 	metrics.SQLReqDur = metrics.SQLReqDurWrap.Unwrap()
+	metrics.GetEntityReactionsCount = metrics.GetEntityReactionsCountWrap.Unwrap()
+	metrics.GetUniqEntityUserReactions = metrics.GetUniqEntityUserReactionsWrap.Unwrap()
+	metrics.GetEntityReactionsCountQuery = metrics.GetEntityReactionsCountQueryWrap.Unwrap()
+	metrics.GetEntityReactionsCountCollectRows = metrics.GetEntityReactionsCountCollectRowsWrap.Unwrap()
+	metrics.GETReactionsAcquire = metrics.GETReactionsAcquireWrap.Unwrap()
 
 	// Record request duration with GINReqDurV2
 	router.Use(func(c *gin.Context) {

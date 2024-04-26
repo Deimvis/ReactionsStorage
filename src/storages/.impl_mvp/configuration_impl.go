@@ -9,7 +9,6 @@ import (
 	"github.com/Deimvis/reactionsstorage/src/sql"
 )
 
-
 func (cs *ConfigurationStorage) init(pg PG, ctx context.Context) error {
 	_, err := pg.Exec(ctx, sql.InitConfigurationStorage)
 	return err
@@ -37,7 +36,6 @@ func (cs *ConfigurationStorage) getNamespace(pg PG, ctx context.Context, namespa
 	}
 	return pgx.CollectExactlyOneRow(row, pgx.RowToAddrOfStructByName[models.Namespace])
 }
-
 
 func (cs *ConfigurationStorage) getAvailableReactions(pg PG, ctx context.Context, namespaceId string) ([]models.Reaction, error) {
 	rows, err := pg.Query(ctx, sql.GetAvailableReactions, namespaceId)

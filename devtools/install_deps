@@ -1,9 +1,18 @@
 #!/usr/bin/env bash
 
-pip install psycopg2-binary
-pip install pyyaml
-pip install tqdm
+set -e
 
-brew tap esnet/gdg
-brew update
-brew install gdg
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    sudo apt install python3-pip -y -qqq
+
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    python3 -m ensurepip --upgrade
+
+    brew tap esnet/gdg
+    brew update
+    brew install gdg
+fi
+
+pip3 install psycopg2-binary -qqq
+pip3 install pyyaml -qqq
+pip3 install tqdm -qqq

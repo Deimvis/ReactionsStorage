@@ -10,6 +10,9 @@ rules:
     # each user will start turn at random point of time
     # inside interval [turn_start_t, turn-start_t + turn_start_skew_ms)
     turn_start_skew_ms: 900
+    
+    # optional parameter
+    id_template: user_%06d
   
     screen:
       visible_entities_count: 3

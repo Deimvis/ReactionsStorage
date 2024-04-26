@@ -14,8 +14,9 @@ type Rules struct {
 	} `yaml:"turns" json:"turns"`
 
 	Users struct {
-		Count           int `yaml:"count" json:"count"`
-		TurnStartSkewMs int `yaml:"turn_start_skew_ms" json:"turn_start_skew_ms"`
+		Count           int     `yaml:"count" json:"count"`
+		TurnStartSkewMs int     `yaml:"turn_start_skew_ms" json:"turn_start_skew_ms"`
+		IdTemplate      *string `yaml:"id_template" json:"id_template"`
 		Screen          struct {
 			VisibleEntitiesCount int `yaml:"visible_entities_count" json:"visible_entities_count"`
 		} `yaml:"screen" json:"screen"`

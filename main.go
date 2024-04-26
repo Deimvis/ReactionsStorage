@@ -12,6 +12,7 @@ import (
 
 	"github.com/Deimvis/reactionsstorage/src/configs"
 	"github.com/Deimvis/reactionsstorage/src/loggers"
+	"github.com/Deimvis/reactionsstorage/src/pg"
 	"github.com/Deimvis/reactionsstorage/src/servers"
 	"github.com/Deimvis/reactionsstorage/src/services"
 	"github.com/Deimvis/reactionsstorage/src/storages"
@@ -30,7 +31,7 @@ func CreateOptions() fx.Option {
 		fx.Provide(
 			configs.NewServerConfig(cfgFilePath),
 			loggers.NewLogger,
-			utils.NewPostgresConnectionPool,
+			pg.NewPostgresConnectionPool,
 			storages.NewConfigurationStorage,
 			storages.NewReactionsStorage,
 			services.NewConfigurationService,

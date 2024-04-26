@@ -12,3 +12,16 @@ export SSH_HOST=$(cat $CONF_FILE | jq -r ".$RESOURCE.ssh_host")
 export SSH_USER=$(cat $CONF_FILE | jq -r ".$RESOURCE.ssh_user")
 export REMOTE_WORKDIR=$(cat $CONF_FILE | jq -r ".$RESOURCE.workdir")
 export SERVICES=$(cat $CONF_FILE | jq -r ".$RESOURCE.services | join(\" \")")
+
+
+# shortcuts
+function SSH() {
+    local cmd=$1
+    ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST $cmd
+}
+
+function SCP() {
+    local src_dir=$1
+    local dst_dir=$2
+    scp -r $src_dir $SSH_USER@$SSH_HOST:$dst_dir
+}

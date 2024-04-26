@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -e
+
+RANDOM_REACTIONS=${1:-10000000} # 10M
+NORMDIST_REACTIONS=${2:-200000} # 200k
+NORMDIST_REACTIONS_USERS=${3:-100}
+
+# Random reactions
+source deploy/yacloud/cmd/common/env_vars db
+SSH "mkdir -p $REMOTE_WORKDIR/devtools/"
+SCP devtools/user_reactions $REMOTE_WORKDIR/devtools/
+SCP devtools/install_deps   $REMOTE_WORKDIR/devtools/
+SCP devtools/exenv          $REMOTE_WORKDIR/devtools/
+SSH "$REMOTE_WORKDIR/devtools/install_deps"
+
+CMD_PREFIX="source $REMOTE_WORKDIR/devtools/exenv $REMOTE_WORKDIR/.env && POSTGRES_HOST=localhost POSTGRES_PORT=5433"
+SSH "$CMD_PREFIX $REMOTE_WORKDIR/devtools/user_reactions/clear"
+SSH "$CMD_PREFIX $REMOTE_WORKDIR/devtools/user_reactions/add_random $RANDOM_REACTIONS"
+RANDOM_REACTIONS_MAX_TS=$(now)
+
+# Normal distributed reactions (on topics that exist in simulation)
+# 1 user, 30s - 24 reactions
+reactions_in_30s=$((NORMDIST_REACTIONS_USERS * 24))
+seconds_required=$((30 * NORMDIST_REACTIONS / reactions_in_30s))
+
+envsubst < deploy/yacloud/simulation/configs/load-test.yaml.setup.template > deploy/yacloud/simulation/configs/load-test.yaml.setup
+deploy/cmd yacloud sim run --config configs/load-test.yaml.setup
+
+# TODO: truncate all extra reactions

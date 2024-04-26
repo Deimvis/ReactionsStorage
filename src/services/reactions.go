@@ -5,6 +5,7 @@ import (
 
 	"go.uber.org/fx"
 
+	"github.com/Deimvis/reactionsstorage/src/metrics"
 	"github.com/Deimvis/reactionsstorage/src/models"
 	"github.com/Deimvis/reactionsstorage/src/storages"
 )
@@ -19,8 +20,26 @@ type ReactionsService struct {
 }
 
 func (s *ReactionsService) GetUserReactions(ctx context.Context, req models.ReactionsGETRequest) models.Response {
-	reactionsCount := s.rs.GetEntityReactionsCountStrict(ctx, req.Query.NamespaceId, req.Query.EntityId)
-	userUniqReactions := s.rs.GetUniqEntityUserReactionsStrict(ctx, req.Query.NamespaceId, req.Query.EntityId, req.Query.UserId)
+	// TODO: remove debug metric wrappers
+
+	// ctx = storages.CtxAcquireConn(ctx, s.rs)
+	metrics.Record(func() {
+		ctx = storages.CtxAcquireConn(ctx, s.rs)
+	}, metrics.GETReactionsAcquire)
+	defer storages.CtxReleaseConn(&ctx)
+
+	var reactionsCount []models.ReactionCount
+	var userUniqReactions map[string]struct{}
+
+	// reactionsCount = s.rs.GetEntityReactionsCountStrict(ctx, req.Query.NamespaceId, req.Query.EntityId)
+	metrics.Record(func() {
+		reactionsCount = s.rs.GetEntityReactionsCountStrict(ctx, req.Query.NamespaceId, req.Query.EntityId)
+	}, metrics.GetEntityReactionsCount)
+	// userUniqReactions = s.rs.GetUniqEntityUserReactionsStrict(ctx, req.Query.NamespaceId, req.Query.EntityId, req.Query.UserId)
+	metrics.Record(func() {
+		userUniqReactions = s.rs.GetUniqEntityUserReactionsStrict(ctx, req.Query.NamespaceId, req.Query.EntityId, req.Query.UserId)
+	}, metrics.GetUniqEntityUserReactions)
+
 	resp := models.ReactionsGETResponse200{
 		EntityId:       req.Query.EntityId,
 		ReactionsCount: reactionsCount,
@@ -33,6 +52,9 @@ func (s *ReactionsService) GetUserReactions(ctx context.Context, req models.Reac
 }
 
 func (s *ReactionsService) AddUserReaction(ctx context.Context, req models.ReactionsPOSTRequest) models.Response {
+	ctx = storages.CtxAcquireConn(ctx, s.rs)
+	defer storages.CtxReleaseConn(&ctx)
+
 	namespace, err := s.cs.GetNamespace(ctx, req.Body.NamespaceId)
 	if err != nil {
 		return &models.ReactionsPOSTResponse403{Error: err.Error()}

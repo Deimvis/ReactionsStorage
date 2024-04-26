@@ -10,6 +10,3 @@ function sql() {
 sql devtools/sql/destroy_db.sql
 sql sql/init_configuration_storage.sql
 sql sql/init_reactions_storage.sql
-
-env_name=${1:-fake}
-sql devtools/sql/setup_${env_name}_env.sql

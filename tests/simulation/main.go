@@ -27,7 +27,6 @@ import (
 func main() {
 	configPath := flag.String("config", "config.yaml", "Path to simulation config (JSON or YAML)")
 	quiet := flag.Bool("q", false, "Disable logging")
-	// TODO: add --clear flag (remove all existing reactions)
 	flag.Parse()
 
 	logger := newLogger(*quiet)
@@ -165,16 +164,24 @@ func runUser(config configs.Simulation, app models.App, wgCh <-chan *sync.WaitGr
 
 // logIn logins a new user
 func logIn(config configs.Simulation, app models.App, logger *zap.SugaredLogger) models.User {
-	id := fmt.Sprintf("user_%06d", userCounter.Add(1))
+	id := createUserId(config, userCounter.Add(1))
 	user := models.NewUser(id, app, config.Rules.Users.ActionProbs, logger)
 	app.Restart(id).Wait()
 	logger.Infof("User %s logged in", id)
 	return user
 }
 
-// Returns whether it's right turn to call Refresh
+// needRefresh returns whether it's right turn to call Refresh
 func needRefresh(config configs.Simulation, turn int) bool {
 	return turn%config.Rules.Users.App.Background.RefreshReactions.TimerInTurns == 0
+}
+
+func createUserId(config configs.Simulation, ind uint64) string {
+	template := defaultUserIdTemplate
+	if config.Rules.Users.IdTemplate != nil {
+		template = *config.Rules.Users.IdTemplate
+	}
+	return fmt.Sprintf(template, ind)
 }
 
 func newLogger(quiet bool) *zap.SugaredLogger {
@@ -202,3 +209,4 @@ func setupSigHandlers() {
 }
 
 var userCounter atomic.Uint64
+var defaultUserIdTemplate = "user_%06d"

@@ -1,0 +1,71 @@
+#!/usr/bin/env python3
+import argparse
+import os
+import requests
+
+REQUEST_URL_TEMPLATE = 'http://{GRAFANA_HOST}:{GRAFANA_PORT}/api/ds/query'
+REQUEST_HEADERS_BASE = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer {GRAFANA_TOKEN}',
+}
+REQUEST_DATA_BASE = {
+    "queries": [
+        {
+            "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+            },
+            "editorMode": "code",
+            "expr": "histogram_quantile(\n    0.95,\n    sum(\n      rate(\n        gin_request_duration_seconds_v2_bucket{method=\"%s\",path=\"%s\"}[1m]\n      )\n    ) by (le)\n)",
+            "instant": False,
+            "legendFormat": "__auto",
+            "range": True,
+            "refId": "A",
+            "exemplar": False,
+            "requestId": "24A",
+            "utcOffsetSec": 0,
+            "interval": "",
+            "datasourceId": 1,
+            "intervalMs": 15000,
+            "maxDataPoints": 1580,
+        },
+    ],
+    "from": "FROM_TIMESTAMP_IN_MS_AS_STRING",
+    "to": "TO_TIMESTAMP_IN_MS_AS_STRING"
+}
+
+def parse_args():
+    parser = argparse.ArgumentParser(description='Capture grafana metrics. Env vars: GRAFANA_HOST, GRAFANA_PORT, GRAFANA_TOEN.')
+    parser.add_argument('from_ts', type=int, help='Timestamp "from" in seconds')
+    parser.add_argument('to_ts', type=int, help='Timestamp "to" in seconds')
+    return parser.parse_args()
+
+
+def main():
+    args = parse_args()
+
+    url = REQUEST_URL_TEMPLATE.format(GRAFANA_HOST=os.getenv('GRAFANA_HOST'), GRAFANA_PORT=os.getenv('GRAFANA_PORT'))
+    headers=REQUEST_HEADERS_BASE
+    headers['Authorization'] = headers['Authorization'].format(GRAFANA_TOKEN=os.getenv('GRAFANA_TOKEN'))
+    data = REQUEST_DATA_BASE
+    data['from'] = str(args.from_ts*1000)
+    data['to'] = str(args.to_ts*1000)
+    data['queries'][0]['expr'] = data['queries'][0]['expr'] % ('GET', '/reactions')
+    resp = requests.request('POST', url, headers=headers, json=data)
+    print(f'{resp.status_code} {resp.content}')
+    assert resp.status_code == 200, f'{resp.status_code} {resp.content}'
+
+
+def _curlify(method, url, headers, body):
+    command = "curl -X {method} -H {headers} -d '{data}' '{uri}'"
+    method = method
+    uri = url
+    data = body
+    headers = ['"{0}: {1}"'.format(k, v) for k, v in headers.items()]
+    headers = " -H ".join(headers)
+    return command.format(method=method, headers=headers, data=data, uri=uri)
+
+
+if __name__ == '__main__':
+    main()

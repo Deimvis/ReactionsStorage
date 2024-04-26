@@ -9,3 +9,4 @@ source $CMD_DIR/common/env_vars sim
 set -x
 
 ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "sudo docker-compose -f $REMOTE_WORKDIR/docker-compose.yaml stop simulation"
+ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "sudo docker-compose -f $REMOTE_WORKDIR/docker-compose.yaml rm simulation"

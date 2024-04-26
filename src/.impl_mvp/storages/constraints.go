@@ -12,11 +12,11 @@ func checkAddUserReaction(ctx context.Context, userId string, reactionId string,
 	}
 
 	uniqReactions := len(uniqEntityReactions)
-	_, isNewEntityReaction := uniqEntityReactions[reactionId]
-	if isNewEntityReaction {
+	_, isExistingEntityReaction := uniqEntityReactions[reactionId]
+	if !isExistingEntityReaction {
 		uniqReactions += 1
 	}
-	if uniqReactions >= maxUniqReactions {
+	if uniqReactions > maxUniqReactions {
 		return &MaxUniqReactionsError{}
 	}
 

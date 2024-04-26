@@ -26,6 +26,10 @@ type ReactionsStorage struct {
 	pool *pgxpool.Pool
 }
 
+func (cs *ReactionsStorage) GetPool() *pgxpool.Pool {
+	return cs.pool
+}
+
 func (rs *ReactionsStorage) Init(ctx context.Context) error {
 	return rs.init(AcquirePG(ctx, rs), ctx)
 }
@@ -67,7 +71,7 @@ func (rs *ReactionsStorage) Clear(ctx context.Context) error {
 }
 
 func (rs *ReactionsStorage) beginTx(ctx context.Context) (pgx.Tx, error) {
-	return rs.pool.Begin(ctx)
+	return AcquirePG(ctx, rs).Begin(ctx)
 }
 
 func (rs *ReactionsStorage) advLock(ctx context.Context, tx pgx.Tx, key string) error {

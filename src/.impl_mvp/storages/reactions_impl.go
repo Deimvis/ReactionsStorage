@@ -3,11 +3,11 @@ package storages
 import (
 	"context"
 
-	"github.com/jackc/pgx/v5"
-
+	"github.com/Deimvis/reactionsstorage/src/metrics"
 	"github.com/Deimvis/reactionsstorage/src/models"
 	"github.com/Deimvis/reactionsstorage/src/sql"
 	"github.com/Deimvis/reactionsstorage/src/utils"
+	"github.com/jackc/pgx/v5"
 )
 
 func (rs *ReactionsStorage) init(pg PG, ctx context.Context) error {
@@ -32,11 +32,19 @@ func (rs *ReactionsStorage) getUniqEntityUserReactions(pg PG, ctx context.Contex
 }
 
 func (rs *ReactionsStorage) getEntityReactionsCount(pg PG, ctx context.Context, namespaceId string, entityId string) ([]models.ReactionCount, error) {
-	rows, err := pg.Query(ctx, sql.GetEntityReactionsCount, namespaceId, entityId)
+	var rows pgx.Rows
+	var err error
+	metrics.Record(func() {
+		rows, err = pg.Query(ctx, sql.GetEntityReactionsCount, namespaceId, entityId)
+	}, metrics.GetEntityReactionsCountQuery)
 	if err != nil {
 		return nil, err
 	}
-	return pgx.CollectRows(rows, pgx.RowToStructByName[models.ReactionCount])
+	var res []models.ReactionCount
+	metrics.Record(func() {
+		res, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.ReactionCount])
+	}, metrics.GetEntityReactionsCountCollectRows)
+	return res, err
 }
 
 func (rs *ReactionsStorage) addUserReaction(pg PG, ctx context.Context, reaction models.UserReaction, maxUniqReactions int, mutExclReactions [][]string, force bool) error {

@@ -1,6 +1,7 @@
 package models
 
 import (
+	"context"
 	"fmt"
 	"testing"
 
@@ -87,6 +88,7 @@ func TestApp_AddReaction(t *testing.T) {
 			utils.AssertPtr(e)
 			tc.initial.Apply(e, tc.userId)
 			app.AddReaction(e, tc.userId, tc.reactionId).Wait()
+			setup.RS.RefreshEntityReactions(context.Background())
 			tc.expect.RequireIsActual(t, e, tc.userId)
 		})
 	}
@@ -188,6 +190,7 @@ func (s *state) ApplyToStorage() {
 		if resp.Code() != 200 {
 			panic(fmt.Errorf("failed to add reaction: code != 200"))
 		}
+		setup.RS.RefreshEntityReactions(context.Background())
 	}
 }
 

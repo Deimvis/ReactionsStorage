@@ -7,35 +7,35 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestRemove(t *testing.T) {
-	testCases := []RemoveTC[int]{
+func TestFilter(t *testing.T) {
+	testCases := []filterTC[int]{
 		{
 			[]int{1, 2, 3},
-			func(x int) bool { return x%2 == 0 },
+			func(x int) bool { return x%2 != 0 },
 			[]int{1, 3},
 		},
 	}
 	for i, tc := range testCases {
 		t.Run(fmt.Sprint(i), func(t *testing.T) {
 			initialCopy := append([]int(nil), tc.initial...)
-			actual := Remove(tc.initial, tc.filFn)
+			actual := Filter(tc.initial, tc.filFn)
 			require.Equal(t, tc.expected, actual)
 			require.Equal(t, initialCopy, tc.initial) // not changed
 		})
 	}
 }
 
-func TestRemoveIn(t *testing.T) {
-	testCases := []RemoveTC[int]{
+func TestFilterIn(t *testing.T) {
+	testCases := []filterTC[int]{
 		{
 			[]int{1, 2, 3},
-			func(x int) bool { return x%2 == 0 },
+			func(x int) bool { return x%2 != 0 },
 			[]int{1, 3},
 		},
 	}
 	for i, tc := range testCases {
 		t.Run(fmt.Sprint(i), func(t *testing.T) {
-			actual := RemoveIn(&tc.initial, tc.filFn)
+			actual := FilterIn(&tc.initial, tc.filFn)
 			require.Equal(t, tc.expected, actual)
 			require.Equal(t, tc.expected, tc.initial) // changed
 		})
@@ -60,7 +60,7 @@ func TestShuffleIn(t *testing.T) {
 	}
 }
 
-type RemoveTC[T any] struct {
+type filterTC[T any] struct {
 	initial  []T
 	filFn    func(T) bool
 	expected []T

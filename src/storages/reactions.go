@@ -44,7 +44,7 @@ func (rs *ReactionsStorage) GetUniqEntityUserReactions(ctx context.Context, name
 }
 
 func (rs *ReactionsStorage) AddUserReaction(ctx context.Context, reaction models.UserReaction, maxUniqReactions int, mutExclReactions [][]string, force bool) error {
-	tx := utils.Must(rs.beginTx(ctx))
+	tx := utils.Must(rs.beginTx(ctx, pgx.TxOptions{IsoLevel: pgx.RepeatableRead}))
 	defer tx.Rollback(ctx)
 	lockKey := fmt.Sprintf("%s/%s", reaction.NamespaceId, reaction.EntityId)
 	utils.Must0(rs.advLock(ctx, tx, lockKey)) // transaction-level lock is automatically released at the end of tx
@@ -71,8 +71,12 @@ func (rs *ReactionsStorage) Clear(ctx context.Context) error {
 	return rs.clear(AcquirePG(ctx, rs), ctx)
 }
 
-func (rs *ReactionsStorage) beginTx(ctx context.Context) (pgx.Tx, error) {
-	return AcquirePG(ctx, rs).Begin(ctx)
+func (rs *ReactionsStorage) RefreshEntityReactions(ctx context.Context) error {
+	return rs.refreshEntityReactions(AcquirePG(ctx, rs), ctx)
+}
+
+func (rs *ReactionsStorage) beginTx(ctx context.Context, txOptions pgx.TxOptions) (pgx.Tx, error) {
+	return AcquirePG(ctx, rs).BeginTx(ctx, txOptions)
 }
 
 func (rs *ReactionsStorage) advLock(ctx context.Context, tx pgx.Tx, key string) error {

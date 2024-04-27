@@ -40,28 +40,6 @@ var GetUniqEntityUserReactionsWrap = &MetricWrap[prometheus.Histogram]{
 
 var GetUniqEntityUserReactions prometheus.Histogram
 
-var GetEntityReactionsCountQueryWrap = &MetricWrap[prometheus.Histogram]{
-	&ginprometheus.Metric{
-		ID:          "get_uniq_entity_user_reactions__query",
-		Name:        "get_uniq_entity_user_reactions__query",
-		Description: "GetUniqEntityUserReactions_Query.",
-		Type:        "histogram",
-	},
-}
-
-var GetEntityReactionsCountQuery prometheus.Histogram
-
-var GetEntityReactionsCountCollectRowsWrap = &MetricWrap[prometheus.Histogram]{
-	&ginprometheus.Metric{
-		ID:          "get_uniq_entity_user_reactions__collect_rows",
-		Name:        "get_uniq_entity_user_reactions__collect_rows",
-		Description: "GetUniqEntityUserReactions_CollectRows.",
-		Type:        "histogram",
-	},
-}
-
-var GetEntityReactionsCountCollectRows prometheus.Histogram
-
 func Record(fn func(), m prometheus.Histogram) {
 	start := time.Now()
 	fn()

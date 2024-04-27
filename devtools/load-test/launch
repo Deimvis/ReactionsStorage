@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+set -e
+
+RESULTS_FILE_PATH=${1:-metrics.json}
+SIM_OUT_FILE_PATH=${2:-sim.out}
+
+curl http://$HOST:$PORT/
+echo
+
+function now() {
+    echo "$(date +%s)"
+}
+
+function stop_simulation() {
+    ./deploy/cmd yacloud sim stop
+}
+
+stop_simulation
+trap stop_simulation SIGINT
+SIM_START_TS=$(now)
+./deploy/cmd yacloud sim run --config configs/load-test.yaml 2>&1 | tee $SIM_OUT_FILE_PATH
+SIM_END_TS=$(now)
+
+SIM_DUR=$((SIM_END_TS-SIM_START_TS))
+MEASURE_START_TS=$((SIM_START_TS+((SIM_DUR / 2) * 3 / 4)))
+MEASURE_END_TS=$((SIM_END_TS-((SIM_DUR / 2) * 1 / 4)))
+echo "[$MEASURE_START_TS, $MEASURE_END_TS]"
+METRICS=$(./devtools/load-test/capture_metrics $MEASURE_START_TS $MEASURE_END_TS)
+
+jq -n \
+    --arg "sim_duration_s" "$SIM_DUR" \
+    --argjson "metrics" "$METRICS" \
+    '$ARGS.named' |
+        tee $RESULTS_FILE_PATH

@@ -3,4 +3,4 @@
 set -e
 
 SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}")
-SCRIPT_DIR/s1_rt_join_reset_state
+$SCRIPT_DIR/s1_rt_join_reset_state

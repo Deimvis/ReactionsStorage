@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+
+SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}")
+
+function sql() {
+    PGPASSWORD=$POSTGRES_PASSWORD psql -h $POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USER -d $POSTGRES_DB
+    return $?
+}
+
+query=$(cat $SCRIPT_DIR/s1_rt_join_reset_state.sql)
+
+sql << SQL
+$query
+SQL

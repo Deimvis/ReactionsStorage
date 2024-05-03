@@ -1,4 +1,4 @@
-seed: 42
+seed: 42 # unfortunately, context switch happens non-deterministically; ignore this parameter :)
 
 rules:
   turns:

@@ -29,3 +29,6 @@ SELECT
 FROM tmp
 GROUP BY namespace_id, entity_id
 ;
+
+VACUUM "user_reactions";
+VACUUM "reactions_count";

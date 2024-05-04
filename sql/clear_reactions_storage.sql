@@ -1,2 +1,2 @@
-TRUNCATE "user_reaction";
-REFRESH MATERIALIZED VIEW "entity_reactions";
+TRUNCATE "user_reactions";
+TRUNCATE "reactions_count";

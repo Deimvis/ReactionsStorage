@@ -1,13 +1,11 @@
 package http_handlers_test
 
 import (
-	"context"
 	"testing"
 
 	"github.com/stretchr/testify/require"
 
 	"github.com/Deimvis/reactionsstorage/src/models"
-	"github.com/Deimvis/reactionsstorage/src/utils"
 	"github.com/Deimvis/reactionsstorage/tests/fake"
 	setup "github.com/Deimvis/reactionsstorage/tests/setup"
 )
@@ -39,7 +37,6 @@ func TestReactionsPOST_Complex(t *testing.T) {
 				req.Query.Force = &r.force
 				resp := request(t, &req)
 				require.Equal(t, r.expectedStatusCode, resp.Code)
-				utils.Must0(setup.RS.RefreshEntityReactions(context.Background()))
 			}
 			require.ElementsMatch(t, tc.expectedURs, setup.GetUserReactions())
 		})

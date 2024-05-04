@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"time"
 
 	"github.com/jackc/pgx/v5"
 
@@ -18,32 +19,22 @@ func (rs *ReactionsStorage) init(pg PG, ctx context.Context) error {
 }
 
 func (rs *ReactionsStorage) getUniqEntityUserReactions(pg PG, ctx context.Context, namespaceId string, entityId string, userId string) ([]string, error) {
-	res := []string{}
-	rows, err := pg.Query(ctx, sql.GetUniqueEntityUserReactions, namespaceId, entityId, userId)
-	if err != nil {
-		return nil, err
+	rIds := []string{}
+	err := pg.QueryRow(ctx, sql.GetUniqueEntityUserReactions, namespaceId, entityId, userId).Scan(&rIds)
+	if errors.Is(err, pgx.ErrNoRows) {
+		err = nil
 	}
-	defer rows.Close()
-	for rows.Next() {
-		var rId string
-		err := rows.Scan(&rId)
-		if err != nil {
-			return nil, err
-		}
-		res = append(res, rId)
-	}
-	return res, nil
+	return rIds, err
 }
 
 // getEntityReactionsCount erturns only reactions with positive count (reactiosn with zero count can be stored physically)
 func (rs *ReactionsStorage) getEntityReactionsCount(pg PG, ctx context.Context, namespaceId string, entityId string) (map[string]int, error) {
 	res := make(map[string]int)
-	var err error
-	key := fmt.Sprintf("%s__%s", namespaceId, entityId)
-	err = pg.QueryRow(ctx, sql.GetEntityReactionsCount, key).Scan(&res)
+	err := pg.QueryRow(ctx, sql.GetEntityReactionsCount, namespaceId, entityId).Scan(&res)
 	if errors.Is(err, pgx.ErrNoRows) {
 		err = nil
 	}
+	utils.FilterMapIn(res, func(rId string, cnt int) bool { return res[rId] > 0 })
 	return res, err
 }
 
@@ -66,8 +57,15 @@ func (rs *ReactionsStorage) addUserReaction(pg PG, ctx context.Context, reaction
 		return err
 	}
 
-	_, err = pg.Exec(ctx, sql.AddUserReaction, reaction.NamespaceId, reaction.EntityId, reaction.ReactionId, reaction.UserId)
-	return err
+	queries := sql.ParseQueries(sql.AddUserReaction)
+	if len(queries) != 2 {
+		panic(fmt.Errorf("add_user_reaction query has wrong number of queries: %d (2 was expected)", len(queries)))
+	}
+	batch := &pgx.Batch{}
+	batch.Queue(queries[0], reaction.NamespaceId, reaction.EntityId, reaction.ReactionId, reaction.UserId, time.Now().Unix())
+	batch.Queue(queries[1], reaction.NamespaceId, reaction.EntityId, reaction.ReactionId)
+	fmt.Println("exec adding user reaction query", reactionsCount, uniqUserReactions, reaction.ReactionId)
+	return execBatch(pg, ctx, batch)
 }
 
 func (rs *ReactionsStorage) removeConflictingReactions(pg PG, ctx context.Context, newReaction models.UserReaction, reactionsCount map[string]int, uniqUserReactions *[]string, mutExclReactions [][]string) {
@@ -88,8 +86,14 @@ func (rs *ReactionsStorage) removeConflictingReactions(pg PG, ctx context.Contex
 }
 
 func (rs *ReactionsStorage) removeUserReaction(pg PG, ctx context.Context, reaction models.UserReaction) error {
-	_, err := pg.Exec(ctx, sql.RemoveUserReaction, reaction.NamespaceId, reaction.EntityId, reaction.ReactionId, reaction.UserId)
-	return err
+	queries := sql.ParseQueries(sql.RemoveUserReaction)
+	if len(queries) != 2 {
+		panic(fmt.Errorf("remove_user_reaction query has wrong number of queries: %d (2 was expected)", len(queries)))
+	}
+	batch := &pgx.Batch{}
+	batch.Queue(queries[0], reaction.NamespaceId, reaction.EntityId, reaction.ReactionId, reaction.UserId)
+	batch.Queue(queries[1], reaction.NamespaceId, reaction.EntityId, reaction.ReactionId)
+	return execBatch(pg, ctx, batch)
 }
 
 func (rs *ReactionsStorage) getUserReactions(pg PG, ctx context.Context) ([]models.UserReaction, error) {
@@ -102,11 +106,6 @@ func (rs *ReactionsStorage) getUserReactions(pg PG, ctx context.Context) ([]mode
 
 func (rs *ReactionsStorage) clear(pg PG, ctx context.Context) error {
 	_, err := pg.Exec(ctx, sql.ClearUserReactionsStorage)
-	return err
-}
-
-func (rs *ReactionsStorage) refreshEntityReactions(pg PG, ctx context.Context) error {
-	_, err := pg.Exec(ctx, sql.RefreshEntityReactions)
 	return err
 }
 

@@ -52,7 +52,6 @@ func SetUserReactions(urs []models.UserReaction) {
 		n := utils.Must(CS.GetNamespace(ctx, ur.NamespaceId))
 		utils.Must0(RS.AddUserReaction(ctx, ur, n.MaxUniqReactions, n.MutuallyExclusiveReactions, false))
 	}
-	utils.Must0(RS.RefreshEntityReactions(ctx))
 }
 
 func GetUserReactions() []models.UserReaction {

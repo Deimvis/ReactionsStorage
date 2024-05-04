@@ -1,0 +1,23 @@
+{
+    "sim_duration_s": "1554",
+    "metrics": {
+      "_meta": {
+        "start_ts": "1714780814",
+        "end_ts": "1714781592"
+      },
+      "GET_/reactions": {
+        "latency_p95": "1.154109270578898"
+      },
+      "POST_/reactions": {
+        "latency_p95": "1.0095351043643275"
+      },
+      "DELETE_/reactions": {
+        "latency_p95": "0.6343749999999999"
+      },
+      "avg_rps": {
+        "total": "2024.895833333333",
+        "error": "0.028000000000000004"
+      }
+    }
+  }
+  

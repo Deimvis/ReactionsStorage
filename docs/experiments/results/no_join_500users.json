@@ -1,21 +1,21 @@
 {
-  "sim_duration_s": "483",
+  "sim_duration_s": "445",
   "metrics": {
     "_meta": {
-      "start_ts": "1714210918",
-      "end_ts": "1714211161"
+      "start_ts": "1714783501",
+      "end_ts": "1714783725"
     },
     "GET_/reactions": {
-      "latency_p95": "0.021073024747616364"
+      "latency_p95": "0.01629700991831971"
     },
     "POST_/reactions": {
-      "latency_p95": "0.045546003717472125"
+      "latency_p95": "0.038196243523316055"
     },
     "DELETE_/reactions": {
-      "latency_p95": "0.01889285714285715"
+      "latency_p95": "0.025833333333333312"
     },
     "avg_rps": {
-      "total": "2856.3285714285716",
+      "total": "3061.785714285714",
       "error": "0"
     }
   }

@@ -7,7 +7,7 @@ NORMDIST_REACTIONS=${2:-200000} # 200k
 NORMDIST_REACTIONS_USERS=${3:-100}
 
 # Random reactions
-source deploy/yacloud/cmd/common/env_vars db
+source deploy/vm/cmd/common/env_vars db
 SSH "mkdir -p $REMOTE_WORKDIR/devtools/"
 SCP devtools/user_reactions $REMOTE_WORKDIR/devtools/
 SCP devtools/install_deps   $REMOTE_WORKDIR/devtools/
@@ -24,7 +24,7 @@ RANDOM_REACTIONS_MAX_TS=$(now)
 reactions_in_30s=$((NORMDIST_REACTIONS_USERS * 24))
 seconds_required=$((30 * NORMDIST_REACTIONS / reactions_in_30s))
 
-envsubst < deploy/yacloud/simulation/configs/load-test.yaml.setup.template > deploy/yacloud/simulation/configs/load-test.yaml.setup
-deploy/cmd yacloud sim run --config configs/load-test.yaml.setup
+envsubst < deploy/vm/simulation/configs/load-test.yaml.setup.template > deploy/vm/simulation/configs/load-test.yaml.setup
+deploy/cmd vm sim run --config configs/load-test.yaml.setup
 
 # TODO: truncate all extra reactions

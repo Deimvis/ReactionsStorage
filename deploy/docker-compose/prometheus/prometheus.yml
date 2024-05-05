@@ -27,7 +27,7 @@ scrape_configs:
   - source_labels: ['method', 'path']
     separator: '_'
     target_label: method_path
-- job_name: reactions_storage_yacloud
+- job_name: reactions_storage_vm
   honor_timestamps: true
   scrape_interval: 15s
   scrape_timeout: 10s

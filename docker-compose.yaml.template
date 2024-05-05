@@ -28,8 +28,8 @@ services:
     env_file:
       - .env
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U dbrusenin -d reactions"]
+    healthcheck: # fill with your env vars (see .env.template)
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
       interval: 2s
       timeout: 2s
       retries: 5

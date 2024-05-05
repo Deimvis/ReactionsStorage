@@ -9,5 +9,5 @@ ${SCRIPTS_DIR}/patch_docker_compose --unset-build --unset-depends-on < docker-co
 scp $DOCKER_COMPOSE_TMP $SSH_USER@$SSH_HOST:$REMOTE_WORKDIR/docker-compose.yaml
 rm $DOCKER_COMPOSE_TMP
 
-ln -sf .env.yacloud .env
+ln -sf .env.vm .env
 scp $(realpath .env) $SSH_USER@$SSH_HOST:$REMOTE_WORKDIR/.env

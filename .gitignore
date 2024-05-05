@@ -5,8 +5,8 @@ __pycache__/
 
 bin/
 debug/
-deploy/yacloud/conf.json
-!deploy/yacloud/conf.json.template
+deploy/vm/conf.json
+!deploy/vm/conf.json.template
 devtools/dashboards/importer.yml
 !devtools/dashboards/importer.yml.template
 devtools/perf/flame.svg
@@ -14,6 +14,8 @@ tmp/
 
 load-test.yaml*
 !load-test.yaml*template
+docker-compose.yaml*
+!docker-compose.yaml*template
 .env*
 !.env.template
 

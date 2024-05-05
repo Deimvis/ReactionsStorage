@@ -1,0 +1,26 @@
+{
+    "rs": {
+        "ssh_host": "$RS_SSH_HOST",
+        "ssh_user": "$RS_SSH_USER",
+        "workdir": "rs",
+        "services": ["reactions_storage", "prometheus_node_exporter"]
+    },
+    "db": {
+        "ssh_host": "$DB_SSH_HOST",
+        "ssh_user": "$DB_SSH_USER",
+        "workdir": "db",
+        "services": ["db", "prometheus_node_exporter"]
+    },
+    "monitoring": {
+        "ssh_host": "$MONITORING_SSH_HOST",
+        "ssh_user": "$MONITORING_SSH_USER",
+        "workdir": "monitoring",
+        "services": ["prometheus", "grafana", "prometheus_pushgateway", "prometheus_node_exporter"]
+    },
+    "sim": {
+        "ssh_host": "$SIM_SSH_HOST",
+        "ssh_user": "$SIM_SSH_USER",
+        "workdir": "simulation",
+        "services": ["simulation", "prometheus_node_exporter"]
+    }
+}

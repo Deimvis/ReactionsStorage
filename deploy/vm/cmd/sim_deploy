@@ -13,7 +13,7 @@ $CMD_DIR/common/build_and_push sim
 $CMD_DIR/common/scp_bundle sim
 
 ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "mkdir -p $REMOTE_WORKDIR/deploy/docker-compose"
-scp -r deploy/yacloud/simulation $SSH_USER@$SSH_HOST:$REMOTE_WORKDIR/deploy/docker-compose/
+scp -r deploy/vm/simulation $SSH_USER@$SSH_HOST:$REMOTE_WORKDIR/deploy/docker-compose/
 
 $CMD_DIR/common/setup_vm sim
 

@@ -13,13 +13,13 @@ function now() {
 }
 
 function stop_simulation() {
-    ./deploy/cmd yacloud sim stop
+    ./deploy/cmd vm sim stop
 }
 
 stop_simulation
 trap stop_simulation SIGINT
 SIM_START_TS=$(now)
-./deploy/cmd yacloud sim run --config configs/load-test.yaml 2>&1 | tee $SIM_OUT_FILE_PATH
+./deploy/cmd vm sim run --config configs/load-test.yaml 2>&1 | tee $SIM_OUT_FILE_PATH
 SIM_END_TS=$(now)
 
 SIM_DUR=$((SIM_END_TS-SIM_START_TS))

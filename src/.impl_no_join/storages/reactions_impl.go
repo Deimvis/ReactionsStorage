@@ -8,7 +8,6 @@ import (
 
 	"github.com/jackc/pgx/v5"
 
-	"github.com/Deimvis/reactionsstorage/src/metrics"
 	"github.com/Deimvis/reactionsstorage/src/models"
 	"github.com/Deimvis/reactionsstorage/src/sql"
 	"github.com/Deimvis/reactionsstorage/src/utils"
@@ -31,10 +30,7 @@ func (rs *ReactionsStorage) getUniqEntityUserReactions(pg PG, ctx context.Contex
 // getEntityReactionsCount erturns only reactions with positive count (reactiosn with zero count can be stored physically)
 func (rs *ReactionsStorage) getEntityReactionsCount(pg PG, ctx context.Context, namespaceId string, entityId string) (map[string]int, error) {
 	res := make(map[string]int)
-	var err error
-	metrics.Record(func() {
-		err = pg.QueryRow(ctx, sql.GetEntityReactionsCount, namespaceId, entityId).Scan(&res)
-	}, metrics.GetEntityReactionsCountQuery)
+	err := pg.QueryRow(ctx, sql.GetEntityReactionsCount, namespaceId, entityId).Scan(&res)
 	if errors.Is(err, pgx.ErrNoRows) {
 		err = nil
 	}

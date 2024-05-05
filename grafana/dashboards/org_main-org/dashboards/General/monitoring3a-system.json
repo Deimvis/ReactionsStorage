@@ -26,7 +26,7 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 1860,
   "graphTooltip": 1,
-  "id": 3,
+  "id": 2,
   "links": [
     {
       "icon": "external link",
@@ -23296,6 +23296,6 @@
   "timezone": "browser",
   "title": "Monitoring: System",
   "uid": "rYdddlPWk2",
-  "version": 4,
+  "version": 1,
   "weekStart": ""
 }

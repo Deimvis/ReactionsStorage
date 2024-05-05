@@ -21,7 +21,9 @@ services:
   db:
     image: postgres:15.2
     container_name: rs_db
+    command: -c config_file=/etc/postgresql/postgresql.conf
     volumes:
+      - ./deploy/docker-compose/postgresql/postgresql.conf:/etc/postgresql/postgresql.conf
       - postgres_data:/var/lib/postgresql/data/
     ports:
       - 5433:5432

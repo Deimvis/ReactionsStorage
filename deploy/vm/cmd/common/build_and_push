@@ -2,6 +2,7 @@
 
 set -e
 
+ln -sf .env.vm .env
 DOCKER_COMPOSE_TMP="docker-compose.yaml.tmp.$RESOURCE"
 ${SCRIPTS_DIR}/patch_docker_compose --set-platform linux/x86_64 < docker-compose.yaml > $DOCKER_COMPOSE_TMP
 docker-compose -f $DOCKER_COMPOSE_TMP build $SERVICES

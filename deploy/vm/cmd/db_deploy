@@ -12,6 +12,11 @@ $CMD_DIR/common/build_and_push db
 
 $CMD_DIR/common/scp_bundle db
 
+SSH "mkdir -p $REMOTE_WORKDIR/deploy/docker-compose"
+SCP deploy/vm/postgresql $REMOTE_WORKDIR/deploy/docker-compose/
+SCP deploy/vm/postgresql/sysctl.conf $REMOTE_WORKDIR/sysctl.conf
+SSH "sudo cp -f $REMOTE_WORKDIR/sysctl.conf /etc/sysctl.conf"
+
 $CMD_DIR/common/setup_vm db
 
 $CMD_DIR/common/pull_and_up db

@@ -72,36 +72,46 @@ func UseMiddlewares(cfg *configs.GinMiddlewares, router *gin.Engine) {
 		router.Use(gin.Recovery())
 	}
 	if cfg.Prometheus.Enabled {
-		UsePrometheusMiddleware(cfg, router)
+		UsePrometheusMiddleware(&cfg.Prometheus, router)
 	}
 }
 
-func UsePrometheusMiddleware(cfg *configs.GinMiddlewares, router *gin.Engine) {
-	customMetrics := []*ginprometheus.Metric{
-		metrics.GINReqDurV2Wrap.Metric,
-		metrics.SQLReqCntWrap.Metric,
-		metrics.SQLReqDurWrap.Metric,
-		metrics.GETReactionsAcquireWrap.Metric,
-		metrics.GetEntityReactionsCountWrap.Metric,
-		metrics.GetUniqEntityUserReactionsWrap.Metric,
+func UsePrometheusMiddleware(cfg *configs.PrometheusMiddleware, router *gin.Engine) {
+	var customMetrics []*ginprometheus.Metric
+	unwraps := []func(){}
+	defer func() {
+		for _, unwrapFn := range unwraps {
+			unwrapFn()
+		}
+	}()
+	if cfg.Metrics.Gin.Enabled {
+		customMetrics = append(customMetrics, metrics.GinMetrics...)
+		unwraps = append(unwraps, metrics.UnwrapGinMetrics)
+	}
+	if cfg.Metrics.SQL.Enabled {
+		customMetrics = append(customMetrics, metrics.SQLMetrics...)
+		unwraps = append(unwraps, metrics.UnwrapSQLMetrics)
+	}
+	if cfg.Metrics.Debug.Enabled {
+		customMetrics = append(customMetrics, metrics.DebugMetrics...)
+		unwraps = append(unwraps, metrics.UnwrapDebugMetrics)
 	}
 
 	p := ginprometheus.NewPrometheus("gin", customMetrics)
-	p.MetricsPath = cfg.Prometheus.MetricsPath
+	p.MetricsPath = cfg.MetricsPath
 	p.ReqCntURLLabelMappingFn = func(c *gin.Context) string {
 		return c.Request.URL.Path
 	}
 	p.Use(router)
+	
+	if cfg.Metrics.Gin.Enabled {
+		router.Use(GinMetricsMiddleware(p))
+	}
+}
 
-	metrics.GINReqDurV2 = metrics.GINReqDurV2Wrap.Unwrap()
-	metrics.SQLReqCnt = metrics.SQLReqCntWrap.Unwrap()
-	metrics.SQLReqDur = metrics.SQLReqDurWrap.Unwrap()
-	metrics.GETReactionsAcquire = metrics.GETReactionsAcquireWrap.Unwrap()
-	metrics.GetEntityReactionsCount = metrics.GetEntityReactionsCountWrap.Unwrap()
-	metrics.GetUniqEntityUserReactions = metrics.GetUniqEntityUserReactionsWrap.Unwrap()
-
+func GinMetricsMiddleware(p *ginprometheus.Prometheus) func(c *gin.Context) {
 	// Record request duration with GINReqDurV2
-	router.Use(func(c *gin.Context) {
+	return func(c *gin.Context) {
 		if c.Request.URL.String() == p.MetricsPath {
 			c.Next()
 			return
@@ -112,7 +122,7 @@ func UsePrometheusMiddleware(cfg *configs.GinMiddlewares, router *gin.Engine) {
 		status := strconv.Itoa(c.Writer.Status())
 		url := p.ReqCntURLLabelMappingFn(c)
 		metrics.GINReqDurV2Wrap.Unwrap().WithLabelValues(status, c.Request.Method, url).Observe(elapsed)
-	})
+	}
 }
 
 func SetHandlers(cfg *configs.GinHandlers, router *gin.Engine, cs *services.ConfigurationService, rs *services.ReactionsService, logger *zap.SugaredLogger) {

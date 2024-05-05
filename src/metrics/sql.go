@@ -5,6 +5,16 @@ import (
 	ginprometheus "github.com/zsais/go-gin-prometheus"
 )
 
+var SQLMetrics = []*ginprometheus.Metric{
+	SQLReqCntWrap.Metric,
+	SQLReqDurWrap.Metric,
+}
+
+func UnwrapSQLMetrics() {
+	SQLReqCnt = SQLReqCntWrap.Unwrap()
+	SQLReqDur = SQLReqDurWrap.Unwrap()
+}
+
 var SQLReqCntWrap = &MetricWrap[prometheus.Counter]{
 	&ginprometheus.Metric{
 		ID:          "SQLReqCnt",

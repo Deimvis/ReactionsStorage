@@ -1,10 +1,12 @@
 package configs
 
 import (
-	"fmt"
+	"bytes"
 	"os"
 
+	"github.com/davecgh/go-spew/spew"
 	"go.uber.org/fx"
+	"go.uber.org/zap"
 	"gopkg.in/yaml.v3"
 
 	"github.com/Deimvis/reactionsstorage/src/utils"
@@ -15,12 +17,15 @@ type ServerConfig struct {
 	PG  PG  `yaml:"pg"`
 }
 
-func NewServerConfig(filePath *string) func(lc fx.Lifecycle) *ServerConfig {
-	return func(lc fx.Lifecycle) *ServerConfig {
+func NewServerConfig(filePath *string) func(lc fx.Lifecycle, logger *zap.SugaredLogger) *ServerConfig {
+	return func(lc fx.Lifecycle, logger *zap.SugaredLogger) *ServerConfig {
 		cfg := &ServerConfig{}
 		fileData := utils.Must(os.ReadFile(*filePath))
-		fmt.Println(string(fileData))
-		utils.Must0(yaml.Unmarshal(fileData, cfg))
+		logger.Infof("Config:\n%s", string(fileData))
+		decoder := yaml.NewDecoder(bytes.NewReader(fileData))
+		decoder.KnownFields(true)
+		utils.Must0(decoder.Decode(&cfg))
+		logger.Debugf("Parsed config:\n%s", spew.Sdump(cfg))
 		return cfg
 	}
 }
@@ -44,7 +49,14 @@ type GinMiddlewares struct {
 
 type PrometheusMiddleware struct {
 	Option      `yaml:",inline"`
-	MetricsPath string `yaml:"metrics_path"`
+	MetricsPath string            `yaml:"metrics_path"`
+	Metrics     PrometheusMetrics `yaml:"metrics"`
+}
+
+type PrometheusMetrics struct {
+	Gin   Option `yaml:"gin"`
+	SQL   Option `yaml:"sql"`
+	Debug Option `yaml:"debug"`
 }
 
 type GinHandlers struct {

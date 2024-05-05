@@ -5,6 +5,14 @@ import (
 	ginprometheus "github.com/zsais/go-gin-prometheus"
 )
 
+var GinMetrics = []*ginprometheus.Metric{
+	GINReqDurV2Wrap.Metric,
+}
+
+func UnwrapGinMetrics() {
+	GINReqDurV2 = GINReqDurV2Wrap.Unwrap()
+}
+
 var GINReqDurV2Wrap = &MetricWrap[*prometheus.HistogramVec]{
 	&ginprometheus.Metric{
 		ID:          "GINReqDurV2",

@@ -30,7 +30,7 @@ func (rs *ReactionsStorage) getUniqEntityUserReactions(pg PG, ctx context.Contex
 // getEntityReactionsCount erturns only reactions with positive count (reactiosn with zero count can be stored physically)
 func (rs *ReactionsStorage) getEntityReactionsCount(pg PG, ctx context.Context, namespaceId string, entityId string) (map[string]int, error) {
 	res := make(map[string]int)
-	err := pg.QueryRow(ctx, sql.GetEntityReactionsCount, namespaceId, entityId).Scan(&res)
+	err := pg.QueryRow(ctx, sql.GETReactions_GetEntityReactionsCount, namespaceId, entityId).Scan(&res)
 	if errors.Is(err, pgx.ErrNoRows) {
 		err = nil
 	}

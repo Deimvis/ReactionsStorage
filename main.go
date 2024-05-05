@@ -29,8 +29,8 @@ func ParseArgs() {
 func CreateOptions() fx.Option {
 	return fx.Options(
 		fx.Provide(
-			configs.NewServerConfig(cfgFilePath),
 			loggers.NewLogger,
+			configs.NewServerConfig(cfgFilePath),
 			pg.NewPostgresConnectionPool,
 			storages.NewConfigurationStorage,
 			storages.NewReactionsStorage,

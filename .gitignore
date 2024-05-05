@@ -9,6 +9,7 @@ deploy/vm/conf.json
 !deploy/vm/conf.json.template
 devtools/dashboards/importer.yml
 !devtools/dashboards/importer.yml.template
+devtools/perf/cpu.txt
 devtools/perf/flame.svg
 tmp/
 

@@ -21,25 +21,21 @@ type ReactionsService struct {
 }
 
 func (s *ReactionsService) GetUserReactions(ctx context.Context, req models.ReactionsGETRequest) models.Response {
-	// TODO: remove debug metric wrappers
-
-	// ctx = storages.CtxAcquireConn(ctx, s.rs)
 	metrics.Record(func() {
 		ctx = storages.CtxAcquireConn(ctx, s.rs)
-	}, metrics.GETReactionsAcquire)
+	}, metrics.GETReactions_Acquire)
 	defer storages.CtxReleaseConn(&ctx)
 
 	var reactionsCount map[string]int
 	var userUniqReactions []string
 
-	// reactionsCount = s.rs.GetEntityReactionsCountStrict(ctx, req.Query.NamespaceId, req.Query.EntityId)
 	metrics.Record(func() {
-		reactionsCount = utils.Must(s.rs.GetEntityReactionsCount(ctx, req.Query.NamespaceId, req.Query.EntityId))
-	}, metrics.GetEntityReactionsCount)
-	// userUniqReactions = s.rs.GetUniqEntityUserReactionsStrict(ctx, req.Query.NamespaceId, req.Query.EntityId, req.Query.UserId)
+		reactionsCount = utils.Must(s.rs.GETReactions_GetEntityReactionsCount(ctx, req.Query.NamespaceId, req.Query.EntityId))
+	}, metrics.GETReactions_GetEntityReactionsCount)
+
 	metrics.Record(func() {
-		userUniqReactions = utils.Must(s.rs.GetUniqEntityUserReactions(ctx, req.Query.NamespaceId, req.Query.EntityId, req.Query.UserId))
-	}, metrics.GetUniqEntityUserReactions)
+		userUniqReactions = utils.Must(s.rs.GETReactions_GetUniqEntityUserReactions(ctx, req.Query.NamespaceId, req.Query.EntityId, req.Query.UserId))
+	}, metrics.GETReactions_GetUniqEntityUserReactions)
 
 	resp := models.ReactionsGETResponse200{
 		EntityId:       req.Query.EntityId,
@@ -53,22 +49,41 @@ func (s *ReactionsService) GetUserReactions(ctx context.Context, req models.Reac
 }
 
 func (s *ReactionsService) AddUserReaction(ctx context.Context, req models.ReactionsPOSTRequest) models.Response {
-	ctx = storages.CtxAcquireConn(ctx, s.rs)
+	metrics.Record(func() {
+		ctx = storages.CtxAcquireConn(ctx, s.rs)
+	}, metrics.POSTReactions_Acquire)
 	defer storages.CtxReleaseConn(&ctx)
 
-	namespace, err := s.cs.GetNamespace(ctx, req.Body.NamespaceId)
+	var namespace *models.Namespace
+	var err error
+	
+	metrics.Record(func() {
+		namespace, err = s.cs.GetNamespace(ctx, req.Body.NamespaceId)
+	}, metrics.POSTReactions_GetNamespace)
 	if err != nil {
 		return &models.ReactionsPOSTResponse403{Error: err.Error()}
 	}
-	err = s.rs.AddUserReaction(ctx, req.Body, namespace.MaxUniqReactions, namespace.MutuallyExclusiveReactions, *req.Query.Force)
+	
+	metrics.Record(func() {
+		err = s.rs.AddUserReaction(ctx, req.Body, namespace.MaxUniqReactions, namespace.MutuallyExclusiveReactions, *req.Query.Force)
+	}, metrics.POSTReactions_AddUserReaction)
 	if err != nil {
 		return &models.ReactionsPOSTResponse403{Error: err.Error()}
 	}
+
 	return &models.ReactionsPOSTResponse200{Status: "ok"}
 }
 
 func (s *ReactionsService) RemoveUserReaction(ctx context.Context, req models.ReactionsDELETERequest) models.Response {
-	err := s.rs.RemoveUserReaction(ctx, req.Body)
+	metrics.Record(func() {
+		ctx = storages.CtxAcquireConn(ctx, s.rs)
+	}, metrics.DELETEReactions_Acquire)
+	defer storages.CtxReleaseConn(&ctx)
+
+	var err error
+	metrics.Record(func() {
+		err = s.rs.RemoveUserReaction(ctx, req.Body)
+	}, metrics.DELETEReactions_RemoveUserReaction)
 	if err != nil {
 		return &models.ReactionsDELETEResponse403{Error: err.Error()}
 	}

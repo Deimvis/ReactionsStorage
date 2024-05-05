@@ -10,8 +10,13 @@ gin:
     prometheus:
       enabled: true
       metrics_path: /metrics
-    pprof:
-      enabled: true
+      metrics:
+        gin:
+          enabled: true
+        sql:
+          enabled: true
+        debug:
+          enabled: true
   handlers:
     debug:
       pprof:

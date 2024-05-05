@@ -1,7 +1,7 @@
 # How to conduct a load test with custom workload
 
 * Load testing — a type of performance testing that simulates a real-world load.
-* We developed a [simulation](../../../tests/simulation/) software for these purposes. See [Simulation](../sections/simulation.md) section for more details.
+* We developed a [simulation](../../../tests/simulation/) tool for these purposes. See [Simulation](../sections/simulation.md) section for more details.
 
 ## Practical example to launch simulation using remote VMs
 
@@ -42,21 +42,21 @@
          size: 1000
          shuffle_per_user: true
 
-     server:
-       host: 111.111.0.1
-       port: 8080
-       ssl: false
+   server:
+     host: 111.111.0.1
+     port: 8080
+     ssl: false
 
-     prometheus_pushgateway:
-       host: 222.222.0.2
-       port: 9091
-       ssl: false
-       push_interval_s: 15
+   prometheus_pushgateway:
+     host: 222.222.0.2
+     port: 9091
+     ssl: false
+     push_interval_s: 15
 
    ```
 
 3. Use `deploy/cmd vm sim run --config configs/NAME_OF_YOUR_CONFIG_FILE` to start simulation. For example: `deploy/cmd vm sim run --config configs/load-test.yaml`.
-  * You can use `devtools/load-test/launch` to start simulation on remote VMs and capture metrics afterwards
+  * You can use `devtools/load-test/launch` to start simulation on remote VMs with automated metrics capturing (result will be stored in metrics.json)
   
     **!!!** Make sure all required devtools env variables are exported before launch (see [.env.template](../../../.env.template)).
 

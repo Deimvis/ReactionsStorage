@@ -51,8 +51,8 @@
 
 6. Manage your resources:
 
-  ```yaml
-  deploy/cmd vm sim run  # start simulation
-  deploy/cmd vm sim stop # stop simulation
-  deploy/cmd vm db  ssh   # ssh to database VM
-  ```
+   ```yaml
+   deploy/cmd vm sim run  # start simulation
+   deploy/cmd vm sim stop # stop simulation
+   deploy/cmd vm db  ssh   # ssh to database VM
+   ```

@@ -1,6 +1,6 @@
 # Simulation
 
-* Simulation — a tool written in Go for conducting load tests with user-defined workload.
+* Simulation — a tool written in Go for conducting load tests with user-defined workloads.
 * It's located in [tests/simulation](../../../tests/simulation/) folder.
 
 ## Usage

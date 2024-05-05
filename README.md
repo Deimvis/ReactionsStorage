@@ -79,6 +79,6 @@ make test
 
 ### Simulation
 
-* Simulation is a tool written in Go for conducting load tests with user-defined workload.
+* Simulation — a tool written in Go for conducting load tests with user-defined workloads.
 
   (see [Simulation](docs/manual/sections/simulation.md) section of [Manual](docs/manual/README.md))

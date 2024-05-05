@@ -12,11 +12,23 @@ A general-purpose service for storing, managing and retrieving user reactions in
 
 ## Features
 
-* TODO: list
+* Power for handling thousands of RPS
+* Flexible reactions configuration
+* Optimized database settings
+* Fine-grained server configuration
+* Real-world load simulation with user-defined workloads
+* Comprehensive documentation with step-by-step tutorials
+* Support for 3 different deployment types (local, docker and VM)
+* Integrations with Grafana, Prometheus, Pushgateway and Node Exporters
+* Exhaustive Grafana dashboards out of the box
+* Load testing observations with automated metrics capturing
+* Grafana dashboards backups are saved and loaded with a single command
+* Automated Flame Graphs generation
+* Thorough end-to-end test coverage
 
 ## Performance
 
-* TODO: Grafana screenshot
+<img src="docs/manual/assets/performance.png" alt="performance">
 
 ## Quick Start
 

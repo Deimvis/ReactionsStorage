@@ -30,12 +30,17 @@
     * `prometheus`
       * `enabled`: true/false
       * `metrics_path` — URL path for metrics handler
-    * `pprof`
-      * `enabled`: true/false
+      * `metrics`
+        * `gin`
+          * `enabled`: true/flase
+        * `sql`
+          * `enabled`: true/false
+        * `debug`
+          * `enabled`: true/false
   * `handlers`
     * `debug`
       * `pprof`
-        * `enabled`: true/false (.gin.middlewares.pprof.enabled should also be enabled)
+        * `enabled`: true/false
         * `path_prefix` — URL path prefix for pprof handlers
       * `mem_usage`
         * `enabled`: true/false

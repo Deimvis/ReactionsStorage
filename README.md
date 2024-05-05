@@ -1,4 +1,6 @@
-# Reactions Storage
+# Reactions Storage (Strategies Branch)
+
+**This is a Strategies Branch. There are `.impl_<strategy_name`> directories that represent different implementations strategies: `mvp`, `rt_join`, `no_join`, `async_join`. See [paper](#paper) fore more details.**
 
 _HSE University Diploma Project_
 

@@ -37,7 +37,7 @@ func TestReactionsDELETE_Complex(t *testing.T) {
 				resp := request(t, &req)
 				require.Equal(t, r.expectedStatusCode, resp.Code)
 			}
-			require.ElementsMatch(t, tc.expectedURs, setup.GetUserReactions())
+			require.ElementsMatch(t, tc.expectedURs, setup.GetAllUserReactions())
 		})
 	}
 }

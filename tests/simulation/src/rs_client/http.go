@@ -83,7 +83,7 @@ func (c *HTTPClient) GetAvailableReactions(req *models.AvailableReactionsGETRequ
 func (c *HTTPClient) handle(req models.Request, respOptions []models.Response) (models.Response, error) {
 	resp, err := c.request(req)
 	if err != nil {
-		c.logger.Debugf("Request failed: %s", err)
+		c.logger.Debugf("Request failed: %+v", err)
 		return nil, err
 	}
 	c.logger.Debugf("Received response: %d", resp.StatusCode)

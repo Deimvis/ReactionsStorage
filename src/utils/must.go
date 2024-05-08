@@ -34,6 +34,13 @@ func Must1[T any](v T, err error) T {
 	return v
 }
 
+func Must2[T, U any](v1 T, v2 U, err error) (T, U) {
+	if err != nil {
+		panic(err)
+	}
+	return v1, v2
+}
+
 func MustCheck(ret ...interface{}) {
 	for _, v := range ret {
 		err, ok := v.(error)

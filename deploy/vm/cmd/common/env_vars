@@ -25,3 +25,9 @@ function SCP() {
     local dst_dir=$2
     scp -r $src_dir $SSH_USER@$SSH_HOST:$dst_dir
 }
+
+function RSCP() {
+    local src_dir=$1
+    local dst_dir=$2
+    scp -r $SSH_USER@$SSH_HOST:$src_dir $dst_dir
+}

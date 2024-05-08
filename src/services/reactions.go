@@ -30,11 +30,11 @@ func (s *ReactionsService) GetUserReactions(ctx context.Context, req models.Reac
 	var userUniqReactions []string
 
 	metrics.Record(func() {
-		reactionsCount = utils.Must(s.rs.GETReactions_GetEntityReactionsCount(ctx, req.Query.NamespaceId, req.Query.EntityId))
+		reactionsCount = utils.Must(s.rs.GetEntityReactionsCount(ctx, req.Query.NamespaceId, req.Query.EntityId))
 	}, metrics.GETReactions_GetEntityReactionsCount)
 
 	metrics.Record(func() {
-		userUniqReactions = utils.Must(s.rs.GETReactions_GetUniqEntityUserReactions(ctx, req.Query.NamespaceId, req.Query.EntityId, req.Query.UserId))
+		userUniqReactions = utils.Must(s.rs.GetUniqEntityUserReactions(ctx, req.Query.NamespaceId, req.Query.EntityId, req.Query.UserId))
 	}, metrics.GETReactions_GetUniqEntityUserReactions)
 
 	resp := models.ReactionsGETResponse200{

@@ -54,8 +54,8 @@ func SetUserReactions(urs []models.UserReaction) {
 	}
 }
 
-func GetUserReactions() []models.UserReaction {
-	return utils.Must(RS.GetUserReactions(context.Background()))
+func GetAllUserReactions() []models.UserReaction {
+	return utils.Must(RS.GetAllUserReactions(context.Background()))
 }
 
 func ClearUserReactions() {

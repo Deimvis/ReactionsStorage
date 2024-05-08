@@ -19,13 +19,18 @@ type PG interface {
 	SendBatch(ctx context.Context, b *pgx.Batch) pgx.BatchResults
 }
 
+type ExtPG interface {
+	PG
+	BeginTx(ctx context.Context, txOptions pgx.TxOptions) (pgx.Tx, error)
+}
+
 type PGStorage interface {
 	GetPool() *pgxpool.Pool
 }
 
 // AcquirePG returns connection from context, if any, and PGStorage's pgxpool otherwise
-func AcquirePG(ctx context.Context, s PGStorage) PG {
-	var pg PG
+func AcquirePG(ctx context.Context, s PGStorage) ExtPG {
+	var pg ExtPG
 	ctxConn := ctx.Value(ConnCtxKey{})
 	if ctxConn != nil {
 		pg = ctxConn.(*pgxpool.Conn)

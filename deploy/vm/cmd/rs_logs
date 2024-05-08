@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -ex
+
+CMD_DIR=$(dirname "${BASH_SOURCE[0]}")
+
+set +x
+source $CMD_DIR/common/env_vars rs
+set -x
+
+SSH "sudo docker-compose -f $REMOTE_WORKDIR/docker-compose.yaml logs reactions_storage > $REMOTE_WORKDIR/rs.log"
+RSCP $REMOTE_WORKDIR/rs.log rs.log
+less rs.log

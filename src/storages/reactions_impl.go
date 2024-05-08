@@ -27,7 +27,7 @@ func (rs *ReactionsStorage) getUniqEntityUserReactions(pg PG, ctx context.Contex
 	return rIds, err
 }
 
-// getEntityReactionsCount erturns only reactions with positive count (reactiosn with zero count can be stored physically)
+// getEntityReactionsCount returns only reactions with positive count (reactiosn with zero count can be stored physically)
 func (rs *ReactionsStorage) getEntityReactionsCount(pg PG, ctx context.Context, namespaceId string, entityId string) (map[string]int, error) {
 	res := make(map[string]int)
 	err := pg.QueryRow(ctx, sql.GETReactions_GetEntityReactionsCount, namespaceId, entityId).Scan(&res)
@@ -64,12 +64,12 @@ func (rs *ReactionsStorage) addUserReaction(pg PG, ctx context.Context, reaction
 	batch := &pgx.Batch{}
 	batch.Queue(queries[0], reaction.NamespaceId, reaction.EntityId, reaction.ReactionId, reaction.UserId, time.Now().Unix())
 	batch.Queue(queries[1], reaction.NamespaceId, reaction.EntityId, reaction.ReactionId)
-	fmt.Println("exec adding user reaction query", reactionsCount, uniqUserReactions, reaction.ReactionId)
 	return execBatch(pg, ctx, batch)
 }
 
 func (rs *ReactionsStorage) removeConflictingReactions(pg PG, ctx context.Context, newReaction models.UserReaction, reactionsCount map[string]int, uniqUserReactions *[]string, mutExclReactions [][]string) {
 	for _, rId := range getConflictingReactionIds(newReaction.ReactionId, *uniqUserReactions, mutExclReactions) {
+		// remove from database
 		r := models.UserReaction{
 			NamespaceId: newReaction.NamespaceId,
 			EntityId:    newReaction.EntityId,
@@ -77,6 +77,8 @@ func (rs *ReactionsStorage) removeConflictingReactions(pg PG, ctx context.Contex
 			ReactionId:  rId,
 		}
 		rs.removeUserReaction(pg, ctx, r)
+
+		// remove from local objects
 		utils.FilterIn(uniqUserReactions, func(el string) bool { return el != rId })
 		reactionsCount[rId] -= 1
 		if reactionsCount[rId] == 0 {
@@ -97,7 +99,7 @@ func (rs *ReactionsStorage) removeUserReaction(pg PG, ctx context.Context, react
 }
 
 func (rs *ReactionsStorage) getUserReactions(pg PG, ctx context.Context) ([]models.UserReaction, error) {
-	rows, err := pg.Query(ctx, sql.GetUserReactions)
+	rows, err := pg.Query(ctx, sql.GetAllUserReactions)
 	if err != nil {
 		return nil, err
 	}
@@ -107,6 +109,10 @@ func (rs *ReactionsStorage) getUserReactions(pg PG, ctx context.Context) ([]mode
 func (rs *ReactionsStorage) clear(pg PG, ctx context.Context) error {
 	_, err := pg.Exec(ctx, sql.ClearUserReactionsStorage)
 	return err
+}
+
+func (rs *ReactionsStorage) beginTx(pg ExtPG, ctx context.Context, txOptions pgx.TxOptions) (pgx.Tx, error) {
+	return pg.BeginTx(ctx, txOptions)
 }
 
 // execBatch returns first error occured

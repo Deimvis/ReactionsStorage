@@ -38,7 +38,7 @@ func TestReactionsPOST_Complex(t *testing.T) {
 				resp := request(t, &req)
 				require.Equal(t, r.expectedStatusCode, resp.Code)
 			}
-			require.ElementsMatch(t, tc.expectedURs, setup.GetUserReactions())
+			require.ElementsMatch(t, tc.expectedURs, setup.GetAllUserReactions())
 		})
 	}
 }
@@ -56,7 +56,7 @@ func TestReactionsPOST_403(t *testing.T) {
 				resp := request(t, &req)
 				require.Equal(t, 403, resp.Code)
 			}
-			require.ElementsMatch(t, tc.expectedURs, setup.GetUserReactions())
+			require.ElementsMatch(t, tc.expectedURs, setup.GetAllUserReactions())
 		})
 	}
 }

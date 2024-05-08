@@ -35,16 +35,17 @@ func (rs *ReactionsStorage) Init(ctx context.Context) error {
 }
 
 // GETReactions_GetEntityReactionsCount erturns only reactions with positive count (reactiosn with zero count can be stored physically)
-func (rs *ReactionsStorage) GETReactions_GetEntityReactionsCount(ctx context.Context, namespaceId string, entityId string) (map[string]int, error) {
+func (rs *ReactionsStorage) GetEntityReactionsCount(ctx context.Context, namespaceId string, entityId string) (map[string]int, error) {
 	return rs.getEntityReactionsCount(AcquirePG(ctx, rs), ctx, namespaceId, entityId)
 }
 
-func (rs *ReactionsStorage) GETReactions_GetUniqEntityUserReactions(ctx context.Context, namespaceId string, entityId string, userId string) ([]string, error) {
+func (rs *ReactionsStorage) GetUniqEntityUserReactions(ctx context.Context, namespaceId string, entityId string, userId string) ([]string, error) {
 	return rs.getUniqEntityUserReactions(AcquirePG(ctx, rs), ctx, namespaceId, entityId, userId)
 }
 
 func (rs *ReactionsStorage) AddUserReaction(ctx context.Context, reaction models.UserReaction, maxUniqReactions int, mutExclReactions [][]string, force bool) error {
-	tx := utils.Must(rs.beginTx(ctx))
+	pg := AcquirePG(ctx, rs)
+	tx := utils.Must(rs.beginTx(pg, ctx, pgx.TxOptions{IsoLevel: pgx.ReadCommitted}))
 	defer tx.Rollback(ctx)
 	lockKey := fmt.Sprintf("%s/%s", reaction.NamespaceId, reaction.EntityId)
 	utils.Must0(rs.advLock(ctx, tx, lockKey)) // transaction-level lock is automatically released at the end of tx
@@ -62,17 +63,13 @@ func (rs *ReactionsStorage) RemoveUserReaction(ctx context.Context, reaction mod
 	return rs.removeUserReaction(AcquirePG(ctx, rs), ctx, reaction)
 }
 
-// GetUserReactions is supposed to be used only for debug and test purposes
-func (rs *ReactionsStorage) GetUserReactions(ctx context.Context) ([]models.UserReaction, error) {
+// GetAllUserReactions is supposed to be used only for debug and test purposes
+func (rs *ReactionsStorage) GetAllUserReactions(ctx context.Context) ([]models.UserReaction, error) {
 	return rs.getUserReactions(AcquirePG(ctx, rs), ctx)
 }
 
 func (rs *ReactionsStorage) Clear(ctx context.Context) error {
 	return rs.clear(AcquirePG(ctx, rs), ctx)
-}
-
-func (rs *ReactionsStorage) beginTx(ctx context.Context) (pgx.Tx, error) {
-	return AcquirePG(ctx, rs).Begin(ctx)
 }
 
 func (rs *ReactionsStorage) advLock(ctx context.Context, tx pgx.Tx, key string) error {

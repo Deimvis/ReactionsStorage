@@ -1,14 +1,12 @@
 # Reactions Storage
 
-_HSE University Diploma Project_
-
 <!-- <div align="center"> -->
 A general-purpose service for storing, managing and retrieving user reactions in efficient yet flexible manner.
 <!-- </div> -->
 
 ## Paper
 
-* TODO: link
+* [Reactions Storage Service (Bachelor's Thesis)](<docs/paper/Reactions Storage Service | Dmitriy Brusenin Bachelors Thesis.pdf>)
 
 ## Features
 

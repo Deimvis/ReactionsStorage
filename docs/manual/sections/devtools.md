@@ -6,7 +6,8 @@
 ## Dashboard backups
 
 * Grafana dashboards can be saved and loaded using 2 commands located in the [dashboards](../../../devtools/dashboards/) directory.
-* `GRAFANA_HOST`, `GRAFANA_PORT` and `GRAFANA_TOKEN` environment variables should be exported in advance. `GRAFANA_TOKEN` is Grafana service token (see [official documentaiton](https://grafana.com/docs/grafana/latest/administration/service-accounts/) for more details).
+* GDG tool should be installed first: https://software.es.net/gdg/docs/gdg/installation/
+* Then, `GRAFANA_HOST`, `GRAFANA_PORT` and `GRAFANA_TOKEN` environment variables should be exported. `GRAFANA_TOKEN` is Grafana service token (see [official documentaiton](https://grafana.com/docs/grafana/latest/administration/service-accounts/) for more details).
 * [Save](../../../devtools/dashboards/save) command saves dashboards from Grafana instance into [grafana/dashboards/](../../../grafana/dashboards/) directory.
 * [Load](../../../devtools/dashboards/load) command loads dashboards from [grafana/dashboards/](../../../grafana/dashboards/) directory into Grafana instance.
 

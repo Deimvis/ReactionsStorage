@@ -1,7 +1,9 @@
 # Reactions Storage
 
 <!-- <div align="center"> -->
-A general-purpose service for storing, managing and retrieving user reactions (🤯) in efficient yet flexible manner.
+A general-purpose service for storing, managing and retrieving user reactions in efficient yet flexible manner.
+<br>
+> User reactions are usually emojis: 🙂😊😭🤯😡👍👎. But it can also be any custom image.
 <!-- </div> -->
 
 ## Paper

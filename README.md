@@ -1,7 +1,7 @@
 # Reactions Storage
 
 <!-- <div align="center"> -->
-A general-purpose service for storing, managing and retrieving user reactions in efficient yet flexible manner.
+A general-purpose service for storing, managing and retrieving user reactions (🤯) in efficient yet flexible manner.
 <!-- </div> -->
 
 ## Paper

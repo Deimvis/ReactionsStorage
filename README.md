@@ -3,7 +3,7 @@
 <!-- <div align="center"> -->
 A general-purpose service for storing, managing and retrieving user reactions in efficient yet flexible manner.
 <br>
-> User reactions are emojis: 🙂😊😭🤯😡👍👎 or any other custom image.
+> User reactions are emojis 🙂😊😭🤯😡👍👎 or any other custom image.
 <!-- </div> -->
 
 ## Paper
